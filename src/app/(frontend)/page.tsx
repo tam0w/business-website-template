@@ -11,7 +11,7 @@ export default async function HomePage() {
   const { user } = await payload.auth({ headers })
 
   return (
-    <div className='min-h-full'>
+    <div className='min-h-dvh'>
       <div className="bg-red-300 h-full">
         {!user && <h1>Welcome to your new project.</h1>}
         {user && <h1 className='text-sm'>Welcome back, {user.email}</h1>}
