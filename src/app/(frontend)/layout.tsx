@@ -1,6 +1,7 @@
 import { ReactNode } from 'react'
 import { Space_Grotesk } from 'next/font/google'
 import './globals.css'
+import { NavigationWrapper } from '@/components/NavigationWrapper'
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],
@@ -17,6 +18,7 @@ const Layout = ({ children }: LayoutProps) => {
   return (
     <html className={spaceGrotesk.variable}>
       <body className="min-h-dvh">
+        <NavigationWrapper />
         {children}
       </body>
     </html>
