@@ -20,6 +20,7 @@ import { SiteBranding } from './globals/SiteBranding'
 import { FeaturesContent } from './globals/FeaturesContent'
 import { TestimonialsContent } from './globals/TestimonialsContent'
 import { FAQContent } from './globals/FAQContent'
+import { ContactPage } from './globals/ContactPage'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -32,7 +33,7 @@ export default buildConfig({
     },
   },
   collections: [Users, Media, Posts, Careers],
-  globals: [BlogPage, CareersPage, Homepage, SiteLabels, SiteBranding, FeaturesContent, TestimonialsContent, FAQContent],
+  globals: [BlogPage, CareersPage, Homepage, SiteLabels, SiteBranding, FeaturesContent, TestimonialsContent, FAQContent, ContactPage],
   editor: lexicalEditor({
     admin: {
       placeholder: "Type your post content here.. use / for text formatting"

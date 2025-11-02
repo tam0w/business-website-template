@@ -14,6 +14,7 @@ import {
   FaLinkedin,
   FaInstagram,
 } from "react-icons/fa"
+import { cn } from '@/lib/utils'
 
 interface Testimonial {
   name: string
@@ -123,8 +124,17 @@ export default function Testimonials({ heading = 'What Our Customers Say', subhe
   }
 
   return (
-    <section className="h-dvh px-6 bg-gradient-radial-primary flex items-center justify-center snap-start snap-always">
-      <div className="max-w-6xl mx-auto space-y-12">
+    <section className="h-dvh px-6 bg-background flex items-center justify-center snap-start snap-always relative">
+      {/* Dot Grid Background */}
+      <div
+        className={cn(
+          'absolute inset-0 size-full -z-10',
+          'bg-[radial-gradient(oklch(0.25_0.08_265_/_20%)_1px,transparent_1px)]',
+          'bg-[size:32px_32px]',
+          '[mask-image:radial-gradient(ellipse_at_center,transparent_30%,black_70%)]',
+        )}
+      />
+      <div className="max-w-6xl mx-auto space-y-12 relative z-10">
         <div className="text-center space-y-4">
           <h2 className="text-4xl font-bold">{heading}</h2>
           {subheading && (

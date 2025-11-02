@@ -7,7 +7,10 @@ import FAQ from '@/components/FAQ'
 import { TextReveal } from '@/components/ui/text-reveal'
 import { getPayload } from 'payload'
 import config from '@/payload.config'
-import { BrandIcon } from '@/components/BrandIcon'
+import { LogoWithText } from '@/components/LogoWithText'
+import { WaitlistCTA } from '@/components/WaitlistCTA'
+import { PricingCTA } from '@/components/PricingCTA'
+import { cn } from '@/lib/utils'
 
 export default async function HomePage() {
   const payload = await getPayload({ config })
@@ -39,19 +42,35 @@ export default async function HomePage() {
   const features = featuresContent?.features || []
 
   // CTA Section
+  const ctaType = homepageContent?.ctaType || 'waitlist'
   const ctaHeading = homepageContent?.ctaHeading || 'Ready to get started?'
-  const ctaDescription = homepageContent?.ctaDescription || 'Join thousands of teams'
-  const ctaButtonText = homepageContent?.ctaButtonText || 'Start Free Trial'
-  const ctaButtonLink = homepageContent?.ctaButtonLink || '#'
+  const ctaDescription = homepageContent?.ctaDescription || 'Join thousands of teams already building with us'
+
+  // Waitlist CTA
+  const waitlistEmailPlaceholder = homepageContent?.waitlistEmailPlaceholder || 'Enter your email'
+  const waitlistButtonText = homepageContent?.waitlistButtonText || 'Join Waitlist'
+
+  // Pricing CTA
+  const pricingPlanName = homepageContent?.pricingPlanName || 'Pro'
+  const pricingPrice = homepageContent?.pricingPrice || '$29'
+  const pricingPriceSubtext = homepageContent?.pricingPriceSubtext || 'per month'
+  const pricingFeatures = homepageContent?.pricingFeatures || [
+    { feature: 'Unlimited projects' },
+    { feature: 'Advanced analytics' },
+    { feature: 'Priority support' },
+    { feature: 'Custom integrations' },
+  ]
+  const pricingButtonText = homepageContent?.pricingButtonText || 'Get Started'
+  const pricingButtonLink = homepageContent?.pricingButtonLink || '#'
 
   // Testimonials Section
   const testimonialsHeading = testimonialsContent?.heading || 'What Our Clients Say'
-  const testimonialsSubheading = testimonialsContent?.subheading
+  const testimonialsSubheading = testimonialsContent?.subheading ?? undefined
   const testimonials = testimonialsContent?.testimonials || []
 
   // FAQ Section
   const faqHeading = faqContent?.heading || 'Frequently Asked Questions'
-  const faqSubheading = faqContent?.subheading
+  const faqSubheading = faqContent?.subheading ?? undefined
   const faqs = faqContent?.faqs || []
 
   return (
@@ -72,19 +91,16 @@ export default async function HomePage() {
 
         <div className="relative z-10 max-w-7xl mx-auto px-6 text-center space-y-8">
           {/* Combined Logo: Icon + Text */}
-          <div className="flex items-center justify-center gap-6 md:gap-8 lg:gap-10 mb-12">
-            <BrandIcon iconName={logoIcon} size="clamp(4rem, 6vw, 6.5rem)" />
-            <h2 className="text-5xl md:text-7xl lg:text-8xl font-bold text-foreground">
-              {logoText}
-            </h2>
+          <div className="mb-12">
+            <LogoWithText iconName={logoIcon} logoText={logoText} />
           </div>
 
-          <h1 className="text-5xl md:text-7xl font-bold text-foreground">
+          <h1 className="text-4xl md:text-6xl font-bold text-foreground">
             <TextReveal split="word" delay={0.15} duration={0.8} from="bottom" blur={10}>
               {heroHeading}
             </TextReveal>
           </h1>
-          <div className="text-xl md:text-2xl text-muted-foreground mx-auto leading-relaxed">
+          <div className="text-lg md:text-xl text-muted-foreground mx-auto leading-relaxed">
             <TextReveal split="word" delay={0.05} duration={0.4} from="bottom" blur={8}>
               {heroSubheading}
             </TextReveal>
@@ -101,12 +117,23 @@ export default async function HomePage() {
       </section>
 
       {/* Features Section */}
-      <section className="min-h-dvh px-6 py-20 bg-background flex items-center justify-center snap-start snap-always">
-        <FeatureShowcase
-          heading={featuresHeading}
-          subheading={featuresSubheading}
-          features={features}
+      <section className="min-h-dvh px-6 py-20 bg-background flex items-center justify-center snap-start snap-always relative">
+        {/* Dot Grid Background */}
+        <div
+          className={cn(
+            'absolute inset-0 size-full -z-10',
+            'bg-[radial-gradient(oklch(0.25_0.08_265_/_20%)_1px,transparent_1px)]',
+            'bg-[size:32px_32px]',
+            '[mask-image:radial-gradient(ellipse_at_center,transparent_30%,black_70%)]',
+          )}
         />
+        <div className="relative z-10 w-full">
+          <FeatureShowcase
+            heading={featuresHeading}
+            subheading={featuresSubheading}
+            features={features}
+          />
+        </div>
       </section>
 
       {/* Testimonials Section */}
@@ -124,27 +151,40 @@ export default async function HomePage() {
       />
 
       {/* CTA Section */}
-      <section className="h-dvh px-6 bg-gradient-radial-accent flex items-center justify-center snap-start snap-always">
-        <div className="max-w-4xl mx-auto text-center space-y-8">
-          <h2 className="text-4xl font-bold">{ctaHeading}</h2>
-          <p className="text-xl text-muted-foreground">
-            {ctaDescription}
-          </p>
-          <a href={ctaButtonLink} className="inline-block px-12 py-6 bg-primary text-primary-foreground rounded-xl text-lg font-semibold hover:bg-primary/90 transition-all duration-300 hover:scale-105 glow-primary border border-primary/20">
-            {ctaButtonText}
-          </a>
-        </div>
+      <section className="h-dvh px-6 bg-gradient-radial-primary flex items-center justify-center snap-start snap-always">
+        {ctaType === 'waitlist' ? (
+          <WaitlistCTA
+            heading={ctaHeading}
+            description={ctaDescription}
+            emailPlaceholder={waitlistEmailPlaceholder}
+            buttonText={waitlistButtonText}
+          />
+        ) : (
+          <PricingCTA
+            heading={ctaHeading}
+            description={ctaDescription}
+            planName={pricingPlanName}
+            price={pricingPrice}
+            priceSubtext={pricingPriceSubtext}
+            features={pricingFeatures}
+            buttonText={pricingButtonText}
+            buttonLink={pricingButtonLink}
+          />
+        )}
       </section>
 
       {/* Footer */}
       <footer className="min-h-dvh border-t border-border py-16 px-6 flex items-center justify-center snap-start snap-always">
         <div className="max-w-6xl mx-auto space-y-12">
         {/* Logo: Icon + Text */}
-        <div className="flex items-center justify-center gap-5 md:gap-6 lg:gap-8 pb-8">
-          <BrandIcon iconName={logoIcon} size="clamp(2.5rem, 4vw, 4rem)" />
-          <h3 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground">
-            {logoText}
-          </h3>
+        <div className="pb-8">
+          <LogoWithText
+            iconName={logoIcon}
+            logoText={logoText}
+            iconSize="clamp(2.5rem, 4vw, 4rem)"
+            textClassName="text-4xl md:text-5xl lg:text-6xl"
+            gap="gap-5 md:gap-6 lg:gap-8"
+          />
         </div>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
           <div className="space-y-4">

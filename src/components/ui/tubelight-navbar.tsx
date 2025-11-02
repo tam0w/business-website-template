@@ -6,7 +6,7 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { Home, Briefcase, FileText, Mail } from "lucide-react"
 import { cn } from "@/lib/utils"
-import { BrandIcon } from "@/components/BrandIcon"
+import { Logo } from "@/components/Logo"
 
 const iconMap = {
   home: Home,
@@ -77,9 +77,9 @@ export function NavBar({ items, logo, className }: NavBarProps) {
     >
       <nav className="flex items-center gap-2 glass py-2 px-2 rounded-xl shadow-lg border-glow-hover pointer-events-auto relative">
         {logo && (
-          <Link href="/" className="mr-2 flex-shrink-0 px-4 py-2 hover:text-primary transition-colors" aria-label={logo.companyName}>
-            <BrandIcon iconName={logo.iconName} size="1.5rem" />
-          </Link>
+          <div className="mr-2 px-2 py-2">
+            <Logo iconName={logo.iconName} companyName={logo.companyName} />
+          </div>
         )}
         {items.map((item, index) => {
           const Icon = iconMap[item.icon]

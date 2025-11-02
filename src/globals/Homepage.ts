@@ -94,13 +94,34 @@ export const Homepage: GlobalConfig = {
           label: 'CTA Section',
           fields: [
             {
+              name: 'ctaType',
+              label: 'CTA Type',
+              type: 'radio',
+              required: true,
+              defaultValue: 'waitlist',
+              options: [
+                {
+                  label: 'Waitlist Email Capture',
+                  value: 'waitlist',
+                },
+                {
+                  label: 'Pricing with Single Plan',
+                  value: 'pricing',
+                },
+              ],
+              admin: {
+                description: 'Choose between waitlist email capture or pricing display',
+                layout: 'horizontal',
+              },
+            },
+            {
               name: 'ctaHeading',
               label: 'CTA Heading',
               type: 'text',
               required: true,
               defaultValue: 'Ready to get started?',
               admin: {
-                description: 'Call-to-action heading',
+                description: 'Main heading for the CTA section',
               },
             },
             {
@@ -110,27 +131,99 @@ export const Homepage: GlobalConfig = {
               required: true,
               defaultValue: 'Join thousands of teams already building with us',
               admin: {
-                description: 'Call-to-action description text',
+                description: 'Description text for the CTA section',
               },
             },
             {
-              name: 'ctaButtonText',
-              label: 'CTA Button Text',
+              name: 'waitlistEmailPlaceholder',
+              label: 'Email Input Placeholder',
               type: 'text',
-              required: true,
-              defaultValue: 'Start Free Trial',
+              defaultValue: 'Enter your email',
               admin: {
-                description: 'Text for the CTA button',
+                description: 'Placeholder text for the email input (Waitlist CTA only)',
+                condition: (data, siblingData) => siblingData?.ctaType === 'waitlist',
               },
             },
             {
-              name: 'ctaButtonLink',
-              label: 'CTA Button Link',
+              name: 'waitlistButtonText',
+              label: 'Waitlist Button Text',
               type: 'text',
-              required: false,
+              defaultValue: 'Join Waitlist',
+              admin: {
+                description: 'Button text for waitlist submission (Waitlist CTA only)',
+                condition: (data, siblingData) => siblingData?.ctaType === 'waitlist',
+              },
+            },
+            {
+              name: 'pricingPlanName',
+              label: 'Plan Name',
+              type: 'text',
+              defaultValue: 'Pro',
+              admin: {
+                description: 'Name of the pricing plan (Pricing CTA only)',
+                condition: (data, siblingData) => siblingData?.ctaType === 'pricing',
+              },
+            },
+            {
+              name: 'pricingPrice',
+              label: 'Price',
+              type: 'text',
+              defaultValue: '$29',
+              admin: {
+                description: 'Price display (e.g., "$29/mo" or "$299/yr")',
+                condition: (data, siblingData) => siblingData?.ctaType === 'pricing',
+              },
+            },
+            {
+              name: 'pricingPriceSubtext',
+              label: 'Price Subtext',
+              type: 'text',
+              defaultValue: 'per month',
+              admin: {
+                description: 'Subtext below the price',
+                condition: (data, siblingData) => siblingData?.ctaType === 'pricing',
+              },
+            },
+            {
+              name: 'pricingFeatures',
+              label: 'Features',
+              type: 'array',
+              defaultValue: [
+                { feature: 'Unlimited projects' },
+                { feature: 'Advanced analytics' },
+                { feature: 'Priority support' },
+                { feature: 'Custom integrations' },
+              ],
+              fields: [
+                {
+                  name: 'feature',
+                  type: 'text',
+                  required: true,
+                },
+              ],
+              admin: {
+                description: 'List of features included in the plan',
+                condition: (data, siblingData) => siblingData?.ctaType === 'pricing',
+              },
+            },
+            {
+              name: 'pricingButtonText',
+              label: 'Pricing Button Text',
+              type: 'text',
+              defaultValue: 'Get Started',
+              admin: {
+                description: 'Button text for pricing CTA (Pricing CTA only)',
+                condition: (data, siblingData) => siblingData?.ctaType === 'pricing',
+              },
+            },
+            {
+              name: 'pricingButtonLink',
+              label: 'Pricing Button Link',
+              type: 'text',
               defaultValue: '#',
               admin: {
-                description: 'URL for the CTA button',
+                description: 'URL for the pricing CTA button',
+                condition: (data, siblingData) => siblingData?.ctaType === 'pricing',
               },
             },
           ],

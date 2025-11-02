@@ -14,10 +14,10 @@ async function seedGlobals() {
     await payload.updateGlobal({
       slug: 'blog-page',
       data: {
-        heading: 'Blog Posts',
-        description: 'Discover the latest insights and updates from our team',
+        heading: 'Template Documentation & Updates',
+        description: 'Learn how to use Seerah and stay updated with new features',
         emptyStateTitle: 'No posts yet',
-        emptyStateDescription: 'Check back later for new content.',
+        emptyStateDescription: 'Documentation and updates coming soon.',
         ctaText: 'Read article',
       },
     })
@@ -28,10 +28,10 @@ async function seedGlobals() {
     await payload.updateGlobal({
       slug: 'careers-page',
       data: {
-        heading: 'Open Positions',
-        description: 'Join our team and help shape the future of cybersecurity and data services',
-        emptyStateTitle: 'No open positions',
-        emptyStateDescription: 'Check back later for new opportunities.',
+        heading: 'Example Careers Page',
+        description: 'This is a demo page showing how you can use collections for job listings',
+        emptyStateTitle: 'No positions configured',
+        emptyStateDescription: 'Add job listings through the PayloadCMS admin panel.',
         ctaText: 'View details',
       },
     })
@@ -42,17 +42,29 @@ async function seedGlobals() {
     await payload.updateGlobal({
       slug: 'homepage',
       data: {
-        heroHeading: 'Build Something Amazing',
-        heroSubheading: 'The modern platform for businesses that want to scale fast and build better products',
-        heroPrimaryButtonText: 'Get Started',
-        heroPrimaryButtonLink: '#',
-        heroSecondaryButtonText: 'Learn More',
+        heroHeading: 'Modern Business Template',
+        heroSubheading: 'Production-ready Next.js template with PayloadCMS, TypeScript, and Tailwind.',
+        heroPrimaryButtonText: 'View on GitHub',
+        heroPrimaryButtonLink: 'https://github.com/yourusername/seerah',
+        heroSecondaryButtonText: 'Documentation',
         heroSecondaryButtonLink: '#',
         loggedInGreeting: 'Welcome back',
-        ctaHeading: 'Ready to get started?',
-        ctaDescription: 'Join thousands of teams already building with us',
-        ctaButtonText: 'Start Free Trial',
-        ctaButtonLink: '#',
+        ctaType: 'waitlist',
+        ctaHeading: 'Start building with Seerah',
+        ctaDescription: 'Get notified when we release new features and improvements',
+        waitlistEmailPlaceholder: 'Enter your email',
+        waitlistButtonText: 'Get Updates',
+        pricingPlanName: 'Open Source',
+        pricingPrice: 'Free',
+        pricingPriceSubtext: 'forever',
+        pricingFeatures: [
+          { feature: 'Full PayloadCMS integration' },
+          { feature: 'Pre-built responsive components' },
+          { feature: 'TypeScript & ESLint configured' },
+          { feature: 'Production-ready architecture' },
+        ],
+        pricingButtonText: 'Clone Template',
+        pricingButtonLink: 'https://github.com/yourusername/seerah',
       },
     })
     console.log('✓ Homepage global seeded')
@@ -79,8 +91,8 @@ async function seedGlobals() {
       slug: 'site-branding',
       data: {
         logoIcon: 'react',
-        logoText: 'Your Company',
-        companyName: 'Your Company',
+        logoText: 'Seerah',
+        companyName: 'Seerah',
       },
     })
     console.log('✓ Site branding global seeded')
@@ -90,26 +102,32 @@ async function seedGlobals() {
     await payload.updateGlobal({
       slug: 'features-content',
       data: {
-        heading: 'Powerful Features',
-        subheading: 'Everything you need to succeed',
+        heading: 'Built for Modern Development',
+        subheading: 'Everything you need to launch your next project',
         features: [
           {
-            title: 'Lightning Fast Performance',
-            description: 'Experience blazing speed with our optimized infrastructure. Built for scale from day one.',
+            title: 'CMS-First Architecture',
+            description: 'PayloadCMS integration with pre-configured globals and collections. Edit all content through the admin panel without touching code.',
             illustration: 'lightning',
             icon: 'Zap',
           },
           {
-            title: 'Enterprise Security',
-            description: 'Bank-grade encryption and security protocols protect your data 24/7.',
+            title: 'Component Library Included',
+            description: 'Shadcn/ui components with custom variants. Responsive design system built on Tailwind CSS variables.',
             illustration: 'shield',
             icon: 'Shield',
           },
           {
-            title: 'Seamless Integration',
-            description: 'Connect with your favorite tools and services in minutes, not hours.',
+            title: 'TypeScript & Modern Stack',
+            description: 'Full TypeScript support with strict mode enabled. ESLint and Prettier configured for consistent code quality.',
             illustration: 'layers',
-            icon: 'Layers',
+            icon: 'Code',
+          },
+          {
+            title: 'Cloud-Ready Deployment',
+            description: 'Optimized for Vercel deployment with automatic builds and previews. Environment variables configured and ready for production. One-click deploy with zero configuration.',
+            illustration: 'rocket',
+            icon: 'Cloud',
           },
         ],
       },
@@ -121,26 +139,26 @@ async function seedGlobals() {
     await payload.updateGlobal({
       slug: 'testimonials-content',
       data: {
-        heading: 'What Our Clients Say',
-        subheading: 'Trusted by teams worldwide',
+        heading: 'Built by Developers, For Developers',
+        subheading: 'What makes Seerah different',
         testimonials: [
           {
-            name: 'Sarah Johnson',
-            role: 'CEO',
-            company: 'TechStart Inc',
-            content: 'This product has completely transformed how we work. The results speak for themselves.',
+            name: 'Demo User',
+            role: 'Full Stack Developer',
+            company: 'Tech Startup',
+            content: 'This template saved me weeks of boilerplate setup. The PayloadCMS integration is seamless and the component library is production-ready out of the box.',
           },
           {
-            name: 'Michael Chen',
-            role: 'CTO',
-            company: 'Innovation Labs',
-            content: 'Outstanding service and support. Our team productivity has increased by 40%.',
+            name: 'Demo User',
+            role: 'Engineering Lead',
+            company: 'SaaS Company',
+            content: 'Clean architecture with clear separation of concerns. The code is maintainable and well-documented. Perfect starting point for our client projects.',
           },
           {
-            name: 'Emily Rodriguez',
-            role: 'Product Manager',
-            company: 'Digital Solutions',
-            content: 'Best investment we made this year. Highly recommend to any growing business.',
+            name: 'Demo User',
+            role: 'Indie Hacker',
+            company: 'Personal Projects',
+            content: 'The best Next.js template I\'ve found. Authentication, CMS, components, and deployment configs all ready to go. Just add your business logic.',
           },
         ],
       },
@@ -153,36 +171,54 @@ async function seedGlobals() {
       slug: 'faq-content',
       data: {
         heading: 'Frequently Asked Questions',
-        subheading: 'Everything you need to know about our product',
+        subheading: 'Everything you need to know about Seerah',
         faqs: [
           {
-            question: 'How does the pricing work?',
-            answer: 'We offer flexible pricing plans to suit businesses of all sizes. Contact our sales team for a custom quote tailored to your specific needs.',
+            question: 'What tech stack does Seerah use?',
+            answer: 'Seerah is built with Next.js 14, PayloadCMS 3.0, TypeScript, Tailwind CSS, and Shadcn/ui components. It uses SQLite by default but supports PostgreSQL and MongoDB.',
           },
           {
-            question: 'What kind of support do you provide?',
-            answer: 'We provide 24/7 customer support via email, chat, and phone. Our dedicated support team is always ready to help you succeed.',
+            question: 'Is this template really free?',
+            answer: 'Yes, Seerah is completely free and open source. Use it for personal projects, client work, or commercial applications without any restrictions.',
           },
           {
-            question: 'Can I cancel my subscription at any time?',
-            answer: 'Yes, you can cancel your subscription at any time with no penalties. We believe in earning your business every month.',
+            question: 'How do I customize the content?',
+            answer: 'All content is managed through PayloadCMS globals. Run the seed script, then edit everything through the admin panel at /admin. No code changes needed for content updates.',
           },
           {
-            question: 'Is my data secure?',
-            answer: 'Absolutely. We use enterprise-grade encryption and security measures to protect your data. Our platform is SOC 2 compliant and regularly audited.',
-          },
-          {
-            question: 'Do you offer integrations with other tools?',
-            answer: 'Yes, we integrate with over 100+ popular tools and platforms. Our API also allows for custom integrations to fit your workflow.',
-          },
-          {
-            question: 'How long does implementation take?',
-            answer: 'Most customers are up and running within 24 hours. Our onboarding team will guide you through every step of the process.',
+            question: 'Can I use this for client projects?',
+            answer: 'Absolutely. Seerah is designed to be a solid foundation for client work. The architecture is clean, the code is documented, and all components are customizable.',
           },
         ],
       },
     })
     console.log('✓ FAQ content global seeded')
+
+    // Seed Contact Page Global
+    console.log('Seeding contact-page global...')
+    await payload.updateGlobal({
+      slug: 'contact-page',
+      data: {
+        heading: 'Contact Us',
+        subheading: 'Get in touch with our team. We\'re here to help and answer any questions you might have.',
+        email: 'hello@seerah.dev',
+        emailDescription: 'We respond to all emails within 24 hours.',
+        officeAddress: '123 Business Street, Suite 100\nYour City, ST 12345\nUnited States',
+        officeDescription: 'Drop by our office for a chat.',
+        phoneNumbers: [
+          { number: '+1 (555) 123-4567' },
+          { number: '+1 (555) 987-6543' },
+        ],
+        phoneDescription: 'We\'re available Mon-Fri, 9am-5pm EST.',
+        socialHeading: 'Find us online',
+        socialLinks: [
+          { platform: 'GitHub', url: 'https://github.com/yourusername/seerah', icon: 'github' },
+          { platform: 'Twitter', url: 'https://twitter.com/seerahdev', icon: 'twitter' },
+          { platform: 'LinkedIn', url: 'https://linkedin.com/company/seerah', icon: 'linkedin' },
+        ],
+      },
+    })
+    console.log('✓ Contact page global seeded')
 
     console.log('\n✅ All globals seeded successfully!')
     console.log('\nYou can now edit these in the admin panel at /admin -> Globals')

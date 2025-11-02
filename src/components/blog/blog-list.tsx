@@ -52,26 +52,29 @@ export function BlogList({
   }
 
   return (
-    <section className="pt-32 md:pt-36 lg:pt-40 pb-16">
-      <div className="container mx-auto px-6 max-w-7xl">
-        <div className="flex flex-col items-center space-y-16">
-          <div className="text-center max-w-4xl mx-auto space-y-4">
-            <h2 className="text-3xl font-semibold md:text-4xl lg:text-5xl">
-              {heading}
-            </h2>
-            <p className="text-muted-foreground text-base md:text-lg leading-relaxed">
-              {description}
-            </p>
-          </div>
+    <section className="min-h-screen w-full">
+      <div className="mx-auto h-full max-w-6xl lg:border-x border-border">
+        {/* Header Section */}
+        <div className="flex grow flex-col justify-center px-4 md:px-6 pt-32 pb-16">
+          <h1 className="text-4xl font-bold md:text-5xl text-foreground">
+            {heading}
+          </h1>
+          <p className="text-muted-foreground mt-4 text-base md:text-lg">
+            {description}
+          </p>
+        </div>
 
-          <div className="w-full flex flex-col space-y-12">
-            {posts.map((post) => {
-              const formattedPost = formatPost(post)
-              return (
-                <article
-                  key={formattedPost.id}
-                  className="group w-full max-w-6xl mx-auto bg-card rounded-lg border border-glow-hover p-8 transition-all duration-300 hover:shadow-lg"
-                >
+        <div className="absolute inset-x-0 h-px w-full border-b" />
+
+        <div className="flex flex-col space-y-16 px-4 md:px-6 py-16">
+
+          {posts.map((post) => {
+            const formattedPost = formatPost(post)
+            return (
+              <article
+                key={formattedPost.id}
+                className="group w-full bg-card rounded-lg border border-glow-hover p-8 transition-all duration-300 hover:shadow-lg"
+              >
                   <div className="grid gap-8 md:grid-cols-5 md:gap-12">
                     <div className="flex flex-col md:col-span-3 space-y-6">
                       {formattedPost.tags.length > 0 && (
@@ -139,10 +142,9 @@ export function BlogList({
                       </Link>
                     </div>
                   </div>
-                </article>
-              )
-            })}
-          </div>
+              </article>
+            )
+          })}
         </div>
       </div>
     </section>

@@ -97,6 +97,7 @@ export interface Config {
     'features-content': FeaturesContent;
     'testimonials-content': TestimonialsContent;
     'faq-content': FaqContent;
+    'contact-page': ContactPage;
   };
   globalsSelect: {
     'blog-page': BlogPageSelect<false> | BlogPageSelect<true>;
@@ -107,6 +108,7 @@ export interface Config {
     'features-content': FeaturesContentSelect<false> | FeaturesContentSelect<true>;
     'testimonials-content': TestimonialsContentSelect<false> | TestimonialsContentSelect<true>;
     'faq-content': FaqContentSelect<false> | FaqContentSelect<true>;
+    'contact-page': ContactPageSelect<false> | ContactPageSelect<true>;
   };
   locale: null;
   user: User & {
@@ -674,21 +676,54 @@ export interface Homepage {
    */
   loggedInGreeting: string;
   /**
-   * Call-to-action heading
+   * Choose between waitlist email capture or pricing display
+   */
+  ctaType: 'waitlist' | 'pricing';
+  /**
+   * Main heading for the CTA section
    */
   ctaHeading: string;
   /**
-   * Call-to-action description text
+   * Description text for the CTA section
    */
   ctaDescription: string;
   /**
-   * Text for the CTA button
+   * Placeholder text for the email input (Waitlist CTA only)
    */
-  ctaButtonText: string;
+  waitlistEmailPlaceholder?: string | null;
   /**
-   * URL for the CTA button
+   * Button text for waitlist submission (Waitlist CTA only)
    */
-  ctaButtonLink?: string | null;
+  waitlistButtonText?: string | null;
+  /**
+   * Name of the pricing plan (Pricing CTA only)
+   */
+  pricingPlanName?: string | null;
+  /**
+   * Price display (e.g., "$29/mo" or "$299/yr")
+   */
+  pricingPrice?: string | null;
+  /**
+   * Subtext below the price
+   */
+  pricingPriceSubtext?: string | null;
+  /**
+   * List of features included in the plan
+   */
+  pricingFeatures?:
+    | {
+        feature: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Button text for pricing CTA (Pricing CTA only)
+   */
+  pricingButtonText?: string | null;
+  /**
+   * URL for the pricing CTA button
+   */
+  pricingButtonLink?: string | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -864,6 +899,67 @@ export interface FaqContent {
   createdAt?: string | null;
 }
 /**
+ * Manage contact page content and information
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contact-page".
+ */
+export interface ContactPage {
+  id: number;
+  /**
+   * Main heading shown at the top of the contact page
+   */
+  heading: string;
+  /**
+   * Subheading text below the main heading
+   */
+  subheading: string;
+  /**
+   * Primary contact email address
+   */
+  email: string;
+  /**
+   * Description text for the email section
+   */
+  emailDescription?: string | null;
+  /**
+   * Physical office address
+   */
+  officeAddress: string;
+  /**
+   * Description text for the office section
+   */
+  officeDescription?: string | null;
+  /**
+   * List of contact phone numbers
+   */
+  phoneNumbers: {
+    number: string;
+    id?: string | null;
+  }[];
+  /**
+   * Description text for the phone section
+   */
+  phoneDescription?: string | null;
+  /**
+   * Heading for the social media section
+   */
+  socialHeading: string;
+  /**
+   * List of social media profiles
+   */
+  socialLinks?:
+    | {
+        platform: string;
+        url: string;
+        icon: 'github' | 'twitter' | 'linkedin' | 'instagram' | 'facebook' | 'youtube' | 'discord' | 'slack';
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "blog-page_select".
  */
@@ -903,10 +999,22 @@ export interface HomepageSelect<T extends boolean = true> {
   heroSecondaryButtonText?: T;
   heroSecondaryButtonLink?: T;
   loggedInGreeting?: T;
+  ctaType?: T;
   ctaHeading?: T;
   ctaDescription?: T;
-  ctaButtonText?: T;
-  ctaButtonLink?: T;
+  waitlistEmailPlaceholder?: T;
+  waitlistButtonText?: T;
+  pricingPlanName?: T;
+  pricingPrice?: T;
+  pricingPriceSubtext?: T;
+  pricingFeatures?:
+    | T
+    | {
+        feature?: T;
+        id?: T;
+      };
+  pricingButtonText?: T;
+  pricingButtonLink?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
@@ -991,6 +1099,37 @@ export interface FaqContentSelect<T extends boolean = true> {
     | {
         question?: T;
         answer?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contact-page_select".
+ */
+export interface ContactPageSelect<T extends boolean = true> {
+  heading?: T;
+  subheading?: T;
+  email?: T;
+  emailDescription?: T;
+  officeAddress?: T;
+  officeDescription?: T;
+  phoneNumbers?:
+    | T
+    | {
+        number?: T;
+        id?: T;
+      };
+  phoneDescription?: T;
+  socialHeading?: T;
+  socialLinks?:
+    | T
+    | {
+        platform?: T;
+        url?: T;
+        icon?: T;
         id?: T;
       };
   updatedAt?: T;

@@ -311,18 +311,21 @@ export function AllJobsTable({ careers }: AllJobsTableProps) {
   }
 
   return (
-    <section className="pt-32 md:pt-36 lg:pt-40 pb-12 md:pb-16 lg:pb-24">
-      <div className="container mx-auto px-4 max-w-7xl">
-        <div className="flex flex-col gap-8">
-          {/* Header */}
-          <div className="text-center mx-auto">
-            <h2 className="mb-4 text-3xl font-bold md:text-4xl lg:text-5xl">
-              All Open Positions
-            </h2>
-            <p className="text-muted-foreground text-base md:text-lg">
-              Browse all available opportunities and find the perfect role for you
-            </p>
-          </div>
+    <section className="min-h-screen w-full">
+      <div className="mx-auto h-full max-w-6xl lg:border-x border-border">
+        {/* Header Section */}
+        <div className="flex grow flex-col justify-center px-4 md:px-6 pt-32 pb-16">
+          <h1 className="text-4xl font-bold md:text-5xl text-foreground">
+            All Open Positions
+          </h1>
+          <p className="text-muted-foreground mt-4 text-base md:text-lg">
+            Browse all available opportunities and find the perfect role for you
+          </p>
+        </div>
+
+        <div className="absolute inset-x-0 h-px w-full border-b" />
+
+        <div className="flex flex-col gap-8 px-4 md:px-6 py-16">
 
           {/* Filters */}
           <div className="flex flex-col gap-4">

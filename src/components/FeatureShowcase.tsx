@@ -255,6 +255,168 @@ const RocketIllustration = () => (
   </svg>
 )
 
+const DatabaseIllustration = () => (
+  <svg viewBox="0 0 200 200" className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="db-gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" stopColor="oklch(0.75 0.25 265)" />
+        <stop offset="100%" stopColor="oklch(0.55 0.20 210)" />
+      </linearGradient>
+    </defs>
+
+    {/* Data flow lines */}
+    <path d="M 50 100 L 70 100" stroke="oklch(0.35 0.15 265)" strokeWidth="2" strokeDasharray="4 2" opacity="0.5" className="animate-pulse" />
+    <path d="M 130 100 L 150 100" stroke="oklch(0.35 0.15 265)" strokeWidth="2" strokeDasharray="4 2" opacity="0.5" className="animate-pulse" style={{animationDelay: '0.3s'}} />
+
+    {/* Database cylinders */}
+    <g>
+      {/* Bottom cylinder */}
+      <ellipse cx="100" cy="140" rx="35" ry="12" fill="url(#db-gradient)" opacity="0.3" />
+      <ellipse cx="100" cy="140" rx="35" ry="12" fill="none" stroke="oklch(0.65 0.25 265)" strokeWidth="2" />
+      <rect x="65" y="115" width="70" height="25" fill="oklch(0.65 0.25 265)" opacity="0.2" />
+      <line x1="65" y1="115" x2="65" y2="140" stroke="oklch(0.65 0.25 265)" strokeWidth="2" />
+      <line x1="135" y1="115" x2="135" y2="140" stroke="oklch(0.65 0.25 265)" strokeWidth="2" />
+      <ellipse cx="100" cy="115" rx="35" ry="12" fill="oklch(0.08 0.01 265)" stroke="oklch(0.65 0.25 265)" strokeWidth="2" />
+
+      {/* Middle cylinder */}
+      <ellipse cx="100" cy="95" rx="35" ry="12" fill="url(#db-gradient)" opacity="0.3" />
+      <ellipse cx="100" cy="95" rx="35" ry="12" fill="none" stroke="oklch(0.65 0.25 265)" strokeWidth="2" />
+      <rect x="65" y="70" width="70" height="25" fill="oklch(0.65 0.25 265)" opacity="0.2" />
+      <line x1="65" y1="70" x2="65" y2="95" stroke="oklch(0.65 0.25 265)" strokeWidth="2" />
+      <line x1="135" y1="70" x2="135" y2="95" stroke="oklch(0.65 0.25 265)" strokeWidth="2" />
+      <ellipse cx="100" cy="70" rx="35" ry="12" fill="oklch(0.08 0.01 265)" stroke="oklch(0.65 0.25 265)" strokeWidth="2" />
+
+      {/* Top cylinder */}
+      <ellipse cx="100" cy="50" rx="35" ry="12" fill="url(#db-gradient)" opacity="0.3" />
+      <ellipse cx="100" cy="50" rx="35" ry="12" fill="none" stroke="oklch(0.75 0.25 265)" strokeWidth="2" />
+      <rect x="65" y="25" width="70" height="25" fill="oklch(0.75 0.25 265)" opacity="0.2" />
+      <line x1="65" y1="25" x2="65" y2="50" stroke="oklch(0.75 0.25 265)" strokeWidth="2" />
+      <line x1="135" y1="25" x2="135" y2="50" stroke="oklch(0.75 0.25 265)" strokeWidth="2" />
+      <ellipse cx="100" cy="25" rx="35" ry="12" fill="oklch(0.08 0.01 265)" stroke="oklch(0.75 0.25 265)" strokeWidth="2" />
+    </g>
+
+    {/* Data indicators */}
+    <line x1="80" y1="35" x2="120" y2="35" stroke="oklch(0.75 0.20 210)" strokeWidth="2" opacity="0.6" />
+    <line x1="85" y1="40" x2="115" y2="40" stroke="oklch(0.75 0.20 210)" strokeWidth="2" opacity="0.6" />
+  </svg>
+)
+
+const CloudIllustration = () => (
+  <svg viewBox="0 0 200 200" className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="cloud-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stopColor="oklch(0.75 0.25 265)" />
+        <stop offset="100%" stopColor="oklch(0.65 0.20 210)" />
+      </linearGradient>
+      <filter id="cloud-glow">
+        <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+        <feMerge>
+          <feMergeNode in="coloredBlur"/>
+          <feMergeNode in="SourceGraphic"/>
+        </feMerge>
+      </filter>
+    </defs>
+
+    {/* Upload/Download arrows */}
+    <g className="animate-pulse" style={{animationDelay: '0s'}}>
+      <path d="M 100 140 L 100 160" stroke="oklch(0.65 0.25 265)" strokeWidth="2" markerEnd="url(#arrowdown)" />
+      <path d="M 100 160 L 95 155 M 100 160 L 105 155" stroke="oklch(0.65 0.25 265)" strokeWidth="2" />
+    </g>
+    <g className="animate-pulse" style={{animationDelay: '0.5s'}}>
+      <path d="M 120 140 L 120 155" stroke="oklch(0.75 0.20 210)" strokeWidth="2" />
+      <path d="M 120 155 L 115 160 M 120 155 L 125 160" stroke="oklch(0.75 0.20 210)" strokeWidth="2" />
+    </g>
+
+    {/* Main cloud shape */}
+    <path
+      d="M 70 80 Q 70 60 85 55 Q 90 45 105 45 Q 120 45 125 55 Q 140 60 140 80 Q 140 95 130 100 L 80 100 Q 70 95 70 80 Z"
+      fill="url(#cloud-gradient)"
+      opacity="0.3"
+      filter="url(#cloud-glow)"
+    />
+    <path
+      d="M 70 80 Q 70 60 85 55 Q 90 45 105 45 Q 120 45 125 55 Q 140 60 140 80 Q 140 95 130 100 L 80 100 Q 70 95 70 80 Z"
+      fill="none"
+      stroke="url(#cloud-gradient)"
+      strokeWidth="2"
+    />
+
+    {/* Data nodes inside cloud */}
+    <circle cx="90" cy="75" r="4" fill="oklch(0.75 0.25 265)" className="animate-pulse" style={{animationDelay: '0.2s'}} />
+    <circle cx="105" cy="70" r="4" fill="oklch(0.65 0.25 265)" className="animate-pulse" style={{animationDelay: '0.4s'}} />
+    <circle cx="120" cy="75" r="4" fill="oklch(0.75 0.20 210)" className="animate-pulse" style={{animationDelay: '0.6s'}} />
+    <circle cx="95" cy="85" r="3" fill="oklch(0.75 0.20 210)" className="animate-pulse" style={{animationDelay: '0.8s'}} />
+    <circle cx="115" cy="85" r="3" fill="oklch(0.65 0.25 265)" className="animate-pulse" style={{animationDelay: '1s'}} />
+
+    {/* Connection lines between nodes */}
+    <line x1="90" y1="75" x2="105" y2="70" stroke="oklch(0.45 0.15 265)" strokeWidth="1" opacity="0.4" />
+    <line x1="105" y1="70" x2="120" y2="75" stroke="oklch(0.45 0.15 265)" strokeWidth="1" opacity="0.4" />
+    <line x1="90" y1="75" x2="95" y2="85" stroke="oklch(0.45 0.15 265)" strokeWidth="1" opacity="0.4" />
+    <line x1="120" y1="75" x2="115" y2="85" stroke="oklch(0.45 0.15 265)" strokeWidth="1" opacity="0.4" />
+
+    {/* Device icons at bottom */}
+    <rect x="50" y="165" width="20" height="15" rx="2" fill="none" stroke="oklch(0.45 0.15 265)" strokeWidth="1.5" opacity="0.6" />
+    <rect x="90" y="165" width="20" height="15" rx="2" fill="none" stroke="oklch(0.45 0.15 265)" strokeWidth="1.5" opacity="0.6" />
+    <rect x="130" y="165" width="20" height="15" rx="2" fill="none" stroke="oklch(0.45 0.15 265)" strokeWidth="1.5" opacity="0.6" />
+  </svg>
+)
+
+const CodeIllustration = () => (
+  <svg viewBox="0 0 200 200" className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="code-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stopColor="oklch(0.75 0.25 265)" />
+        <stop offset="100%" stopColor="oklch(0.65 0.20 210)" />
+      </linearGradient>
+    </defs>
+
+    {/* Code editor window */}
+    <rect x="40" y="40" width="120" height="120" rx="8" fill="oklch(0.08 0.01 265)" stroke="oklch(0.65 0.25 265)" strokeWidth="2" />
+
+    {/* Window controls */}
+    <circle cx="50" cy="50" r="3" fill="oklch(0.60 0.20 20)" />
+    <circle cx="60" cy="50" r="3" fill="oklch(0.70 0.20 90)" />
+    <circle cx="70" cy="50" r="3" fill="oklch(0.65 0.20 140)" />
+
+    {/* Code lines with syntax highlighting effect */}
+    <g opacity="0.8">
+      {/* Line 1 */}
+      <rect x="50" y="70" width="15" height="4" rx="2" fill="oklch(0.75 0.25 265)" className="animate-pulse" style={{animationDelay: '0s'}} />
+      <rect x="68" y="70" width="35" height="4" rx="2" fill="oklch(0.65 0.20 210)" />
+      <rect x="106" y="70" width="20" height="4" rx="2" fill="oklch(0.70 0.20 30)" />
+
+      {/* Line 2 */}
+      <rect x="55" y="80" width="25" height="4" rx="2" fill="oklch(0.75 0.20 210)" />
+      <rect x="83" y="80" width="30" height="4" rx="2" fill="oklch(0.70 0.25 265)" className="animate-pulse" style={{animationDelay: '0.2s'}} />
+      <rect x="116" y="80" width="15" height="4" rx="2" fill="oklch(0.65 0.20 210)" />
+
+      {/* Line 3 */}
+      <rect x="55" y="90" width="40" height="4" rx="2" fill="oklch(0.65 0.25 265)" />
+      <rect x="98" y="90" width="25" height="4" rx="2" fill="oklch(0.70 0.20 30)" className="animate-pulse" style={{animationDelay: '0.4s'}} />
+
+      {/* Line 4 - empty */}
+
+      {/* Line 5 */}
+      <rect x="50" y="110" width="20" height="4" rx="2" fill="oklch(0.75 0.25 265)" />
+      <rect x="73" y="110" width="45" height="4" rx="2" fill="oklch(0.65 0.20 210)" className="animate-pulse" style={{animationDelay: '0.6s'}} />
+
+      {/* Line 6 */}
+      <rect x="55" y="120" width="30" height="4" rx="2" fill="oklch(0.70 0.25 265)" />
+      <rect x="88" y="120" width="35" height="4" rx="2" fill="oklch(0.75 0.20 210)" />
+
+      {/* Line 7 */}
+      <rect x="50" y="130" width="25" height="4" rx="2" fill="oklch(0.75 0.25 265)" className="animate-pulse" style={{animationDelay: '0.8s'}} />
+    </g>
+
+    {/* Code brackets decoration */}
+    <path d="M 30 80 L 25 80 L 25 120 L 30 120" stroke="url(#code-gradient)" strokeWidth="2" fill="none" opacity="0.5" />
+    <path d="M 170 80 L 175 80 L 175 120 L 170 120" stroke="url(#code-gradient)" strokeWidth="2" fill="none" opacity="0.5" />
+
+    {/* Cursor blink */}
+    <rect x="77" y="129" width="2" height="6" fill="oklch(0.75 0.25 265)" className="animate-pulse" />
+  </svg>
+)
+
 const illustrationMap: Record<string, React.ComponentType> = {
   lightning: LightningIllustration,
   shield: ShieldIllustration,
@@ -262,9 +424,16 @@ const illustrationMap: Record<string, React.ComponentType> = {
   branches: BranchesIllustration,
   sparkles: SparklesIllustration,
   rocket: RocketIllustration,
+  database: DatabaseIllustration,
+  cloud: CloudIllustration,
+  code: CodeIllustration,
 }
 
 export default function FeatureShowcase({ heading, subheading, features }: FeatureShowcaseProps) {
+  // Split features: last one is the hero (horizontal), rest are regular cards
+  const regularFeatures = features.slice(0, -1)
+  const heroFeature = features[features.length - 1]
+
   return (
     <div className="w-full max-w-7xl mx-auto space-y-12">
       <style dangerouslySetInnerHTML={{__html: `
@@ -286,8 +455,9 @@ export default function FeatureShowcase({ heading, subheading, features }: Featu
         </div>
       )}
 
+      {/* Regular Features Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {features.map((feature, index) => {
+        {regularFeatures.map((feature, index) => {
           const Icon = iconMap[feature.icon] || Zap
           const Illustration = illustrationMap[feature.illustration] || LightningIllustration
 
@@ -332,6 +502,54 @@ export default function FeatureShowcase({ heading, subheading, features }: Featu
           )
         })}
       </div>
+
+      {/* Hero Feature - Full Width Horizontal */}
+      {heroFeature && (() => {
+        const Icon = iconMap[heroFeature.icon] || Zap
+        const Illustration = illustrationMap[heroFeature.illustration] || LightningIllustration
+
+        return (
+          <div
+            className={cn(
+              "group relative overflow-hidden rounded-2xl border border-border bg-card",
+              "transition-all duration-500 hover:border-primary/40",
+              "hover:shadow-[0_0_30px_oklch(0.55_0.25_265_/_20%)]",
+              "hover:-translate-y-1"
+            )}
+          >
+            {/* Background glow effect */}
+            <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+            {/* Horizontal Layout */}
+            <div className="flex flex-col md:flex-row items-center">
+              {/* Content Section - 70% */}
+              <div className="relative p-6 md:p-8 flex-1 flex flex-col justify-center space-y-3 md:border-r border-border/50">
+                {/* Floating icon badge */}
+                <div className="w-12 h-12 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center backdrop-blur-sm group-hover:scale-110 transition-transform duration-300">
+                  <Icon className="w-6 h-6 text-primary" />
+                </div>
+
+                <h3 className="text-xl md:text-2xl lg:text-3xl font-semibold text-foreground group-hover:text-primary transition-colors duration-300">
+                  {heroFeature.title}
+                </h3>
+                <p className="text-sm md:text-base text-muted-foreground leading-relaxed">
+                  {heroFeature.description}
+                </p>
+              </div>
+
+              {/* SVG Illustration Section - 30% */}
+              <div className="relative w-full md:w-[30%] h-[200px] md:h-[240px] p-6 md:p-8 flex items-center justify-center overflow-hidden">
+                <div className="w-full h-full">
+                  <Illustration />
+                </div>
+              </div>
+            </div>
+
+            {/* Bottom accent line */}
+            <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-primary to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+          </div>
+        )
+      })()}
     </div>
   )
 }

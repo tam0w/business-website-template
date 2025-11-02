@@ -192,22 +192,25 @@ export function FeaturedJobsGrid({ careers }: FeaturedJobsGridProps) {
   const rows = splitIntoRows()
 
   return (
-    <section className="pt-32 md:pt-36 lg:pt-40 pb-16 bg-muted/30">
-      <div className="container mx-auto px-6 max-w-7xl">
-        <div className="flex flex-col space-y-16">
-          {/* Header */}
-          <div className="text-center max-w-4xl mx-auto space-y-4">
-            <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-6 py-2 rounded-full">
-              <Star className="h-4 w-4 fill-current" />
-              <span className="text-sm font-semibold">Featured Positions</span>
-            </div>
-            <h2 className="text-3xl font-bold md:text-4xl lg:text-5xl">
-              Join Our Team
-            </h2>
-            <p className="text-muted-foreground text-base md:text-lg leading-relaxed">
-              Explore our hand-picked opportunities and find your next career move
-            </p>
+    <section className="min-h-screen w-full bg-muted/30">
+      <div className="mx-auto h-full max-w-6xl lg:border-x border-border">
+        {/* Header Section */}
+        <div className="flex grow flex-col justify-center px-4 md:px-6 pt-32 pb-16">
+          <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-1.5 rounded-full mb-6 w-fit">
+            <Star className="h-3.5 w-3.5 fill-current" />
+            <span className="text-xs font-semibold">Featured Positions</span>
           </div>
+          <h1 className="text-4xl font-bold md:text-5xl text-foreground">
+            Join Our Team
+          </h1>
+          <p className="text-muted-foreground mt-4 text-base md:text-lg">
+            Explore our hand-picked opportunities and find your next career move
+          </p>
+        </div>
+
+        <div className="absolute inset-x-0 h-px w-full border-b" />
+
+        <div className="flex flex-col space-y-16 px-4 md:px-6 py-16">
 
           {/* Rows */}
           <div className="flex flex-col space-y-8">
