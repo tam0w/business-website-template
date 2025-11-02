@@ -42,35 +42,35 @@ const faqs: FAQItem[] = [
 
 export default function FAQ() {
   return (
-    <section className="py-20 px-4 bg-background">
-      <div className="max-w-4xl mx-auto">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold mb-4">Frequently Asked Questions</h2>
+    <section className="py-16 px-6 bg-background">
+      <div className="max-w-4xl mx-auto space-y-12">
+        <div className="text-center space-y-4">
+          <h2 className="text-4xl font-bold">Frequently Asked Questions</h2>
           <p className="text-muted-foreground text-lg">
             Everything you need to know about our product
           </p>
         </div>
 
-        <Accordion type="single" collapsible className="w-full space-y-4">
+        <Accordion type="single" collapsible className="w-full space-y-6">
           {faqs.map((faq, index) => (
             <AccordionItem
               key={index}
               value={`item-${index}`}
-              className="border rounded-lg px-6 bg-card"
+              className="border rounded-xl px-8 glass border-glow-hover overflow-hidden"
             >
-              <AccordionTrigger className="text-left hover:no-underline py-6">
+              <AccordionTrigger>
                 <span className="text-lg font-semibold">{faq.question}</span>
               </AccordionTrigger>
-              <AccordionContent className="text-muted-foreground pb-6">
+              <AccordionContent className="text-muted-foreground">
                 {faq.answer}
               </AccordionContent>
             </AccordionItem>
           ))}
         </Accordion>
 
-        <div className="mt-12 text-center">
-          <p className="text-muted-foreground mb-4">Still have questions?</p>
-          <button className="px-6 py-3 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors">
+        <div className="mt-12 text-center space-y-6">
+          <p className="text-muted-foreground">Still have questions?</p>
+          <button className="px-8 py-4 bg-primary text-primary-foreground rounded-xl hover:bg-primary/90 transition-all duration-300 hover:shadow-[0_0_20px_oklch(0.55_0.25_265_/_30%)] border border-primary/20">
             Contact Support
           </button>
         </div>

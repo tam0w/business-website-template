@@ -116,7 +116,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   ].filter((link) => link.url)
 
   return (
-    <article className="py-12 md:py-16 lg:py-24">
+    <article className="pt-32 md:pt-36 lg:pt-40 pb-12 md:pb-16 lg:pb-24">
       {/* Hero Section - Centered */}
       <div className="container mx-auto px-4">
         <div className="mx-auto max-w-4xl">
@@ -140,13 +140,13 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           )}
 
           {/* Title */}
-          <h1 className="max-w-3xl text-pretty text-4xl font-bold md:text-5xl lg:text-6xl">
+          <h1 className="text-4xl font-bold md:text-5xl lg:text-6xl">
             {post.title}
           </h1>
 
           {/* Subtitle */}
           {post.subTitle && (
-            <p className="max-w-3xl text-lg text-muted-foreground md:text-xl">
+            <p className="text-lg text-muted-foreground md:text-xl">
               {post.subTitle}
             </p>
           )}
@@ -181,7 +181,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
       {/* Content Section */}
       <div className="container mx-auto px-4 mt-12 md:mt-16">
-        <div className="prose prose-gray dark:prose-invert mx-auto max-w-3xl">
+        <div className="mx-auto max-w-4xl">
           <BlogContent content={post.content} />
         </div>
       </div>
@@ -189,7 +189,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       {/* Author Bio Section */}
       {author && (
         <div className="container mx-auto px-4 mt-16 md:mt-24">
-          <div className="mx-auto max-w-3xl border-t border-border pt-12">
+          <div className="mx-auto max-w-4xl border-t border-border pt-12">
             <div className="flex items-start gap-6">
               <Avatar className="h-20 w-20 border-2">
                 {authorAvatar?.url && (

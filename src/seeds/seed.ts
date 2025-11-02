@@ -1,6 +1,6 @@
 import 'dotenv/config'
 import { getPayload } from 'payload'
-import config from '@/payload.config'
+import config from '@payload-config'
 
 async function seed() {
   const payloadConfig = await config
@@ -8,19 +8,67 @@ async function seed() {
 
   console.log('🌱 Starting seed process...')
 
-  // Get admin user for relationships
-  const { docs: users } = await payload.find({
+  // Create or get admin user
+  let { docs: users } = await payload.find({
     collection: 'users',
     limit: 1,
   })
 
-  if (!users || users.length === 0) {
-    console.error('❌ No users found. Please create a user first.')
-    return
-  }
+  let adminUser
 
-  const adminUser = users[0]
-  console.log(`✅ Using user: ${adminUser.name}`)
+  if (!users || users.length === 0) {
+    console.log('👤 No users found. Creating demo users...')
+
+    // Create admin user
+    adminUser = await payload.create({
+      collection: 'users',
+      data: {
+        name: 'Admin User',
+        email: 'admin@example.com',
+        password: 'password123',
+        designation: 'System Administrator',
+        bio: 'Default admin user for seeding purposes.',
+      },
+    })
+    console.log(`✅ Created admin user: ${adminUser.name} (${adminUser.email})`)
+
+    // Create additional demo users for blog posts
+    const authors = [
+      {
+        name: 'Sarah Chen',
+        email: 'sarah.chen@example.com',
+        password: 'password123',
+        designation: 'Senior Security Analyst',
+        bio: 'Cybersecurity expert with over 10 years of experience in threat detection and incident response.',
+        social: {
+          twitter: 'https://twitter.com/sarahchen',
+          linkedin: 'https://linkedin.com/in/sarahchen',
+        },
+      },
+      {
+        name: 'Michael Torres',
+        email: 'michael.torres@example.com',
+        password: 'password123',
+        designation: 'Lead Data Engineer',
+        bio: 'Passionate about building scalable data pipelines and analytics platforms.',
+        social: {
+          github: 'https://github.com/mtorres',
+          linkedin: 'https://linkedin.com/in/michaeltorres',
+        },
+      },
+    ]
+
+    for (const author of authors) {
+      const user = await payload.create({
+        collection: 'users',
+        data: author,
+      })
+      console.log(`✅ Created user: ${user.name} (${user.email})`)
+    }
+  } else {
+    adminUser = users[0]
+    console.log(`✅ Using existing user: ${adminUser.name}`)
+  }
 
   // Clear existing data
   console.log('\n🗑️  Clearing existing data...')
@@ -957,13 +1005,19 @@ async function seed() {
   // Seed Blog Posts
   console.log('\n📝 Seeding blog posts...')
 
+  // Get all users for varied authorship
+  const { docs: allUsers } = await payload.find({
+    collection: 'users',
+    limit: 10,
+  })
+
   const posts = [
     {
       title: 'The Rise of Zero Trust Architecture in Modern Cybersecurity',
       slug: 'zero-trust-architecture-modern-cybersecurity',
       subTitle: 'How Zero Trust is transforming enterprise security strategies',
       excerpt: 'Explore the fundamental principles of Zero Trust Architecture and why organizations are rapidly adopting this security model to protect against modern threats.',
-      author: adminUser.id,
+      author: allUsers.find((u) => u.designation?.includes('Security'))?.id || adminUser.id,
       tags: ['Cybersecurity', 'Zero Trust', 'Enterprise Security'],
       status: 'published',
       content: {
@@ -1056,7 +1110,7 @@ async function seed() {
       slug: 'data-pipeline-best-practices-enterprise',
       subTitle: 'Building reliable and scalable data pipelines',
       excerpt: 'Learn the essential best practices for designing, implementing, and maintaining data pipelines that can scale with your organization\'s needs.',
-      author: adminUser.id,
+      author: allUsers.find((u) => u.designation?.includes('Data'))?.id || adminUser.id,
       tags: ['Data Engineering', 'Analytics', 'Best Practices'],
       status: 'published',
       content: {
@@ -1149,7 +1203,7 @@ async function seed() {
       slug: 'threat-hunting-proactive-defense-soc',
       subTitle: 'Moving from reactive to proactive security operations',
       excerpt: 'Discover how threat hunting can help your security team identify threats before they cause damage, and learn practical techniques to get started.',
-      author: adminUser.id,
+      author: allUsers.find((u) => u.designation?.includes('Security'))?.id || adminUser.id,
       tags: ['Threat Hunting', 'SOC', 'Incident Response'],
       status: 'published',
       content: {
@@ -1193,7 +1247,7 @@ async function seed() {
       slug: 'cloud-security-common-misconfigurations',
       subTitle: 'Protecting your cloud infrastructure from preventable vulnerabilities',
       excerpt: 'Many security breaches stem from simple cloud misconfigurations. Learn about the most common mistakes and how to prevent them in your environment.',
-      author: adminUser.id,
+      author: allUsers.find((u) => u.designation?.includes('Security'))?.id || adminUser.id,
       tags: ['Cloud Security', 'AWS', 'Azure', 'Best Practices'],
       status: 'published',
       content: {
@@ -1295,7 +1349,7 @@ async function seed() {
       slug: 'building-data-driven-culture-lessons',
       subTitle: 'How to transform your organization with data',
       excerpt: 'Creating a data-driven culture goes beyond tools and technology. Learn the organizational changes and leadership practices that make data adoption successful.',
-      author: adminUser.id,
+      author: allUsers.find((u) => u.designation?.includes('Data'))?.id || adminUser.id,
       tags: ['Data Strategy', 'Analytics', 'Culture'],
       status: 'published',
       content: {

@@ -6,15 +6,16 @@ import DarkVeil from '@/components/DarkVeil'
 import MagicBento from '@/components/MagicBento'
 import Testimonials from '@/components/Testimonials'
 import FAQ from '@/components/FAQ'
+import { TextReveal } from '@/components/ui/text-reveal'
 
 export default function HomePage() {
   return (
-    <div className="min-h-dvh">
+    <div className="min-h-dvh space-y-16">
       {/* Hero Section with DarkVeil Background */}
-      <section className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-900 via-slate-900 to-black">
-        <div style={{ width: '100%', height: '100vh', position: 'absolute', top: 0, left: 0 }}>
+      <section className="relative min-h-dvh flex items-center justify-center bg-gradient-to-br from-[oklch(0.15_0.15_265)] via-[oklch(0.08_0.05_265)] to-background pt-40 md:pt-52 lg:pt-64">
+        <div className="absolute inset-0 w-full h-full">
           <DarkVeil
-            hueShift={0}
+            hueShift={27}
             noiseIntensity={0}
             scanlineIntensity={0.02}
             speed={0.5}
@@ -24,18 +25,20 @@ export default function HomePage() {
           />
         </div>
 
-        <div className="relative z-10 max-w-5xl mx-auto px-4 text-center">
-          <h1 className="text-5xl md:text-7xl font-bold mb-6 text-white">
-            Build Something Amazing
+        <div className="relative z-10 max-w-7xl mx-auto px-6 text-center space-y-8">
+          <h1 className="text-5xl md:text-7xl font-bold text-foreground">
+            <TextReveal split="word" delay={0.15} duration={0.8} from="bottom" blur={10}>
+              Build Something Amazing
+            </TextReveal>
           </h1>
-          <p className="text-xl md:text-2xl mb-8 text-white/90 max-w-3xl mx-auto">
+          <p className="text-xl md:text-2xl text-muted-foreground mx-auto leading-relaxed">
             The modern platform for businesses that want to scale fast and build better products
           </p>
-          <div className="flex gap-4 justify-center">
-            <button className="px-8 py-4 bg-primary text-primary-foreground rounded-lg text-lg font-semibold hover:bg-primary/90 transition-all hover:scale-105">
+          <div className="flex gap-6 justify-center flex-wrap">
+            <button className="px-12 py-4 bg-primary text-primary-foreground rounded-xl text-lg font-semibold hover:bg-primary/90 transition-all duration-300 hover:scale-105 glow-primary border border-primary/20">
               Get Started
             </button>
-            <button className="px-8 py-4 bg-white/10 backdrop-blur-sm text-white rounded-lg text-lg font-semibold hover:bg-white/20 transition-all border border-white/20">
+            <button className="px-12 py-4 glass text-foreground rounded-xl text-lg font-semibold hover:border-primary/40 transition-all duration-300 border-glow-hover">
               Learn More
             </button>
           </div>
@@ -43,10 +46,10 @@ export default function HomePage() {
       </section>
 
       {/* Features Section with MagicBento */}
-      <section className="py-20 px-4 bg-background flex items-center justify-center">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-4">Powerful Features</h2>
+      <section className="py-16 px-6 bg-background flex items-center justify-center">
+        <div className="max-w-7xl mx-auto space-y-12">
+          <div className="text-center space-y-4">
+            <h2 className="text-4xl font-bold">Powerful Features</h2>
             <p className="text-muted-foreground text-lg">
               Everything you need to succeed
             </p>
@@ -73,56 +76,58 @@ export default function HomePage() {
       <FAQ />
 
       {/* CTA Section */}
-      <section className="py-20 px-4 bg-gradient-to-b from-muted/20 to-background">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-4xl font-bold mb-6">Ready to get started?</h2>
-          <p className="text-xl text-muted-foreground mb-8">
+      <section className="py-16 px-6 bg-gradient-radial-accent">
+        <div className="max-w-4xl mx-auto text-center space-y-8">
+          <h2 className="text-4xl font-bold">Ready to get started?</h2>
+          <p className="text-xl text-muted-foreground">
             Join thousands of teams already building with us
           </p>
-          <button className="px-8 py-4 bg-primary text-primary-foreground rounded-lg text-lg font-semibold hover:bg-primary/90 transition-all hover:scale-105">
+          <button className="px-12 py-6 bg-primary text-primary-foreground rounded-xl text-lg font-semibold hover:bg-primary/90 transition-all duration-300 hover:scale-105 glow-primary border border-primary/20">
             Start Free Trial
           </button>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="border-t py-12 px-4">
-        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
-          <div>
-            <h3 className="font-bold mb-4">Product</h3>
+      <footer className="border-t border-border py-16 px-6">
+        <div className="max-w-6xl mx-auto space-y-12">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
+          <div className="space-y-4">
+            <h3 className="font-bold">Product</h3>
             <ul className="space-y-2 text-muted-foreground">
-              <li>Features</li>
-              <li>Pricing</li>
-              <li>Security</li>
+              <li className="hover:text-primary transition-colors cursor-pointer">Features</li>
+              <li className="hover:text-primary transition-colors cursor-pointer">Pricing</li>
+              <li className="hover:text-primary transition-colors cursor-pointer">Security</li>
             </ul>
           </div>
-          <div>
-            <h3 className="font-bold mb-4">Company</h3>
+          <div className="space-y-4">
+            <h3 className="font-bold">Company</h3>
             <ul className="space-y-2 text-muted-foreground">
-              <li>About</li>
-              <li>Blog</li>
-              <li>Careers</li>
+              <li className="hover:text-primary transition-colors cursor-pointer">About</li>
+              <li className="hover:text-primary transition-colors cursor-pointer">Blog</li>
+              <li className="hover:text-primary transition-colors cursor-pointer">Careers</li>
             </ul>
           </div>
-          <div>
-            <h3 className="font-bold mb-4">Resources</h3>
+          <div className="space-y-4">
+            <h3 className="font-bold">Resources</h3>
             <ul className="space-y-2 text-muted-foreground">
-              <li>Documentation</li>
-              <li>Help Center</li>
-              <li>API</li>
+              <li className="hover:text-primary transition-colors cursor-pointer">Documentation</li>
+              <li className="hover:text-primary transition-colors cursor-pointer">Help Center</li>
+              <li className="hover:text-primary transition-colors cursor-pointer">API</li>
             </ul>
           </div>
-          <div>
-            <h3 className="font-bold mb-4">Legal</h3>
+          <div className="space-y-4">
+            <h3 className="font-bold">Legal</h3>
             <ul className="space-y-2 text-muted-foreground">
-              <li>Privacy</li>
-              <li>Terms</li>
-              <li>Cookies</li>
+              <li className="hover:text-primary transition-colors cursor-pointer">Privacy</li>
+              <li className="hover:text-primary transition-colors cursor-pointer">Terms</li>
+              <li className="hover:text-primary transition-colors cursor-pointer">Cookies</li>
             </ul>
           </div>
         </div>
-        <div className="max-w-6xl mx-auto mt-12 pt-8 border-t text-center text-muted-foreground">
+        <div className="pt-12 border-t border-border text-center text-muted-foreground">
           <p>&copy; 2025 Your Company. All rights reserved.</p>
+        </div>
         </div>
       </footer>
     </div>

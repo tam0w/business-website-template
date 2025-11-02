@@ -128,23 +128,23 @@ export function FeaturedJobsGrid({ careers }: FeaturedJobsGridProps) {
         href={formattedCareer.url}
         className="group block"
       >
-        <article className="h-full bg-card rounded-lg border border-border p-6 transition-all hover:shadow-xl hover:border-primary hover:scale-[1.02] cursor-pointer flex flex-col relative overflow-hidden">
+        <article className="h-full bg-card rounded-lg border border-glow-hover p-8 transition-all duration-300 hover:shadow-xl hover:border-primary/60 hover:scale-[1.02] cursor-pointer flex flex-col relative overflow-hidden space-y-6">
           {/* Featured Badge */}
-          <div className="absolute top-4 right-4">
+          <div className="absolute top-6 right-6">
             <div className="bg-primary/10 text-primary p-2 rounded-full">
               <Star className="h-4 w-4 fill-current" />
             </div>
           </div>
 
           {/* Icon */}
-          <div className="flex items-center justify-center w-16 h-16 rounded-lg bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-all mb-4">
+          <div className="flex items-center justify-center w-16 h-16 rounded-md bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-300">
             {getDepartmentIcon(career.department)}
           </div>
 
           {/* Content */}
-          <div className="flex flex-col gap-4 flex-1">
+          <div className="flex flex-col space-y-6 flex-1">
             {/* Header */}
-            <div className="flex flex-col gap-3">
+            <div className="flex flex-col space-y-4">
               <div className="flex flex-wrap items-center gap-2">
                 <Badge variant="secondary">{formattedCareer.department}</Badge>
                 {formattedCareer.clearanceRequired && (
@@ -153,13 +153,13 @@ export function FeaturedJobsGrid({ careers }: FeaturedJobsGridProps) {
                   </Badge>
                 )}
               </div>
-              <h3 className="text-xl font-bold group-hover:text-primary transition-colors pr-8">
+              <h3 className="text-xl font-bold group-hover:text-primary transition-colors duration-300 pr-8">
                 {formattedCareer.title}
               </h3>
             </div>
 
             {/* Details */}
-            <div className="flex flex-col gap-2 text-sm text-muted-foreground">
+            <div className="flex flex-col space-y-2 text-sm text-muted-foreground">
               <div className="flex items-center gap-1.5">
                 <MapPin className="h-4 w-4 flex-shrink-0" />
                 <span>{formattedCareer.location}</span>
@@ -176,8 +176,8 @@ export function FeaturedJobsGrid({ careers }: FeaturedJobsGridProps) {
 
             {/* Salary */}
             {formattedCareer.salary && (
-              <div className="mt-auto pt-4 border-t border-border">
-                <div className="text-sm text-muted-foreground mb-1">Salary</div>
+              <div className="mt-auto pt-6 border-t border-border space-y-1">
+                <div className="text-sm text-muted-foreground">Salary</div>
                 <div className="font-semibold text-lg text-foreground">
                   {formattedCareer.salary}
                 </div>
@@ -192,33 +192,33 @@ export function FeaturedJobsGrid({ careers }: FeaturedJobsGridProps) {
   const rows = splitIntoRows()
 
   return (
-    <section className="py-12 md:py-16 lg:py-24 bg-muted/30">
-      <div className="container mx-auto px-4 max-w-7xl">
-        <div className="flex flex-col gap-8 md:gap-12">
+    <section className="pt-32 md:pt-36 lg:pt-40 pb-16 bg-muted/30">
+      <div className="container mx-auto px-6 max-w-7xl">
+        <div className="flex flex-col space-y-16">
           {/* Header */}
-          <div className="text-center max-w-3xl mx-auto">
-            <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full mb-4">
+          <div className="text-center max-w-4xl mx-auto space-y-4">
+            <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-6 py-2 rounded-full">
               <Star className="h-4 w-4 fill-current" />
               <span className="text-sm font-semibold">Featured Positions</span>
             </div>
-            <h2 className="mb-4 text-3xl font-bold md:text-4xl lg:text-5xl">
+            <h2 className="text-3xl font-bold md:text-4xl lg:text-5xl">
               Join Our Team
             </h2>
-            <p className="text-muted-foreground text-base md:text-lg">
+            <p className="text-muted-foreground text-base md:text-lg leading-relaxed">
               Explore our hand-picked opportunities and find your next career move
             </p>
           </div>
 
           {/* Rows */}
-          <div className="flex flex-col gap-6">
+          <div className="flex flex-col space-y-8">
             {rows.map((row, rowIndex) => {
               const itemCount = row.length
               // Determine grid classes based on items in this row
               const gridClass = itemCount === 1
-                ? "grid grid-cols-1 gap-6 max-w-md mx-auto"
+                ? "grid grid-cols-1 gap-8 max-w-2xl mx-auto"
                 : itemCount === 2
-                ? "grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto"
-                : "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+                ? "grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto"
+                : "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
 
               return (
                 <div key={rowIndex} className={gridClass}>

@@ -311,11 +311,11 @@ export function AllJobsTable({ careers }: AllJobsTableProps) {
   }
 
   return (
-    <section className="py-12 md:py-16 lg:py-24">
+    <section className="pt-16 md:pt-20 lg:pt-24 pb-12 md:pb-16 lg:pb-24">
       <div className="container mx-auto px-4 max-w-7xl">
         <div className="flex flex-col gap-8">
           {/* Header */}
-          <div className="text-center max-w-3xl mx-auto">
+          <div className="text-center mx-auto">
             <h2 className="mb-4 text-3xl font-bold md:text-4xl lg:text-5xl">
               All Open Positions
             </h2>
@@ -412,7 +412,8 @@ export function AllJobsTable({ careers }: AllJobsTableProps) {
 
           {/* Tabs */}
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-            <TabsList className="w-full justify-start flex-wrap h-auto gap-2 bg-transparent border-b rounded-none p-0 pb-2">
+            <div className="overflow-x-auto">
+              <TabsList className="w-full justify-start h-auto gap-2 bg-transparent border-b rounded-none p-0 pb-2">
               <TabsTrigger value="all" className="data-[state=active]:border-b-2 data-[state=active]:border-primary rounded-none bg-transparent px-4 py-2">
                 All Jobs
                 <Badge variant="secondary" className="ml-2 text-xs">
@@ -434,9 +435,11 @@ export function AllJobsTable({ careers }: AllJobsTableProps) {
                   </TabsTrigger>
                 )
               })}
-            </TabsList>
+              </TabsList>
+            </div>
 
-            <TabsContent value={activeTab} className="mt-6">
+            {/* Render TabsContent for "all" */}
+            <TabsContent value="all" className="mt-6">
               {/* Table */}
               {filteredAndSortedCareers.length > 0 ? (
                 <div className="border rounded-lg overflow-hidden">
@@ -553,6 +556,110 @@ export function AllJobsTable({ careers }: AllJobsTableProps) {
                 </div>
               )}
             </TabsContent>
+
+            {/* Render TabsContent for each department */}
+            {uniqueDepartments.map((dept) => (
+              <TabsContent key={dept} value={dept} className="mt-6">
+                {/* Table */}
+                {filteredAndSortedCareers.length > 0 ? (
+                  <div className="border rounded-lg overflow-hidden">
+                    <div className="overflow-x-auto">
+                      <Table>
+                        <TableHeader>
+                          <TableRow className="bg-muted/50">
+                            <TableHead className="min-w-[250px] py-4 px-6 text-base">
+                              <Button
+                                variant="ghost"
+                                onClick={() => handleSort('title')}
+                                className="h-auto p-0 font-semibold hover:bg-transparent text-base"
+                              >
+                                Position
+                                <SortIcon field="title" />
+                              </Button>
+                            </TableHead>
+                            <TableHead className="min-w-[150px] py-4 px-6 text-base">
+                              <Button
+                                variant="ghost"
+                                onClick={() => handleSort('location')}
+                                className="h-auto p-0 font-semibold hover:bg-transparent text-base"
+                              >
+                                Location
+                                <SortIcon field="location" />
+                              </Button>
+                            </TableHead>
+                            <TableHead className="min-w-[120px] py-4 px-6 text-base">
+                              <Button
+                                variant="ghost"
+                                onClick={() => handleSort('type')}
+                                className="h-auto p-0 font-semibold hover:bg-transparent text-base"
+                              >
+                                Type
+                                <SortIcon field="type" />
+                              </Button>
+                            </TableHead>
+                            <TableHead className="min-w-[120px] py-4 px-6 text-base">
+                              <Button
+                                variant="ghost"
+                                onClick={() => handleSort('remoteOption')}
+                                className="h-auto p-0 font-semibold hover:bg-transparent text-base"
+                              >
+                                Work Model
+                                <SortIcon field="remoteOption" />
+                              </Button>
+                            </TableHead>
+                            <TableHead className="min-w-[150px] py-4 px-6 text-base">Salary</TableHead>
+                          </TableRow>
+                        </TableHeader>
+                        <TableBody>
+                          {filteredAndSortedCareers.map((career) => {
+                            const formattedCareer = formatCareer(career)
+                            return (
+                              <TableRow key={formattedCareer.id} className="hover:bg-muted/50">
+                                <TableCell className="py-5 px-6">
+                                  <Link href={formattedCareer.url} className="hover:underline">
+                                    <div className="flex flex-col gap-1.5">
+                                      <span className="font-semibold text-base">{formattedCareer.title}</span>
+                                      {formattedCareer.clearanceRequired && (
+                                        <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
+                                          <Shield className="h-3.5 w-3.5" />
+                                          <span>{formattedCareer.clearanceDetails || 'Clearance Required'}</span>
+                                        </div>
+                                      )}
+                                    </div>
+                                  </Link>
+                                </TableCell>
+                                <TableCell className="py-5 px-6">
+                                  <div className="flex items-center gap-2">
+                                    <MapPin className="h-4 w-4 text-muted-foreground flex-shrink-0" />
+                                    <span>{formattedCareer.location}</span>
+                                  </div>
+                                </TableCell>
+                                <TableCell className="py-5 px-6">{formattedCareer.type}</TableCell>
+                                <TableCell className="py-5 px-6">{formattedCareer.remoteOption}</TableCell>
+                                <TableCell className="py-5 px-6 font-medium">{formattedCareer.salary || '—'}</TableCell>
+                              </TableRow>
+                            )
+                          })}
+                        </TableBody>
+                      </Table>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="text-center py-12 border rounded-lg bg-muted/30">
+                    <p className="text-muted-foreground text-lg mb-2">No positions found matching your criteria</p>
+                    {hasActiveFilters && (
+                      <Button
+                        variant="outline"
+                        onClick={clearFilters}
+                        className="mt-4"
+                      >
+                        Clear all filters
+                      </Button>
+                    )}
+                  </div>
+                )}
+              </TabsContent>
+            ))}
           </Tabs>
         </div>
       </div>

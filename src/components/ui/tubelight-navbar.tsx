@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react"
 import { motion } from "framer-motion"
 import Link from "next/link"
+import { usePathname } from "next/navigation"
 import { LucideIcon } from "lucide-react"
 import { cn } from "@/lib/utils"
 
@@ -18,8 +19,17 @@ interface NavBarProps {
 }
 
 export function NavBar({ items, className }: NavBarProps) {
-  const [activeTab, setActiveTab] = useState(items[0].name)
+  const pathname = usePathname()
   const [isMobile, setIsMobile] = useState(false)
+
+  // Find active tab based on current pathname
+  // Support nested routes by checking if pathname starts with item.url
+  const activeItem = items.find((item) => {
+    if (item.url === '/') {
+      return pathname === '/'
+    }
+    return pathname.startsWith(item.url)
+  }) || items[0]
 
   useEffect(() => {
     const handleResize = () => {
@@ -34,24 +44,23 @@ export function NavBar({ items, className }: NavBarProps) {
   return (
     <div
       className={cn(
-        "fixed bottom-0 sm:top-0 left-1/2 -translate-x-1/2 z-50 mb-6 sm:pt-6",
+        "fixed bottom-0 sm:top-6 md:top-8 lg:top-10 left-1/2 -translate-x-1/2 z-50 mb-[--spacing-lg] pointer-events-none",
         className,
       )}
     >
-      <div className="flex items-center gap-3 bg-background/5 border border-border backdrop-blur-lg py-1 px-1 rounded-full shadow-lg">
+      <div className="flex items-center gap-2 glass py-2 px-2 rounded-xl shadow-lg border-glow-hover pointer-events-auto">
         {items.map((item) => {
           const Icon = item.icon
-          const isActive = activeTab === item.name
+          const isActive = activeItem.name === item.name
 
           return (
             <Link
               key={item.name}
               href={item.url}
-              onClick={() => setActiveTab(item.name)}
               className={cn(
-                "relative cursor-pointer text-sm font-semibold px-6 py-2 rounded-full transition-colors",
-                "text-foreground/80 hover:text-primary",
-                isActive && "bg-muted text-primary",
+                "relative cursor-pointer text-base font-semibold px-4 py-2 rounded-xl transition-all duration-300",
+                "text-foreground/80 hover:text-primary hover:bg-primary/5",
+                isActive && "bg-primary/10 text-primary",
               )}
             >
               <span className="hidden md:inline">{item.name}</span>
@@ -61,18 +70,21 @@ export function NavBar({ items, className }: NavBarProps) {
               {isActive && (
                 <motion.div
                   layoutId="lamp"
-                  className="absolute inset-0 w-full bg-primary/5 rounded-full -z-10"
+                  className="absolute inset-0 w-full bg-primary/10 rounded-xl -z-10 border border-primary/20"
                   initial={false}
                   transition={{
                     type: "spring",
                     stiffness: 300,
                     damping: 30,
                   }}
+                  style={{
+                    boxShadow: "0 0 20px oklch(0.55 0.25 265 / 20%), inset 0 0 20px oklch(0.55 0.25 265 / 10%)",
+                    position: "absolute"
+                  }}
+                  layout="position"
                 >
-                  <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-8 h-1 bg-primary rounded-t-full">
-                    <div className="absolute w-12 h-6 bg-primary/20 rounded-full blur-md -top-2 -left-2" />
-                    <div className="absolute w-8 h-6 bg-primary/20 rounded-full blur-md -top-1" />
-                    <div className="absolute w-4 h-4 bg-primary/20 rounded-full blur-sm top-0 left-2" />
+                  <div className="absolute -top-1 left-1/2 -translate-x-1/2 w-1/2 h-[2px] bg-primary rounded-full">
+                    <div className="absolute w-full h-3 bg-primary/30 rounded-full blur-sm -top-1" />
                   </div>
                 </motion.div>
               )}

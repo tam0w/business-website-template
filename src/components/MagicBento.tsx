@@ -2,6 +2,7 @@
 
 import React, { useRef, useEffect, useState, useCallback } from 'react';
 import { gsap } from 'gsap';
+import { BarChart3, LayoutDashboard, Users, Zap, Link2, Shield } from 'lucide-react';
 
 export interface BentoCardProps {
   color?: string;
@@ -28,45 +29,51 @@ export interface BentoProps {
 
 const DEFAULT_PARTICLE_COUNT = 12;
 const DEFAULT_SPOTLIGHT_RADIUS = 300;
-const DEFAULT_GLOW_COLOR = '132, 0, 255';
+const DEFAULT_GLOW_COLOR = '77, 113, 255'; // Electric Blue Primary - oklch(0.55 0.25 265)
 const MOBILE_BREAKPOINT = 768;
 
-const cardData: BentoCardProps[] = [
+const cardData: Array<BentoCardProps & { icon: any }> = [
   {
     color: '#060010',
     title: 'Analytics',
     description: 'Track user behavior',
-    label: 'Insights'
+    label: 'Insights',
+    icon: BarChart3
   },
   {
     color: '#060010',
     title: 'Dashboard',
     description: 'Centralized data view',
-    label: 'Overview'
+    label: 'Overview',
+    icon: LayoutDashboard
   },
   {
     color: '#060010',
     title: 'Collaboration',
     description: 'Work together seamlessly',
-    label: 'Teamwork'
+    label: 'Teamwork',
+    icon: Users
   },
   {
     color: '#060010',
     title: 'Automation',
     description: 'Streamline workflows',
-    label: 'Efficiency'
+    label: 'Efficiency',
+    icon: Zap
   },
   {
     color: '#060010',
     title: 'Integration',
     description: 'Connect favorite tools',
-    label: 'Connectivity'
+    label: 'Connectivity',
+    icon: Link2
   },
   {
     color: '#060010',
     title: 'Security',
     description: 'Enterprise-grade protection',
-    label: 'Protection'
+    label: 'Protection',
+    icon: Shield
   }
 ];
 
@@ -494,7 +501,7 @@ const BentoCardGrid: React.FC<{
   gridRef?: React.RefObject<HTMLDivElement | null>;
 }> = ({ children, gridRef }) => (
   <div
-    className="bento-section grid gap-2 p-3 max-w-[54rem] select-none relative"
+    className="bento-section grid gap-[--spacing-md] p-[--spacing-lg] max-w-[54rem] select-none relative"
     style={{ fontSize: 'clamp(1rem, 0.9rem + 0.5vw, 1.5rem)' }}
     ref={gridRef}
   >
@@ -544,12 +551,6 @@ const MagicBento: React.FC<BentoProps> = ({
             --glow-intensity: 0;
             --glow-radius: 200px;
             --glow-color: ${glowColor};
-            --border-color: #392e4e;
-            --background-dark: #060010;
-            --white: hsl(0, 0%, 100%);
-            --purple-primary: rgba(132, 0, 255, 1);
-            --purple-glow: rgba(132, 0, 255, 0.2);
-            --purple-border: rgba(132, 0, 255, 0.8);
           }
           
           .card-responsive {
@@ -676,14 +677,15 @@ const MagicBento: React.FC<BentoProps> = ({
       <BentoCardGrid gridRef={gridRef}>
         <div className="card-responsive grid gap-2">
           {cardData.map((card, index) => {
-            const baseClassName = `card flex flex-col justify-between relative aspect-[4/3] min-h-[200px] w-full max-w-full p-5 rounded-[20px] border border-solid font-light overflow-hidden transition-all duration-300 ease-in-out hover:-translate-y-0.5 hover:shadow-[0_8px_25px_rgba(0,0,0,0.15)] ${
+            const Icon = card.icon;
+            const baseClassName = `card flex flex-col justify-between relative aspect-[4/3] min-h-[200px] w-full max-w-full p-8 rounded-xl border border-solid font-light overflow-hidden transition-all duration-300 ease-in-out hover:-translate-y-0.5 hover:shadow-[0_8px_25px_oklch(0.55_0.25_265_/_15%)] ${
               enableBorderGlow ? 'card--border-glow' : ''
             }`;
 
             const cardStyle = {
-              backgroundColor: card.color || 'var(--background-dark)',
-              borderColor: 'var(--border-color)',
-              color: 'var(--white)',
+              backgroundColor: 'oklch(0.12 0.02 265)',
+              borderColor: 'oklch(0.25 0.08 265 / 40%)',
+              color: 'oklch(0.98 0.01 265)',
               '--glow-x': '50%',
               '--glow-y': '50%',
               '--glow-intensity': '0',
@@ -703,15 +705,18 @@ const MagicBento: React.FC<BentoProps> = ({
                   clickEffect={clickEffect}
                   enableMagnetism={enableMagnetism}
                 >
-                  <div className="card__header flex justify-between gap-3 relative text-white">
-                    <span className="card__label text-base">{card.label}</span>
+                  <div className="card__header flex justify-between items-start gap-3 relative text-white">
+                    <div className="flex items-center justify-center w-12 h-12 rounded-xl bg-primary/10 text-primary">
+                      <Icon className="w-6 h-6" />
+                    </div>
+                    <span className="card__label text-sm opacity-70">{card.label}</span>
                   </div>
-                  <div className="card__content flex flex-col relative text-white">
-                    <h3 className={`card__title font-normal text-base m-0 mb-1 ${textAutoHide ? 'text-clamp-1' : ''}`}>
+                  <div className="card__content flex flex-col relative text-white space-y-2">
+                    <h3 className={`card__title font-semibold text-lg m-0 ${textAutoHide ? 'text-clamp-1' : ''}`}>
                       {card.title}
                     </h3>
                     <p
-                      className={`card__description text-xs leading-5 opacity-90 ${textAutoHide ? 'text-clamp-2' : ''}`}
+                      className={`card__description text-sm leading-relaxed opacity-80 ${textAutoHide ? 'text-clamp-2' : ''}`}
                     >
                       {card.description}
                     </p>
@@ -835,14 +840,17 @@ const MagicBento: React.FC<BentoProps> = ({
                   el.addEventListener('click', handleClick);
                 }}
               >
-                <div className="card__header flex justify-between gap-3 relative text-white">
-                  <span className="card__label text-base">{card.label}</span>
+                <div className="card__header flex justify-between items-start gap-3 relative text-white">
+                  <div className="flex items-center justify-center w-12 h-12 rounded-xl bg-primary/10 text-primary">
+                    <Icon className="w-6 h-6" />
+                  </div>
+                  <span className="card__label text-sm opacity-70">{card.label}</span>
                 </div>
-                <div className="card__content flex flex-col relative text-white">
-                  <h3 className={`card__title font-normal text-base m-0 mb-1 ${textAutoHide ? 'text-clamp-1' : ''}`}>
+                <div className="card__content flex flex-col relative text-white space-y-2">
+                  <h3 className={`card__title font-semibold text-lg m-0 ${textAutoHide ? 'text-clamp-1' : ''}`}>
                     {card.title}
                   </h3>
-                  <p className={`card__description text-xs leading-5 opacity-90 ${textAutoHide ? 'text-clamp-2' : ''}`}>
+                  <p className={`card__description text-sm leading-relaxed opacity-80 ${textAutoHide ? 'text-clamp-2' : ''}`}>
                     {card.description}
                   </p>
                 </div>

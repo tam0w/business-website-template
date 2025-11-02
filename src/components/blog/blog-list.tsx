@@ -52,30 +52,30 @@ export function BlogList({
   }
 
   return (
-    <section className="py-16 md:py-24 lg:py-32">
-      <div className="container mx-auto px-4 max-w-7xl">
-        <div className="flex flex-col items-center gap-12 md:gap-16">
-          <div className="text-center max-w-3xl mx-auto">
-            <h2 className="mb-4 md:mb-6 text-3xl font-semibold md:text-4xl lg:text-5xl">
+    <section className="pt-32 md:pt-36 lg:pt-40 pb-16">
+      <div className="container mx-auto px-6 max-w-7xl">
+        <div className="flex flex-col items-center space-y-16">
+          <div className="text-center max-w-4xl mx-auto space-y-4">
+            <h2 className="text-3xl font-semibold md:text-4xl lg:text-5xl">
               {heading}
             </h2>
-            <p className="text-muted-foreground text-base md:text-lg">
+            <p className="text-muted-foreground text-base md:text-lg leading-relaxed">
               {description}
             </p>
           </div>
 
-          <div className="w-full flex flex-col gap-8 md:gap-10">
+          <div className="w-full flex flex-col space-y-12">
             {posts.map((post) => {
               const formattedPost = formatPost(post)
               return (
                 <article
                   key={formattedPost.id}
-                  className="group w-full max-w-6xl mx-auto bg-card rounded-xl border border-border p-6 md:p-8 transition-all hover:shadow-lg"
+                  className="group w-full max-w-6xl mx-auto bg-card rounded-lg border border-glow-hover p-8 transition-all duration-300 hover:shadow-lg"
                 >
-                  <div className="grid gap-6 md:grid-cols-5 md:gap-8">
-                    <div className="flex flex-col md:col-span-3">
+                  <div className="grid gap-8 md:grid-cols-5 md:gap-12">
+                    <div className="flex flex-col md:col-span-3 space-y-6">
                       {formattedPost.tags.length > 0 && (
-                        <div className="mb-4">
+                        <div>
                           <div className="flex flex-wrap gap-2">
                             {formattedPost.tags.map((tag) => (
                               <Badge key={tag} variant="secondary" className="text-xs">
@@ -85,18 +85,18 @@ export function BlogList({
                           </div>
                         </div>
                       )}
-                      <h3 className="text-2xl font-bold md:text-3xl mb-3 group-hover:text-primary transition-colors">
+                      <h3 className="text-2xl font-bold md:text-3xl group-hover:text-primary transition-colors duration-300">
                         <Link href={formattedPost.url}>
                           {formattedPost.title}
                         </Link>
                       </h3>
                       {formattedPost.summary && (
-                        <p className="text-muted-foreground text-sm md:text-base mb-6 line-clamp-3">
+                        <p className="text-muted-foreground text-sm md:text-base line-clamp-3 leading-relaxed">
                           {formattedPost.summary}
                         </p>
                       )}
-                      <div className="mt-auto">
-                        <div className="flex items-center gap-4 mb-5">
+                      <div className="mt-auto space-y-4">
+                        <div className="flex items-center gap-6">
                           <div className="flex items-center gap-2">
                             <Avatar className="h-8 w-8 border">
                               {formattedPost.author.avatar && (

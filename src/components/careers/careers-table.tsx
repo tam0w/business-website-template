@@ -269,7 +269,7 @@ export function CareersTable({
       <div className="container mx-auto px-4 max-w-7xl">
         <div className="flex flex-col gap-12 md:gap-16">
           {/* Header */}
-          <div className="text-center max-w-3xl mx-auto">
+          <div className="text-center mx-auto">
             <h2 className="mb-4 md:mb-6 text-3xl font-semibold md:text-4xl lg:text-5xl">
               {heading}
             </h2>

@@ -7,7 +7,7 @@ interface BlogContentProps {
 export function BlogContent({ content }: BlogContentProps) {
   if (!content?.root?.children) {
     return (
-      <div className="prose prose-gray max-w-none">
+      <div>
         <p className="text-muted-foreground">No content available.</p>
       </div>
     )
@@ -36,7 +36,7 @@ export function BlogContent({ content }: BlogContentProps) {
     // Handle paragraph
     if (node.type === 'paragraph') {
       return (
-        <p key={index} className="mb-4">
+        <p key={index} className="mb-4 text-base leading-relaxed">
           {node.children?.map((child: any, i: number) => renderNode(child, i))}
         </p>
       )
@@ -165,7 +165,7 @@ export function BlogContent({ content }: BlogContentProps) {
   }
 
   return (
-    <div className="prose prose-gray dark:prose-invert max-w-none">
+    <div>
       {content.root.children.map((node: any, index: number) => renderNode(node, index))}
     </div>
   )

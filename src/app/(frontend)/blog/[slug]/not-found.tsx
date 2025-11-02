@@ -6,7 +6,7 @@ import { ArrowLeft } from 'lucide-react'
 export default function NotFound() {
   return (
     <section className="py-16 md:py-24 lg:py-32">
-      <div className="container mx-auto px-4 max-w-4xl">
+      <div className="container mx-auto px-4">
         <Empty className="my-16">
           <EmptyHeader>
             <EmptyTitle>Post not found</EmptyTitle>

@@ -16,8 +16,8 @@ type LayoutProps = {
 
 const Layout = ({ children }: LayoutProps) => {
   return (
-    <html className={spaceGrotesk.variable}>
-      <body className="min-h-dvh">
+    <html className={`dark ${spaceGrotesk.variable}`}>
+      <body className="min-h-dvh antialiased">
         <NavigationWrapper />
         {children}
       </body>
