@@ -311,7 +311,7 @@ export function AllJobsTable({ careers }: AllJobsTableProps) {
   }
 
   return (
-    <section className="pt-16 md:pt-20 lg:pt-24 pb-12 md:pb-16 lg:pb-24">
+    <section className="pt-32 md:pt-36 lg:pt-40 pb-12 md:pb-16 lg:pb-24">
       <div className="container mx-auto px-4 max-w-7xl">
         <div className="flex flex-col gap-8">
           {/* Header */}

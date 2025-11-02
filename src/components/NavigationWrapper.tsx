@@ -1,15 +1,26 @@
-"use client"
-
 import { NavBar } from '@/components/ui/tubelight-navbar'
-import { Home, Briefcase, FileText, Mail } from 'lucide-react'
+import { getPayload } from 'payload'
+import config from '@/payload.config'
 
 const navItems = [
-  { name: 'Home', url: '/', icon: Home },
-  { name: 'Careers', url: '/careers', icon: Briefcase },
-  { name: 'Blog', url: '/blog', icon: FileText },
-  { name: 'Contact', url: '#contact', icon: Mail },
+  { name: 'Home', url: '/', icon: 'home' as const },
+  { name: 'Careers', url: '/careers', icon: 'briefcase' as const },
+  { name: 'Blog', url: '/blog', icon: 'fileText' as const },
+  { name: 'Contact', url: '#contact', icon: 'mail' as const },
 ]
 
-export function NavigationWrapper() {
-  return <NavBar items={navItems} />
+export async function NavigationWrapper() {
+  const payload = await getPayload({ config })
+  const branding = await payload.findGlobal({
+    slug: 'site-branding',
+  })
+
+  const logo = branding?.logoIcon
+    ? {
+        iconName: branding.logoIcon,
+        companyName: branding.companyName || 'Company Logo',
+      }
+    : undefined
+
+  return <NavBar items={navItems} logo={logo} />
 }

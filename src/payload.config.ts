@@ -16,6 +16,10 @@ import { BlogPage } from './globals/BlogPage'
 import { CareersPage } from './globals/CareersPage'
 import { Homepage } from './globals/Homepage'
 import { SiteLabels } from './globals/SiteLabels'
+import { SiteBranding } from './globals/SiteBranding'
+import { FeaturesContent } from './globals/FeaturesContent'
+import { TestimonialsContent } from './globals/TestimonialsContent'
+import { FAQContent } from './globals/FAQContent'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -28,7 +32,7 @@ export default buildConfig({
     },
   },
   collections: [Users, Media, Posts, Careers],
-  globals: [BlogPage, CareersPage, Homepage, SiteLabels],
+  globals: [BlogPage, CareersPage, Homepage, SiteLabels, SiteBranding, FeaturesContent, TestimonialsContent, FAQContent],
   editor: lexicalEditor({
     admin: {
       placeholder: "Type your post content here.. use / for text formatting"

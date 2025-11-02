@@ -1,44 +1,118 @@
 "use client"
 
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ChevronLeft, ChevronRight, Quote } from 'lucide-react'
+import { IconType } from "react-icons"
+import {
+  FaApple,
+  FaMicrosoft,
+  FaGoogle,
+  FaAmazon,
+  FaFacebook,
+  FaTwitter,
+  FaLinkedin,
+  FaInstagram,
+} from "react-icons/fa"
 
 interface Testimonial {
-  id: number
   name: string
   role: string
   company: string
   content: string
-  avatar?: string
 }
 
-const testimonials: Testimonial[] = [
-  {
-    id: 1,
-    name: 'Sarah Johnson',
-    role: 'CEO',
-    company: 'TechStart Inc',
-    content: 'This product has completely transformed how we work. The results speak for themselves.',
-  },
-  {
-    id: 2,
-    name: 'Michael Chen',
-    role: 'CTO',
-    company: 'Innovation Labs',
-    content: 'Outstanding service and support. Our team productivity has increased by 40%.',
-  },
-  {
-    id: 3,
-    name: 'Emily Rodriguez',
-    role: 'Product Manager',
-    company: 'Digital Solutions',
-    content: 'Best investment we made this year. Highly recommend to any growing business.',
-  },
+interface TestimonialsProps {
+  heading?: string
+  subheading?: string
+  testimonials: Testimonial[]
+}
+
+type BrandType = {
+  name: string
+  logo: IconType
+}
+
+const Brands: BrandType[] = [
+  { name: "Apple", logo: FaApple },
+  { name: "Microsoft", logo: FaMicrosoft },
+  { name: "Google", logo: FaGoogle },
+  { name: "Amazon", logo: FaAmazon },
+  { name: "Facebook", logo: FaFacebook },
+  { name: "Twitter", logo: FaTwitter },
+  { name: "LinkedIn", logo: FaLinkedin },
+  { name: "Instagram", logo: FaInstagram },
 ]
 
-export default function Testimonials() {
+const BrandCard: React.FC<{
+  brand: BrandType
+  onHover: (isHovered: boolean) => void
+  className?: string
+}> = React.memo(({ brand, onHover, className }) => (
+  <motion.div
+    className={`flex-shrink-0 w-auto rounded-xl overflow-hidden flex flex-col items-start justify-center p-6 glass border-glow-hover transition-all duration-300 ${className}`}
+    initial={{ opacity: 0, scale: 0.9 }}
+    animate={{ opacity: 1, scale: 1 }}
+    exit={{ opacity: 0, scale: 0.9 }}
+    transition={{ duration: 0.3 }}
+    onMouseEnter={() => onHover(true)}
+    onMouseLeave={() => onHover(false)}
+  >
+    <div className="flex items-center space-x-3">
+      {React.createElement(brand.logo, { className: "text-3xl text-foreground" })}
+      <h3 className="text-lg font-semibold text-foreground">{brand.name}</h3>
+    </div>
+  </motion.div>
+))
+
+BrandCard.displayName = "BrandCard"
+
+const useMediaQuery = (query: string) => {
+  const [matches, setMatches] = useState(false)
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const media = window.matchMedia(query)
+      setMatches(media.matches)
+
+      const listener = () => setMatches(media.matches)
+      media.addEventListener("change", listener)
+
+      return () => media.removeEventListener("change", listener)
+    }
+  }, [query])
+
+  return matches
+}
+
+export default function Testimonials({ heading = 'What Our Customers Say', subheading = "Don't just take our word for it", testimonials }: TestimonialsProps) {
   const [currentIndex, setCurrentIndex] = useState(0)
+  const isMobile = useMediaQuery("(max-width: 768px)")
+  const [scrollPosition, setScrollPosition] = useState(0)
+  const [isPaused, setIsPaused] = useState(false)
+
+  const scrollSpeed = 0.1
+  const scrollInterval = 30
+  const effectiveScrollSpeed = isMobile ? scrollSpeed * 2 : scrollSpeed
+  const effectiveScrollInterval = isMobile ? scrollInterval / 2 : scrollInterval
+
+  useEffect(() => {
+    let interval: NodeJS.Timeout
+
+    if (!isPaused) {
+      interval = setInterval(() => {
+        setScrollPosition(
+          (prevPosition) => (prevPosition + effectiveScrollSpeed) % 100
+        )
+      }, effectiveScrollInterval)
+    }
+
+    return () => clearInterval(interval)
+  }, [isPaused, effectiveScrollSpeed, effectiveScrollInterval])
+
+  const handleHover = (isHovered: boolean) => {
+    setIsPaused(isHovered)
+  }
 
   const next = () => {
     setCurrentIndex((prev) => (prev + 1) % testimonials.length)
@@ -49,13 +123,15 @@ export default function Testimonials() {
   }
 
   return (
-    <section className="py-16 px-6 bg-gradient-radial-primary">
+    <section className="h-dvh px-6 bg-gradient-radial-primary flex items-center justify-center snap-start snap-always">
       <div className="max-w-6xl mx-auto space-y-12">
         <div className="text-center space-y-4">
-          <h2 className="text-4xl font-bold">What Our Customers Say</h2>
-          <p className="text-muted-foreground text-lg">
-            Don't just take our word for it
-          </p>
+          <h2 className="text-4xl font-bold">{heading}</h2>
+          {subheading && (
+            <p className="text-muted-foreground text-lg">
+              {subheading}
+            </p>
+          )}
         </div>
 
         <div className="relative max-w-4xl mx-auto space-y-8">
@@ -115,6 +191,38 @@ export default function Testimonials() {
             >
               <ChevronRight className="w-5 h-5" />
             </button>
+          </div>
+        </div>
+
+        {/* Brands Section */}
+        <div className="max-w-7xl mx-auto space-y-6 mt-16">
+          <div className="text-center">
+            <p className="text-muted-foreground text-sm uppercase tracking-wider">
+              Trusted by industry leaders
+            </p>
+          </div>
+          <div className="relative">
+            <div
+              className="relative overflow-hidden rounded-xl"
+              style={{
+                maskImage:
+                  "linear-gradient(to right, transparent, white 10%, white 90%, transparent)",
+                WebkitMaskImage:
+                  "linear-gradient(to right, transparent, white 10%, white 90%, transparent)",
+              }}
+            >
+              <AnimatePresence>
+                <motion.div
+                  className="flex space-x-6"
+                  style={{ transform: `translateX(-${scrollPosition}%)` }}
+                  transition={{ duration: 0.5 }}
+                >
+                  {Brands.concat(Brands).map((brand, index) => (
+                    <BrandCard key={index} brand={brand} onHover={handleHover} />
+                  ))}
+                </motion.div>
+              </AnimatePresence>
+            </div>
           </div>
         </div>
       </div>

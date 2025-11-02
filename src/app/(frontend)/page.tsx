@@ -1,18 +1,63 @@
-"use client"
-
 import React from 'react'
 import './globals.css'
 import DarkVeil from '@/components/DarkVeil'
-import MagicBento from '@/components/MagicBento'
+import FeatureShowcase from '@/components/FeatureShowcase'
 import Testimonials from '@/components/Testimonials'
 import FAQ from '@/components/FAQ'
 import { TextReveal } from '@/components/ui/text-reveal'
+import { getPayload } from 'payload'
+import config from '@/payload.config'
+import { BrandIcon } from '@/components/BrandIcon'
 
-export default function HomePage() {
+export default async function HomePage() {
+  const payload = await getPayload({ config })
+
+  const [branding, featuresContent, homepageContent, testimonialsContent, faqContent] = await Promise.all([
+    payload.findGlobal({ slug: 'site-branding' }),
+    payload.findGlobal({ slug: 'features-content' }),
+    payload.findGlobal({ slug: 'homepage' }),
+    payload.findGlobal({ slug: 'testimonials-content' }),
+    payload.findGlobal({ slug: 'faq-content' }),
+  ])
+
+  // Branding
+  const logoIcon = branding?.logoIcon || 'react'
+  const logoText = branding?.logoText || 'Your Company'
+  const companyName = branding?.companyName || 'Your Company'
+
+  // Hero Section
+  const heroHeading = homepageContent?.heroHeading || 'Build Something Amazing'
+  const heroSubheading = homepageContent?.heroSubheading || 'The modern platform for businesses'
+  const heroPrimaryButtonText = homepageContent?.heroPrimaryButtonText || 'Get Started'
+  const heroPrimaryButtonLink = homepageContent?.heroPrimaryButtonLink || '#'
+  const heroSecondaryButtonText = homepageContent?.heroSecondaryButtonText || 'Learn More'
+  const heroSecondaryButtonLink = homepageContent?.heroSecondaryButtonLink || '#'
+
+  // Features Section
+  const featuresHeading = featuresContent?.heading || 'Powerful Features'
+  const featuresSubheading = featuresContent?.subheading || 'Everything you need to succeed'
+  const features = featuresContent?.features || []
+
+  // CTA Section
+  const ctaHeading = homepageContent?.ctaHeading || 'Ready to get started?'
+  const ctaDescription = homepageContent?.ctaDescription || 'Join thousands of teams'
+  const ctaButtonText = homepageContent?.ctaButtonText || 'Start Free Trial'
+  const ctaButtonLink = homepageContent?.ctaButtonLink || '#'
+
+  // Testimonials Section
+  const testimonialsHeading = testimonialsContent?.heading || 'What Our Clients Say'
+  const testimonialsSubheading = testimonialsContent?.subheading
+  const testimonials = testimonialsContent?.testimonials || []
+
+  // FAQ Section
+  const faqHeading = faqContent?.heading || 'Frequently Asked Questions'
+  const faqSubheading = faqContent?.subheading
+  const faqs = faqContent?.faqs || []
+
   return (
-    <div className="min-h-dvh space-y-16">
+    <div className="min-h-dvh snap-y snap-mandatory overflow-y-scroll h-dvh">
       {/* Hero Section with DarkVeil Background */}
-      <section className="relative min-h-dvh flex items-center justify-center bg-gradient-to-br from-[oklch(0.15_0.15_265)] via-[oklch(0.08_0.05_265)] to-background pt-40 md:pt-52 lg:pt-64">
+      <section className="relative h-dvh flex items-end pb-32 md:pb-40 justify-center bg-gradient-to-br from-[oklch(0.15_0.15_265)] via-[oklch(0.08_0.05_265)] to-background snap-start snap-always">
         <div className="absolute inset-0 w-full h-full">
           <DarkVeil
             hueShift={27}
@@ -26,71 +71,81 @@ export default function HomePage() {
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-6 text-center space-y-8">
+          {/* Combined Logo: Icon + Text */}
+          <div className="flex items-center justify-center gap-6 md:gap-8 lg:gap-10 mb-12">
+            <BrandIcon iconName={logoIcon} size="clamp(4rem, 6vw, 6.5rem)" />
+            <h2 className="text-5xl md:text-7xl lg:text-8xl font-bold text-foreground">
+              {logoText}
+            </h2>
+          </div>
+
           <h1 className="text-5xl md:text-7xl font-bold text-foreground">
             <TextReveal split="word" delay={0.15} duration={0.8} from="bottom" blur={10}>
-              Build Something Amazing
+              {heroHeading}
             </TextReveal>
           </h1>
-          <p className="text-xl md:text-2xl text-muted-foreground mx-auto leading-relaxed">
-            The modern platform for businesses that want to scale fast and build better products
-          </p>
+          <div className="text-xl md:text-2xl text-muted-foreground mx-auto leading-relaxed">
+            <TextReveal split="word" delay={0.05} duration={0.4} from="bottom" blur={8}>
+              {heroSubheading}
+            </TextReveal>
+          </div>
           <div className="flex gap-6 justify-center flex-wrap">
-            <button className="px-12 py-4 bg-primary text-primary-foreground rounded-xl text-lg font-semibold hover:bg-primary/90 transition-all duration-300 hover:scale-105 glow-primary border border-primary/20">
-              Get Started
-            </button>
-            <button className="px-12 py-4 glass text-foreground rounded-xl text-lg font-semibold hover:border-primary/40 transition-all duration-300 border-glow-hover">
-              Learn More
-            </button>
+            <a href={heroPrimaryButtonLink} className="px-12 py-4 bg-primary text-primary-foreground rounded-xl text-lg font-semibold hover:bg-primary/90 transition-all duration-300 hover:scale-105 glow-primary border border-primary/20">
+              {heroPrimaryButtonText}
+            </a>
+            <a href={heroSecondaryButtonLink} className="px-12 py-4 glass text-foreground rounded-xl text-lg font-semibold hover:border-primary/40 transition-all duration-300 border-glow-hover">
+              {heroSecondaryButtonText}
+            </a>
           </div>
         </div>
       </section>
 
-      {/* Features Section with MagicBento */}
-      <section className="py-16 px-6 bg-background flex items-center justify-center">
-        <div className="max-w-7xl mx-auto space-y-12">
-          <div className="text-center space-y-4">
-            <h2 className="text-4xl font-bold">Powerful Features</h2>
-            <p className="text-muted-foreground text-lg">
-              Everything you need to succeed
-            </p>
-          </div>
-          <MagicBento
-            textAutoHide={true}
-            enableStars={true}
-            enableSpotlight={true}
-            enableBorderGlow={true}
-            disableAnimations={false}
-            spotlightRadius={300}
-            particleCount={12}
-            enableTilt={false}
-            clickEffect={true}
-            enableMagnetism={true}
-          />
-        </div>
+      {/* Features Section */}
+      <section className="min-h-dvh px-6 py-20 bg-background flex items-center justify-center snap-start snap-always">
+        <FeatureShowcase
+          heading={featuresHeading}
+          subheading={featuresSubheading}
+          features={features}
+        />
       </section>
 
       {/* Testimonials Section */}
-      <Testimonials />
+      <Testimonials
+        heading={testimonialsHeading}
+        subheading={testimonialsSubheading}
+        testimonials={testimonials}
+      />
 
       {/* FAQ Section */}
-      <FAQ />
+      <FAQ
+        heading={faqHeading}
+        subheading={faqSubheading}
+        faqs={faqs}
+      />
 
       {/* CTA Section */}
-      <section className="py-16 px-6 bg-gradient-radial-accent">
+      <section className="h-dvh px-6 bg-gradient-radial-accent flex items-center justify-center snap-start snap-always">
         <div className="max-w-4xl mx-auto text-center space-y-8">
-          <h2 className="text-4xl font-bold">Ready to get started?</h2>
+          <h2 className="text-4xl font-bold">{ctaHeading}</h2>
           <p className="text-xl text-muted-foreground">
-            Join thousands of teams already building with us
+            {ctaDescription}
           </p>
-          <button className="px-12 py-6 bg-primary text-primary-foreground rounded-xl text-lg font-semibold hover:bg-primary/90 transition-all duration-300 hover:scale-105 glow-primary border border-primary/20">
-            Start Free Trial
-          </button>
+          <a href={ctaButtonLink} className="inline-block px-12 py-6 bg-primary text-primary-foreground rounded-xl text-lg font-semibold hover:bg-primary/90 transition-all duration-300 hover:scale-105 glow-primary border border-primary/20">
+            {ctaButtonText}
+          </a>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-border py-16 px-6">
+      <footer className="min-h-dvh border-t border-border py-16 px-6 flex items-center justify-center snap-start snap-always">
         <div className="max-w-6xl mx-auto space-y-12">
+        {/* Logo: Icon + Text */}
+        <div className="flex items-center justify-center gap-5 md:gap-6 lg:gap-8 pb-8">
+          <BrandIcon iconName={logoIcon} size="clamp(2.5rem, 4vw, 4rem)" />
+          <h3 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground">
+            {logoText}
+          </h3>
+        </div>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
           <div className="space-y-4">
             <h3 className="font-bold">Product</h3>
@@ -126,7 +181,7 @@ export default function HomePage() {
           </div>
         </div>
         <div className="pt-12 border-t border-border text-center text-muted-foreground">
-          <p>&copy; 2025 Your Company. All rights reserved.</p>
+          <p>&copy; 2025 {companyName}. All rights reserved.</p>
         </div>
         </div>
       </footer>

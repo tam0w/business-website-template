@@ -93,12 +93,20 @@ export interface Config {
     'careers-page': CareersPage;
     homepage: Homepage;
     'site-labels': SiteLabel;
+    'site-branding': SiteBranding;
+    'features-content': FeaturesContent;
+    'testimonials-content': TestimonialsContent;
+    'faq-content': FaqContent;
   };
   globalsSelect: {
     'blog-page': BlogPageSelect<false> | BlogPageSelect<true>;
     'careers-page': CareersPageSelect<false> | CareersPageSelect<true>;
     homepage: HomepageSelect<false> | HomepageSelect<true>;
     'site-labels': SiteLabelsSelect<false> | SiteLabelsSelect<true>;
+    'site-branding': SiteBrandingSelect<false> | SiteBrandingSelect<true>;
+    'features-content': FeaturesContentSelect<false> | FeaturesContentSelect<true>;
+    'testimonials-content': TestimonialsContentSelect<false> | TestimonialsContentSelect<true>;
+    'faq-content': FaqContentSelect<false> | FaqContentSelect<true>;
   };
   locale: null;
   user: User & {
@@ -642,13 +650,25 @@ export interface Homepage {
    */
   heroHeading: string;
   /**
-   * Optional subheading text below the main hero heading
+   * Subheading text below the main hero heading
    */
-  heroSubheading?: string | null;
+  heroSubheading: string;
   /**
-   * Optional hero background or featured image
+   * Text for the primary CTA button
    */
-  heroImage?: (number | null) | Media;
+  heroPrimaryButtonText: string;
+  /**
+   * Link for the primary CTA button
+   */
+  heroPrimaryButtonLink?: string | null;
+  /**
+   * Text for the secondary CTA button
+   */
+  heroSecondaryButtonText: string;
+  /**
+   * Link for the secondary CTA button
+   */
+  heroSecondaryButtonLink?: string | null;
   /**
    * Greeting text shown to logged-in users (email will be appended automatically)
    */
@@ -656,15 +676,15 @@ export interface Homepage {
   /**
    * Call-to-action heading
    */
-  ctaHeading?: string | null;
+  ctaHeading: string;
   /**
    * Call-to-action description text
    */
-  ctaDescription?: string | null;
+  ctaDescription: string;
   /**
    * Text for the CTA button
    */
-  ctaButtonText?: string | null;
+  ctaButtonText: string;
   /**
    * URL for the CTA button
    */
@@ -712,6 +732,138 @@ export interface SiteLabel {
   createdAt?: string | null;
 }
 /**
+ * Manage your site logo and branding assets
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "site-branding".
+ */
+export interface SiteBranding {
+  id: number;
+  /**
+   * Font Awesome brand icon name (e.g., "react", "apple", "google", "stripe"). Find icons at fontawesome.com/icons
+   */
+  logoIcon: string;
+  /**
+   * Text to display next to the logo icon
+   */
+  logoText: string;
+  /**
+   * Full company name for metadata and copyright
+   */
+  companyName: string;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * Manage the features section content on your landing page
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "features-content".
+ */
+export interface FeaturesContent {
+  id: number;
+  /**
+   * Main heading for the features section
+   */
+  heading: string;
+  /**
+   * Subheading text below the main heading
+   */
+  subheading: string;
+  /**
+   * List of features to display (3-6 features recommended)
+   */
+  features: {
+    /**
+     * Title of the feature
+     */
+    title: string;
+    /**
+     * Brief description of the feature
+     */
+    description: string;
+    /**
+     * Choose the SVG illustration style for this feature
+     */
+    illustration: 'lightning' | 'shield' | 'layers' | 'branches' | 'sparkles' | 'rocket';
+    /**
+     * Icon to display in the badge (Lucide icon name)
+     */
+    icon:
+      | 'Zap'
+      | 'Shield'
+      | 'Layers'
+      | 'GitBranch'
+      | 'Sparkles'
+      | 'Rocket'
+      | 'Lock'
+      | 'Database'
+      | 'Cloud'
+      | 'Code'
+      | 'Globe'
+      | 'Settings';
+    id?: string | null;
+  }[];
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * Manage testimonials displayed on your website
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "testimonials-content".
+ */
+export interface TestimonialsContent {
+  id: number;
+  /**
+   * Main heading for the testimonials section
+   */
+  heading: string;
+  /**
+   * Subheading text below the main heading
+   */
+  subheading?: string | null;
+  /**
+   * List of customer testimonials
+   */
+  testimonials: {
+    name: string;
+    role: string;
+    company: string;
+    content: string;
+    id?: string | null;
+  }[];
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * Manage frequently asked questions on your website
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "faq-content".
+ */
+export interface FaqContent {
+  id: number;
+  /**
+   * Main heading for the FAQ section
+   */
+  heading: string;
+  /**
+   * Subheading text below the main heading
+   */
+  subheading?: string | null;
+  /**
+   * List of frequently asked questions and answers
+   */
+  faqs: {
+    question: string;
+    answer: string;
+    id?: string | null;
+  }[];
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "blog-page_select".
  */
@@ -746,7 +898,10 @@ export interface CareersPageSelect<T extends boolean = true> {
 export interface HomepageSelect<T extends boolean = true> {
   heroHeading?: T;
   heroSubheading?: T;
-  heroImage?: T;
+  heroPrimaryButtonText?: T;
+  heroPrimaryButtonLink?: T;
+  heroSecondaryButtonText?: T;
+  heroSecondaryButtonLink?: T;
   loggedInGreeting?: T;
   ctaHeading?: T;
   ctaDescription?: T;
@@ -768,6 +923,76 @@ export interface SiteLabelsSelect<T extends boolean = true> {
   authorFallback?: T;
   noExcerptFallback?: T;
   noImageFallback?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "site-branding_select".
+ */
+export interface SiteBrandingSelect<T extends boolean = true> {
+  logoIcon?: T;
+  logoText?: T;
+  companyName?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "features-content_select".
+ */
+export interface FeaturesContentSelect<T extends boolean = true> {
+  heading?: T;
+  subheading?: T;
+  features?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        illustration?: T;
+        icon?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "testimonials-content_select".
+ */
+export interface TestimonialsContentSelect<T extends boolean = true> {
+  heading?: T;
+  subheading?: T;
+  testimonials?:
+    | T
+    | {
+        name?: T;
+        role?: T;
+        company?: T;
+        content?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "faq-content_select".
+ */
+export interface FaqContentSelect<T extends boolean = true> {
+  heading?: T;
+  subheading?: T;
+  faqs?:
+    | T
+    | {
+        question?: T;
+        answer?: T;
+        id?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

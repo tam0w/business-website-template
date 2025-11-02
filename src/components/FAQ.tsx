@@ -13,42 +13,23 @@ interface FAQItem {
   answer: string
 }
 
-const faqs: FAQItem[] = [
-  {
-    question: 'How does the pricing work?',
-    answer: 'We offer flexible pricing plans to suit businesses of all sizes. Contact our sales team for a custom quote tailored to your specific needs.',
-  },
-  {
-    question: 'What kind of support do you provide?',
-    answer: 'We provide 24/7 customer support via email, chat, and phone. Our dedicated support team is always ready to help you succeed.',
-  },
-  {
-    question: 'Can I cancel my subscription at any time?',
-    answer: 'Yes, you can cancel your subscription at any time with no penalties. We believe in earning your business every month.',
-  },
-  {
-    question: 'Is my data secure?',
-    answer: 'Absolutely. We use enterprise-grade encryption and security measures to protect your data. Our platform is SOC 2 compliant and regularly audited.',
-  },
-  {
-    question: 'Do you offer integrations with other tools?',
-    answer: 'Yes, we integrate with over 100+ popular tools and platforms. Our API also allows for custom integrations to fit your workflow.',
-  },
-  {
-    question: 'How long does implementation take?',
-    answer: 'Most customers are up and running within 24 hours. Our onboarding team will guide you through every step of the process.',
-  },
-]
+interface FAQProps {
+  heading?: string
+  subheading?: string
+  faqs: FAQItem[]
+}
 
-export default function FAQ() {
+export default function FAQ({ heading = 'Frequently Asked Questions', subheading = 'Everything you need to know about our product', faqs }: FAQProps) {
   return (
-    <section className="py-16 px-6 bg-background">
+    <section className="h-dvh px-6 bg-background flex items-center justify-center snap-start snap-always">
       <div className="max-w-4xl mx-auto space-y-12">
         <div className="text-center space-y-4">
-          <h2 className="text-4xl font-bold">Frequently Asked Questions</h2>
-          <p className="text-muted-foreground text-lg">
-            Everything you need to know about our product
-          </p>
+          <h2 className="text-4xl font-bold">{heading}</h2>
+          {subheading && (
+            <p className="text-muted-foreground text-lg">
+              {subheading}
+            </p>
+          )}
         </div>
 
         <Accordion type="single" collapsible className="w-full space-y-6">
