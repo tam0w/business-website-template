@@ -70,6 +70,7 @@ export interface Config {
     users: User;
     media: Media;
     posts: Post;
+    careers: Career;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -79,6 +80,7 @@ export interface Config {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     posts: PostsSelect<false> | PostsSelect<true>;
+    careers: CareersSelect<false> | CareersSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -86,8 +88,18 @@ export interface Config {
   db: {
     defaultIDType: number;
   };
-  globals: {};
-  globalsSelect: {};
+  globals: {
+    'blog-page': BlogPage;
+    'careers-page': CareersPage;
+    homepage: Homepage;
+    'site-labels': SiteLabel;
+  };
+  globalsSelect: {
+    'blog-page': BlogPageSelect<false> | BlogPageSelect<true>;
+    'careers-page': CareersPageSelect<false> | CareersPageSelect<true>;
+    homepage: HomepageSelect<false> | HomepageSelect<true>;
+    'site-labels': SiteLabelsSelect<false> | SiteLabelsSelect<true>;
+  };
   locale: null;
   user: User & {
     collection: 'users';
@@ -121,9 +133,16 @@ export interface UserAuthOperations {
  */
 export interface User {
   id: number;
-  name?: string | null;
-  bio?: string | null;
+  name: string;
+  avatar?: (number | null) | Media;
   designation?: string | null;
+  bio?: string | null;
+  social?: {
+    twitter?: string | null;
+    linkedin?: string | null;
+    github?: string | null;
+    website?: string | null;
+  };
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -168,7 +187,13 @@ export interface Media {
 export interface Post {
   id: number;
   title: string;
-  subTitle: string;
+  slug: string;
+  subTitle?: string | null;
+  /**
+   * Short summary for blog listings. Auto-generated from content if empty.
+   */
+  excerpt?: string | null;
+  featuredImage?: (number | null) | Media;
   author: number | User;
   content: {
     root: {
@@ -185,9 +210,148 @@ export interface Post {
     };
     [k: string]: unknown;
   };
-  status?: ('draft' | 'published') | null;
+  tags?: string[] | null;
+  status: 'draft' | 'scheduled' | 'published';
+  /**
+   * Scheduled: set future date. Published: auto-set to now if empty.
+   */
+  publishedAt?: string | null;
+  seo?: {
+    /**
+     * Override the page title for search engines. Defaults to post title.
+     */
+    title?: string | null;
+    /**
+     * Override the meta description. Defaults to excerpt.
+     */
+    description?: string | null;
+  };
   updatedAt: string;
   createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "careers".
+ */
+export interface Career {
+  id: number;
+  title: string;
+  slug: string;
+  department: 'cybersecurity' | 'data-services' | 'engineering' | 'operations' | 'sales-marketing';
+  /**
+   * e.g., Remote, New York, NY, or Hybrid - San Francisco
+   */
+  location: string;
+  type: 'full-time' | 'part-time' | 'contract' | 'internship';
+  experienceLevel: 'entry' | 'mid' | 'senior' | 'lead';
+  remoteOption: 'remote' | 'onsite' | 'hybrid';
+  description: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  responsibilities: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  requirements: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  /**
+   * Optional qualifications or skills
+   */
+  niceToHave?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * Mark this position to appear in the featured jobs section
+   */
+  featured?: boolean | null;
+  clearanceRequired?: boolean | null;
+  /**
+   * e.g., Secret, Top Secret, etc.
+   */
+  clearanceDetails?: string | null;
+  salary: {
+    type: 'range' | 'fixed' | 'competitive';
+    currency?: ('USD' | 'EUR' | 'GBP' | 'INR') | null;
+    /**
+     * Minimum salary amount
+     */
+    min?: number | null;
+    /**
+     * Maximum salary amount
+     */
+    max?: number | null;
+    /**
+     * Fixed salary amount
+     */
+    amount?: number | null;
+  };
+  status: 'draft' | 'scheduled' | 'published' | 'closed';
+  /**
+   * Scheduled: set future date. Published: auto-set to now if empty.
+   */
+  publishedAt?: string | null;
+  seo?: {
+    /**
+     * Override the page title for search engines. Defaults to job title.
+     */
+    title?: string | null;
+    /**
+     * Override the meta description.
+     */
+    description?: string | null;
+  };
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -207,6 +371,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'posts';
         value: number | Post;
+      } | null)
+    | ({
+        relationTo: 'careers';
+        value: number | Career;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -256,8 +424,17 @@ export interface PayloadMigration {
  */
 export interface UsersSelect<T extends boolean = true> {
   name?: T;
-  bio?: T;
+  avatar?: T;
   designation?: T;
+  bio?: T;
+  social?:
+    | T
+    | {
+        twitter?: T;
+        linkedin?: T;
+        github?: T;
+        website?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
   email?: T;
@@ -299,12 +476,64 @@ export interface MediaSelect<T extends boolean = true> {
  */
 export interface PostsSelect<T extends boolean = true> {
   title?: T;
+  slug?: T;
   subTitle?: T;
+  excerpt?: T;
+  featuredImage?: T;
   author?: T;
   content?: T;
+  tags?: T;
   status?: T;
+  publishedAt?: T;
+  seo?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "careers_select".
+ */
+export interface CareersSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  department?: T;
+  location?: T;
+  type?: T;
+  experienceLevel?: T;
+  remoteOption?: T;
+  description?: T;
+  responsibilities?: T;
+  requirements?: T;
+  niceToHave?: T;
+  featured?: T;
+  clearanceRequired?: T;
+  clearanceDetails?: T;
+  salary?:
+    | T
+    | {
+        type?: T;
+        currency?: T;
+        min?: T;
+        max?: T;
+        amount?: T;
+      };
+  status?: T;
+  publishedAt?: T;
+  seo?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -337,6 +566,211 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   batch?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * Manage blog page headings, descriptions, and empty states
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "blog-page".
+ */
+export interface BlogPage {
+  id: number;
+  /**
+   * Main heading displayed at the top of the blog page
+   */
+  heading: string;
+  /**
+   * Subheading text below the main heading
+   */
+  description: string;
+  /**
+   * Title shown when there are no published posts
+   */
+  emptyStateTitle: string;
+  /**
+   * Description shown when there are no published posts
+   */
+  emptyStateDescription: string;
+  /**
+   * Text for the "read more" link on each blog post card
+   */
+  ctaText: string;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * Manage careers page headings, descriptions, and empty states
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "careers-page".
+ */
+export interface CareersPage {
+  id: number;
+  /**
+   * Main heading displayed at the top of the careers page
+   */
+  heading: string;
+  /**
+   * Subheading text below the main heading
+   */
+  description: string;
+  /**
+   * Title shown when there are no open positions
+   */
+  emptyStateTitle: string;
+  /**
+   * Description shown when there are no open positions
+   */
+  emptyStateDescription: string;
+  /**
+   * Text for the "view details" link on each career card
+   */
+  ctaText: string;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * Manage homepage hero section and welcome messages
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "homepage".
+ */
+export interface Homepage {
+  id: number;
+  /**
+   * Main heading shown on the homepage
+   */
+  heroHeading: string;
+  /**
+   * Optional subheading text below the main hero heading
+   */
+  heroSubheading?: string | null;
+  /**
+   * Optional hero background or featured image
+   */
+  heroImage?: (number | null) | Media;
+  /**
+   * Greeting text shown to logged-in users (email will be appended automatically)
+   */
+  loggedInGreeting: string;
+  /**
+   * Call-to-action heading
+   */
+  ctaHeading?: string | null;
+  /**
+   * Call-to-action description text
+   */
+  ctaDescription?: string | null;
+  /**
+   * Text for the CTA button
+   */
+  ctaButtonText?: string | null;
+  /**
+   * URL for the CTA button
+   */
+  ctaButtonLink?: string | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * Manage reusable labels, button text, and fallback messages used throughout the site
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "site-labels".
+ */
+export interface SiteLabel {
+  id: number;
+  /**
+   * Generic "read more" link text
+   */
+  readMore: string;
+  /**
+   * Generic "learn more" link text
+   */
+  learnMore: string;
+  /**
+   * Loading state text
+   */
+  loading: string;
+  /**
+   * Generic "view details" link text
+   */
+  viewDetails: string;
+  /**
+   * Default author name when author is missing
+   */
+  authorFallback: string;
+  /**
+   * Message shown when blog post has no excerpt
+   */
+  noExcerptFallback: string;
+  /**
+   * Alt text for placeholder images
+   */
+  noImageFallback: string;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "blog-page_select".
+ */
+export interface BlogPageSelect<T extends boolean = true> {
+  heading?: T;
+  description?: T;
+  emptyStateTitle?: T;
+  emptyStateDescription?: T;
+  ctaText?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "careers-page_select".
+ */
+export interface CareersPageSelect<T extends boolean = true> {
+  heading?: T;
+  description?: T;
+  emptyStateTitle?: T;
+  emptyStateDescription?: T;
+  ctaText?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "homepage_select".
+ */
+export interface HomepageSelect<T extends boolean = true> {
+  heroHeading?: T;
+  heroSubheading?: T;
+  heroImage?: T;
+  loggedInGreeting?: T;
+  ctaHeading?: T;
+  ctaDescription?: T;
+  ctaButtonText?: T;
+  ctaButtonLink?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "site-labels_select".
+ */
+export interface SiteLabelsSelect<T extends boolean = true> {
+  readMore?: T;
+  learnMore?: T;
+  loading?: T;
+  viewDetails?: T;
+  authorFallback?: T;
+  noExcerptFallback?: T;
+  noImageFallback?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

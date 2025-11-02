@@ -1,67 +1,180 @@
-# Payload Blank Template
+# Seerah
 
-This template comes configured with the bare minimum to get started on anything you need.
+A modern, production-ready blog and marketing website template built with Payload CMS. Perfect for businesses, startups, and organizations looking to launch a content-driven website with an integrated blog and careers section.
 
-## Quick start
+## Features
 
-This template can be deployed directly from our Cloud hosting and it will setup MongoDB and cloud S3 object storage for media.
+- **Headless CMS**: Powered by Payload CMS for flexible content management
+- **Blog System**: Full-featured blog with posts, author profiles, and rich text editing
+- **Careers Portal**: Built-in job postings and careers management system
+- **Content-First Architecture**: All content stored in CMS globals - no hardcoded copy
+- **Design System**: Built on shadcn/ui with consistent, customizable components
+- **Modern Stack**: Next.js 15, React 19, TypeScript, and Tailwind CSS 4
+- **Responsive Design**: Desktop-first design that works beautifully on all devices
+- **Zero Configuration Database**: Uses SQLite for instant setup with no external dependencies
 
-## Quick Start - local setup
+## Quick Start
 
-To spin up this template locally, follow these steps:
+### Prerequisites
 
-### Clone
-
-After you click the `Deploy` button above, you'll want to have standalone copy of this repo on your machine. If you've already cloned this repo, skip to [Development](#development).
+- Node.js 18.20.2+ or 20.9.0+
+- pnpm 9 or 10
 
 ### Development
 
-1. First [clone the repo](#clone) if you have not done so already
-2. `cd my-project && cp .env.example .env` to copy the example environment variables. You'll need to add the `MONGODB_URI` from your Cloud project to your `.env` if you want to use S3 storage and the MongoDB database that was created for you.
+1. Clone this repository:
+   ```bash
+   git clone <your-repo-url>
+   cd seerah
+   ```
 
-3. `pnpm install && pnpm dev` to install dependencies and start the dev server
-4. open `http://localhost:3000` to open the app in your browser
+2. Copy environment variables:
+   ```bash
+   cp .env.example .env
+   ```
 
-That's it! Changes made in `./src` will be reflected in your app. Follow the on-screen instructions to login and create your first admin user. Then check out [Production](#production) once you're ready to build and serve your app, and [Deployment](#deployment) when you're ready to go live.
+3. Configure your environment variables in `.env`:
+   ```
+   DATABASE_URI=file:./seerah.db
+   PAYLOAD_SECRET=your-secret-here
+   ```
 
-#### Docker (Optional)
+4. Install dependencies:
+   ```bash
+   pnpm install
+   ```
 
-If you prefer to use Docker for local development instead of a local MongoDB instance, the provided docker-compose.yml file can be used.
+5. Seed the database with initial content (optional):
+   ```bash
+   pnpm seed:globals
+   ```
 
-To do so, follow these steps:
+6. Start the development server:
+   ```bash
+   pnpm dev
+   ```
 
-- Modify the `MONGODB_URI` in your `.env` file to `mongodb://127.0.0.1/<dbname>`
-- Modify the `docker-compose.yml` file's `MONGODB_URI` to match the above `<dbname>`
-- Run `docker-compose up` to start the database, optionally pass `-d` to run in the background.
+7. Open `http://localhost:3000` in your browser
 
-## How it works
+8. Access the admin panel at `http://localhost:3000/admin` and create your first admin user
 
-The Payload config is tailored specifically to the needs of most websites. It is pre-configured in the following ways:
+Changes made in `./src` will be reflected in your app automatically thanks to Next.js hot reload.
+
+### Building for Production
+
+```bash
+pnpm build
+pnpm start
+```
+
+## Project Structure
 
 ### Collections
 
-See the [Collections](https://payloadcms.com/docs/configuration/collections) docs for details on how to extend this functionality.
+Payload collections for managing structured content:
 
-- #### Users (Authentication)
+- **Users** - Admin authentication and user management
+- **Posts** - Blog posts with rich text content, author info, and metadata
+- **Careers** - Job postings with descriptions, requirements, and application info
+- **Media** - File uploads with automatic image optimization
 
-  Users are auth-enabled collections that have access to the admin panel.
+### Globals
 
-  For additional help, see the official [Auth Example](https://github.com/payloadcms/payload/tree/main/examples/auth) or the [Authentication](https://payloadcms.com/docs/authentication/overview#authentication-overview) docs.
+Site-wide content managed through Payload globals:
 
-- #### Media
+- **Homepage** - Landing page content and hero sections
+- **BlogPage** - Blog listing page configuration
+- **CareersPage** - Careers page content and settings
+- **SiteLabels** - Reusable labels, headings, and copy across the site
 
-  This is the uploads enabled collection. It features pre-configured sizes, focal point and manual resizing to help you manage your pictures.
+All content is fetched dynamically using `payload.findGlobal()` - see `CMS_AGENT_INSTRUCTIONS.md` for implementation details.
 
-### Docker
+### Frontend Structure
 
-Alternatively, you can use [Docker](https://www.docker.com) to spin up this template locally. To do so, follow these steps:
+```
+src/
+├── app/(frontend)/        # Next.js app routes
+│   ├── blog/             # Blog pages
+│   ├── careers/          # Careers pages
+│   └── design-system/    # Component showcase
+├── collections/          # Payload CMS collections
+├── globals/              # Payload CMS globals
+├── components/           # React components
+│   ├── blog/            # Blog-specific components
+│   ├── careers/         # Careers-specific components
+│   └── ui/              # shadcn/ui components
+└── lib/                 # Utilities and helpers
+```
 
-1. Follow [steps 1 and 2 from above](#development), the docker-compose file will automatically use the `.env` file in your project root
-1. Next run `docker-compose up`
-1. Follow [steps 4 and 5 from above](#development) to login and create your first admin user
+## Technology Stack
 
-That's it! The Docker instance will help you get up and running quickly while also standardizing the development environment across your teams.
+- **Framework**: Next.js 15 (React 19)
+- **Language**: TypeScript 5.7
+- **CMS**: Payload CMS 3.60
+- **Database**: SQLite (via @payloadcms/db-sqlite)
+- **Styling**: Tailwind CSS 4
+- **UI Components**: shadcn/ui (Radix UI primitives)
+- **Rich Text**: Lexical editor
+- **Package Manager**: pnpm
+- **Testing**: Vitest + Playwright
 
-## Questions
+## Customization
 
-If you have any issues or questions, reach out to us on [Discord](https://discord.com/invite/payload) or start a [GitHub discussion](https://github.com/payloadcms/payload/discussions).
+### Design System
+
+All UI components are based on shadcn/ui and use Tailwind CSS variables for theming. Modify `src/app/(frontend)/globals.css` to customize:
+
+- Color palette
+- Typography
+- Spacing
+- Border radius
+- Animations
+
+### Content Management
+
+Content is managed through Payload CMS. To add new content types:
+
+1. Create a new collection in `src/collections/`
+2. Add it to `payload.config.ts`
+3. Run `pnpm generate:types` to update TypeScript types
+
+For global content sections:
+
+1. Create a new global in `src/globals/`
+2. Add it to `payload.config.ts`
+3. Fetch using `payload.findGlobal('your-global-name')`
+
+## Scripts
+
+- `pnpm dev` - Start development server
+- `pnpm build` - Build for production
+- `pnpm start` - Start production server
+- `pnpm lint` - Run ESLint
+- `pnpm generate:types` - Generate TypeScript types from Payload config
+- `pnpm seed:globals` - Seed database with initial global content
+- `pnpm test` - Run all tests
+- `pnpm test:e2e` - Run end-to-end tests
+- `pnpm test:int` - Run integration tests
+
+## Deployment
+
+This template can be deployed to any platform that supports Next.js:
+
+- **Vercel** (recommended): Zero-config deployment with automatic HTTPS
+- **Cloudflare Workers**: Deploy on Cloudflare's edge network with Pages
+- **Payload Cloud**: Optimized hosting for Payload CMS projects
+- **Docker**: Build and deploy using containers
+- **VPS/Cloud**: Deploy to any server with Node.js support
+
+The SQLite database makes deployment simple - just deploy the entire project including the `.db` file, or use Payload Cloud for managed hosting. For Cloudflare Workers, you can use Cloudflare D1 or persist the SQLite database with Cloudflare R2.
+
+## Resources
+
+- [Payload CMS Documentation](https://payloadcms.com/docs)
+- [Next.js Documentation](https://nextjs.org/docs)
+- [Tailwind CSS Documentation](https://tailwindcss.com/docs)
+- [shadcn/ui Documentation](https://ui.shadcn.com)
+
+## License
+
+MIT

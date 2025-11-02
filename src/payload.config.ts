@@ -11,6 +11,11 @@ import sharp from 'sharp'
 import { Users } from './collections/Users'
 import { Media } from './collections/Media'
 import { Posts } from './collections/Posts'
+import { Careers } from './collections/Careers'
+import { BlogPage } from './globals/BlogPage'
+import { CareersPage } from './globals/CareersPage'
+import { Homepage } from './globals/Homepage'
+import { SiteLabels } from './globals/SiteLabels'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -22,7 +27,8 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Media, Posts],
+  collections: [Users, Media, Posts, Careers],
+  globals: [BlogPage, CareersPage, Homepage, SiteLabels],
   editor: lexicalEditor({
     admin: {
       placeholder: "Type your post content here.. use / for text formatting"
