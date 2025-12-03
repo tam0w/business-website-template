@@ -55,61 +55,82 @@
     --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
     --color-sidebar-border: var(--sidebar-border);
     --color-sidebar-ring: var(--sidebar-ring);
+
+    /* New Enrich Design System Colors */
+    --color-enrich-primary: #0A1628;
+    --color-enrich-secondary: #0070B3;
+    --color-enrich-white: #EDEDED;
+    --color-enrich-gray: #666666;
+    --color-enrich-light-gray: #F5F5F5;
+
+    /* Font Families */
+    --font-sora: 'Sora', ui-sans-serif, system-ui, sans-serif;
+    --font-dm-sans: 'DM Sans', ui-sans-serif, system-ui, sans-serif;
 }
 
 :root {
-    /* Futuristic Dark Theme - Blue & Black */
-    --background: oklch(0.08 0.01 265);
-    --foreground: oklch(0.98 0.01 265);
+    /* New Enrich Theme - Light Mode */
+    --background: #ffffff;
+    --foreground: #0A1628;
 
-    /* Cards with subtle blue tint */
-    --card: oklch(0.12 0.02 265);
-    --card-foreground: oklch(0.98 0.01 265);
+    /* Cards */
+    --card: #ffffff;
+    --card-foreground: #0A1628;
 
     /* Popovers */
-    --popover: oklch(0.10 0.02 265);
-    --popover-foreground: oklch(0.98 0.01 265);
+    --popover: #ffffff;
+    --popover-foreground: #0A1628;
 
-    /* Electric Blue Primary */
-    --primary: oklch(0.55 0.25 265);
-    --primary-foreground: oklch(0.98 0.01 265);
+    /* Primary - Enrich Blue */
+    --primary: #0070B3;
+    --primary-foreground: #EDEDED;
 
-    /* Darker blue secondary */
-    --secondary: oklch(0.20 0.05 265);
-    --secondary-foreground: oklch(0.98 0.01 265);
+    /* Secondary */
+    --secondary: #F5F5F5;
+    --secondary-foreground: #0A1628;
 
-    /* Muted with blue undertone */
-    --muted: oklch(0.18 0.03 265);
-    --muted-foreground: oklch(0.65 0.02 265);
+    /* Muted */
+    --muted: #F5F5F5;
+    --muted-foreground: #666666;
 
-    /* Cyan accent */
-    --accent: oklch(0.65 0.20 210);
-    --accent-foreground: oklch(0.08 0.01 265);
+    /* Accent - Cyan */
+    --accent: #00A0FF;
+    --accent-foreground: #0A1628;
 
     /* Destructive red */
-    --destructive: oklch(0.60 0.25 25);
+    --destructive: #DC2626;
 
-    /* Borders with blue glow */
-    --border: oklch(0.25 0.08 265 / 40%);
-    --input: oklch(0.25 0.08 265 / 50%);
-    --ring: oklch(0.55 0.25 265);
+    /* Borders */
+    --border: #E5E5E5;
+    --input: #E5E5E5;
+    --ring: #0070B3;
 
-    /* Charts with blue spectrum */
-    --chart-1: oklch(0.55 0.25 265);
-    --chart-2: oklch(0.65 0.20 210);
-    --chart-3: oklch(0.50 0.18 280);
-    --chart-4: oklch(0.60 0.15 250);
-    --chart-5: oklch(0.45 0.20 290);
+    /* Charts */
+    --chart-1: #0070B3;
+    --chart-2: #00A0FF;
+    --chart-3: #0A1628;
+    --chart-4: #666666;
+    --chart-5: #EDEDED;
 
     /* Sidebar */
-    --sidebar: oklch(0.10 0.02 265);
-    --sidebar-foreground: oklch(0.98 0.01 265);
-    --sidebar-primary: oklch(0.55 0.25 265);
-    --sidebar-primary-foreground: oklch(0.98 0.01 265);
-    --sidebar-accent: oklch(0.18 0.03 265);
-    --sidebar-accent-foreground: oklch(0.98 0.01 265);
-    --sidebar-border: oklch(0.25 0.08 265 / 40%);
-    --sidebar-ring: oklch(0.55 0.25 265);
+    --sidebar: #0A1628;
+    --sidebar-foreground: #EDEDED;
+    --sidebar-primary: #0070B3;
+    --sidebar-primary-foreground: #EDEDED;
+    --sidebar-accent: #1A2A3D;
+    --sidebar-accent-foreground: #EDEDED;
+    --sidebar-border: rgba(237, 237, 237, 0.1);
+    --sidebar-ring: #0070B3;
+}
+
+/* Dark sections (Hero, etc.) */
+.dark-section {
+    --background: #0A1628;
+    --foreground: #EDEDED;
+    --card: #1A2A3D;
+    --card-foreground: #EDEDED;
+    --muted-foreground: #9CA3AF;
+    --border: rgba(237, 237, 237, 0.2);
 }
 
 @layer base {
@@ -118,12 +139,17 @@
     }
 
     html {
-        font-family: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+        font-family: var(--font-dm-sans);
     }
 
     body {
         @apply bg-background text-foreground;
-        font-family: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+        font-family: var(--font-dm-sans);
+    }
+
+    /* Headings use Sora */
+    h1, h2, h3, h4, h5, h6 {
+        font-family: var(--font-sora);
     }
 }
 
@@ -139,13 +165,13 @@
 
     /* Glow Effects */
     .glow-primary {
-        box-shadow: 0 0 20px oklch(0.55 0.25 265 / 30%),
-                    0 0 40px oklch(0.55 0.25 265 / 15%);
+        box-shadow: 0 0 20px rgba(0, 112, 179, 0.3),
+                    0 0 40px rgba(0, 112, 179, 0.15);
     }
 
     .glow-accent {
-        box-shadow: 0 0 20px oklch(0.65 0.20 210 / 30%),
-                    0 0 40px oklch(0.65 0.20 210 / 15%);
+        box-shadow: 0 0 20px rgba(0, 160, 255, 0.3),
+                    0 0 40px rgba(0, 160, 255, 0.15);
     }
 
     /* Border Glow on Hover */
@@ -154,24 +180,66 @@
     }
 
     .border-glow-hover:hover {
-        border-color: oklch(0.55 0.25 265 / 60%);
-        box-shadow: 0 0 20px oklch(0.55 0.25 265 / 20%),
-                    inset 0 0 20px oklch(0.55 0.25 265 / 10%);
+        border-color: rgba(0, 112, 179, 0.6);
+        box-shadow: 0 0 20px rgba(0, 112, 179, 0.2),
+                    inset 0 0 20px rgba(0, 112, 179, 0.1);
     }
 
     /* Glass Effect */
     .glass {
-        background: oklch(0.12 0.02 265 / 40%);
+        background: rgba(255, 255, 255, 0.1);
         backdrop-filter: blur(12px);
-        border: 1px solid oklch(0.25 0.08 265 / 40%);
+        border: 1px solid rgba(255, 255, 255, 0.2);
     }
 
     /* Gradient Backgrounds */
     .bg-gradient-radial-primary {
-        background: radial-gradient(circle at center, oklch(0.15 0.08 265), oklch(0.08 0.01 265));
+        background: radial-gradient(circle at center, #1A2A3D, #0A1628);
     }
 
     .bg-gradient-radial-accent {
-        background: radial-gradient(circle at center, oklch(0.20 0.15 210), oklch(0.08 0.01 265));
+        background: radial-gradient(circle at center, rgba(0, 160, 255, 0.2), #0A1628);
     }
+
+    /* Text Gradient */
+    .text-gradient-blue {
+        background: linear-gradient(to bottom, #0070B3, #00A0FF);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    /* Section label bars */
+    .section-label-bars {
+        display: flex;
+        gap: 2px;
+        align-items: center;
+    }
+
+    .section-label-bars span {
+        width: 2px;
+        background-color: #0070B3;
+    }
+
+    .section-label-bars span:nth-child(1) { height: 12px; }
+    .section-label-bars span:nth-child(2) { height: 10px; }
+    .section-label-bars span:nth-child(3) { height: 8px; }
+    .section-label-bars span:nth-child(4) { height: 8px; }
+    .section-label-bars span:nth-child(5) { height: 8px; }
+    .section-label-bars span:nth-child(6) { height: 8px; }
+    .section-label-bars span:nth-child(7) { height: 8px; }
+
+    /* Marquee animation for logos - uses Tailwind arbitrary values */
+    /* The component uses animate-[marquee_25s_linear_infinite] syntax */
+}
+
+/* Keyframes need to be outside @layer for Tailwind arbitrary animations */
+@keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+@keyframes marquee-reverse {
+    0% { transform: translateX(-50%); }
+    100% { transform: translateX(0); }
 }

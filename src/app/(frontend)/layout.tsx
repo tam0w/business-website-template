@@ -1,13 +1,19 @@
 import { ReactNode } from 'react'
-import { Space_Grotesk } from 'next/font/google'
+import { Sora, DM_Sans } from 'next/font/google'
 import './globals.css'
-import { NavigationWrapper } from '@/components/NavigationWrapper'
 
-const spaceGrotesk = Space_Grotesk({
+const sora = Sora({
   subsets: ['latin'],
-  variable: '--font-space-grotesk',
+  variable: '--font-sora',
   display: 'swap',
-  weight: ['300', '400', '500', '600', '700'],
+  weight: ['400', '500', '600', '700'],
+})
+
+const dmSans = DM_Sans({
+  subsets: ['latin'],
+  variable: '--font-dm-sans',
+  display: 'swap',
+  weight: ['400', '500', '600', '700'],
 })
 
 type LayoutProps = {
@@ -16,9 +22,8 @@ type LayoutProps = {
 
 const Layout = ({ children }: LayoutProps) => {
   return (
-    <html className={`dark ${spaceGrotesk.variable}`}>
+    <html className={`${sora.variable} ${dmSans.variable}`}>
       <body className="min-h-dvh antialiased">
-        <NavigationWrapper />
         {children}
       </body>
     </html>
