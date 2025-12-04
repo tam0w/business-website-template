@@ -1,5 +1,7 @@
 'use client'
 
+import { Marquee, MarqueeItem } from '@/components/ui/marquee'
+
 const row1Logos = [
   { name: 'Fortinet', src: '/images/logos/fortinet.svg' },
   { name: 'Palo Alto Networks', src: '/images/logos/palo-alto.svg' },
@@ -25,72 +27,57 @@ interface PartnersSectionProps {
 
 export function PartnersSection({
   heading = 'Powered By Industry Leaders',
-  certifications = '15+ OEM Partnerships • 10+ Years Enterprise Security • ISO 27001 Certified',
 }: PartnersSectionProps) {
   return (
-    <section className="bg-[#F5F5F5] py-16 overflow-hidden">
+    <section className="bg-secondary py-16 overflow-hidden">
       <div className="max-w-[1440px] mx-auto text-center space-y-6">
-        {/* Heading */}
-        <h2 className="text-[#0A1628] text-2xl md:text-3xl font-semibold tracking-[-0.02em] px-6">
+        <h2 className="text-foreground text-2xl md:text-3xl font-semibold tracking-tight px-6">
           {heading}
         </h2>
 
-        {/* Logo Rows with Blue Strip */}
         <div className="relative flex flex-col gap-12 md:gap-16">
           {/* Row 1 - Scrolling left */}
-          <div className="flex overflow-hidden h-[50px] md:h-[60px]">
-            <div className="flex items-center gap-8 md:gap-16 animate-[marquee_25s_linear_infinite]">
-              {[...row1Logos, ...row1Logos].map((logo, i) => (
-                <div
-                  key={`row1-${i}`}
-                  className="flex-shrink-0 h-6 md:h-8 flex items-center justify-center"
-                >
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={logo.src}
-                    alt={logo.name}
-                    className="h-full w-auto object-contain"
-                    style={{ filter: 'brightness(0)' }}
-                  />
-                </div>
-              ))}
-            </div>
-          </div>
+          <Marquee duration={25} direction="left" className="h-[50px] md:h-[60px]" showFade={false}>
+            {row1Logos.map((logo) => (
+              <MarqueeItem key={logo.name} className="h-6 md:h-8 flex items-center">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={logo.src}
+                  alt={logo.name}
+                  className="h-full w-auto object-contain brightness-0"
+                />
+              </MarqueeItem>
+            ))}
+          </Marquee>
 
-          {/* Blue Certification Strip - overlaps both rows */}
+          {/* Blue Certification Strip */}
           <div className="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 w-[110vw] z-20 flex justify-center">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/images/logos/certification-strip.svg"
-              alt={certifications}
+              alt="15+ OEM Partnerships • 10+ Years Enterprise Security • ISO 27001 Certified"
               className="w-full h-auto object-cover"
               style={{ minWidth: '110vw' }}
             />
           </div>
 
-          {/* Row 2 - Scrolling right (reverse) */}
-          <div className="flex overflow-hidden h-[50px] md:h-[60px]">
-            <div className="flex items-center gap-8 md:gap-16 animate-[marquee-reverse_30s_linear_infinite]">
-              {[...row2Logos, ...row2Logos].map((logo, i) => (
-                <div
-                  key={`row2-${i}`}
-                  className="flex-shrink-0 h-6 md:h-8 flex items-center justify-center"
-                >
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={logo.src}
-                    alt={logo.name}
-                    className="h-full w-auto object-contain"
-                    style={{ filter: 'brightness(0)' }}
-                  />
-                </div>
-              ))}
-            </div>
-          </div>
+          {/* Row 2 - Scrolling right */}
+          <Marquee duration={30} direction="right" className="h-[50px] md:h-[60px]" showFade={false}>
+            {row2Logos.map((logo) => (
+              <MarqueeItem key={logo.name} className="h-6 md:h-8 flex items-center">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={logo.src}
+                  alt={logo.name}
+                  className="h-full w-auto object-contain brightness-0"
+                />
+              </MarqueeItem>
+            ))}
+          </Marquee>
 
           {/* Fade edges */}
-          <div className="absolute left-0 top-0 bottom-0 w-[60px] md:w-[120px] bg-gradient-to-r from-[#F5F5F5] to-transparent z-30 pointer-events-none" />
-          <div className="absolute right-0 top-0 bottom-0 w-[60px] md:w-[120px] bg-gradient-to-l from-[#F5F5F5] to-transparent z-30 pointer-events-none" />
+          <div className="absolute left-0 top-0 bottom-0 w-[60px] md:w-[120px] bg-gradient-to-r from-secondary to-transparent z-30 pointer-events-none" />
+          <div className="absolute right-0 top-0 bottom-0 w-[60px] md:w-[120px] bg-gradient-to-l from-secondary to-transparent z-30 pointer-events-none" />
         </div>
       </div>
     </section>

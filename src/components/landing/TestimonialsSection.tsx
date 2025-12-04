@@ -1,6 +1,8 @@
 'use client'
 
 import { SectionLabel } from './SectionLabel'
+import { GradientBadge } from '@/components/ui/gradient-badge'
+import { Marquee, MarqueeItem } from '@/components/ui/marquee'
 
 interface Testimonial {
   logo?: string
@@ -62,14 +64,11 @@ interface TestimonialCardProps {
 function TestimonialCard({ testimonial, featured }: TestimonialCardProps) {
   return (
     <div
-      className={`relative bg-white rounded-xl p-8 flex-shrink-0 ${
+      className={`relative bg-card rounded-xl p-8 flex-shrink-0 shadow-md ${
         featured ? 'w-[848px]' : 'w-[763px]'
       }`}
-      style={{
-        boxShadow: '0px 4px 6px -1px rgba(0, 0, 0, 0.1), 0px 2px 4px -1px rgba(0, 0, 0, 0.06)',
-      }}
     >
-      {/* Company Logo/Name */}
+      {/* Company Logo */}
       <div className="mb-8 h-8 flex items-center">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
@@ -80,28 +79,22 @@ function TestimonialCard({ testimonial, featured }: TestimonialCardProps) {
       </div>
 
       {/* Quote */}
-      <blockquote className="text-[#0A1628] text-2xl lg:text-3xl font-medium leading-[1.5] mb-6">
+      <blockquote className="text-foreground text-2xl lg:text-3xl font-medium leading-relaxed mb-6">
         {testimonial.quote}
       </blockquote>
 
       {/* Author */}
-      <div className="text-[#666666] text-lg space-y-1">
-        <p className="font-semibold text-[#0070B3]">{testimonial.authorName}</p>
+      <div className="text-muted-foreground text-lg space-y-1">
+        <p className="font-semibold text-primary">{testimonial.authorName}</p>
         <p>{testimonial.authorTitle}</p>
         <p>{testimonial.authorCompany}</p>
       </div>
 
       {/* Metric Badge */}
       {testimonial.metric && (
-        <div
-          className="absolute bottom-4 -right-4 px-6 py-3 text-white text-sm md:text-base font-semibold shadow-lg"
-          style={{
-            background: 'linear-gradient(90deg, #0070B3 0%, #00304D 100%)',
-            transform: 'rotate(-1deg)',
-          }}
-        >
+        <GradientBadge className="absolute bottom-4 -right-4 text-sm md:text-base">
           {testimonial.metric.value} {testimonial.metric.label}
-        </div>
+        </GradientBadge>
       )}
     </div>
   )
@@ -119,31 +112,26 @@ export function TestimonialsSection({
   testimonials = defaultTestimonials,
 }: TestimonialsSectionProps) {
   return (
-    <section id="testimonials" className="bg-[#F5F5F5] py-16 overflow-hidden">
+    <section id="testimonials" className="bg-secondary py-16 overflow-hidden">
       <div className="max-w-[1280px] mx-auto px-6 lg:px-20 mb-12">
-        {/* Header */}
         <div className="text-center space-y-4">
           <SectionLabel variant="both" className="justify-center">
             {label}
           </SectionLabel>
-          <h2 className="text-[#0A1628] text-3xl lg:text-[42px] font-semibold leading-[1.2] tracking-[-0.02em]">
+          <h2 className="text-foreground text-3xl lg:text-[42px] font-semibold leading-tight tracking-tight">
             {heading}
           </h2>
         </div>
       </div>
 
-      {/* Testimonials Carousel - Auto-scrolling */}
-      <div className="relative">
-        <div className="absolute left-0 top-0 bottom-0 w-[40px] md:w-[100px] bg-gradient-to-r from-[#F5F5F5] to-transparent z-10 pointer-events-none" />
-        <div className="absolute right-0 top-0 bottom-0 w-[40px] md:w-[100px] bg-gradient-to-l from-[#F5F5F5] to-transparent z-10 pointer-events-none" />
-        <div className="flex overflow-hidden">
-          <div className="flex gap-6 animate-[marquee_40s_linear_infinite]">
-            {[...testimonials, ...testimonials].map((testimonial, index) => (
-              <TestimonialCard key={index} testimonial={testimonial} featured={index % 3 === 1} />
-            ))}
-          </div>
-        </div>
-      </div>
+      {/* Testimonials Carousel */}
+      <Marquee duration={40} direction="left" fadeColor="var(--secondary)" gap="md">
+        {testimonials.map((testimonial, index) => (
+          <MarqueeItem key={index}>
+            <TestimonialCard testimonial={testimonial} featured={index % 3 === 1} />
+          </MarqueeItem>
+        ))}
+      </Marquee>
     </section>
   )
 }
