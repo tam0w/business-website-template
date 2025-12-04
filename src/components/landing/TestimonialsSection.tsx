@@ -112,7 +112,7 @@ export function TestimonialsSection({
   testimonials = defaultTestimonials,
 }: TestimonialsSectionProps) {
   return (
-    <section id="testimonials" className="bg-secondary py-16 overflow-hidden">
+    <section id="testimonials" className="bg-white py-16 overflow-hidden">
       <div className="max-w-[1280px] mx-auto px-6 lg:px-20 mb-12">
         <div className="text-center space-y-4">
           <SectionLabel variant="both" className="justify-center">
@@ -125,7 +125,7 @@ export function TestimonialsSection({
       </div>
 
       {/* Testimonials Carousel */}
-      <Marquee duration={40} direction="left" fadeColor="var(--secondary)" gap="md">
+      <Marquee duration={40} direction="left" fadeColor="#ffffff" gap="md">
         {testimonials.map((testimonial, index) => (
           <MarqueeItem key={index}>
             <TestimonialCard testimonial={testimonial} featured={index % 3 === 1} />
