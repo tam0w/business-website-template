@@ -1,5 +1,7 @@
 import { ReactNode } from 'react'
 import { Sora, DM_Sans } from 'next/font/google'
+import { NavbarProvider } from '@/contexts/NavbarContext'
+import { Navigation } from '@/components/landing/Navigation'
 import './globals.css'
 
 const sora = Sora({
@@ -24,7 +26,10 @@ const Layout = ({ children }: LayoutProps) => {
   return (
     <html className={`${sora.variable} ${dmSans.variable}`}>
       <body className="min-h-dvh antialiased">
-        {children}
+        <NavbarProvider>
+          <Navigation />
+          {children}
+        </NavbarProvider>
       </body>
     </html>
   )

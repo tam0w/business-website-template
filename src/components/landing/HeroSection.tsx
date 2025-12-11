@@ -1,7 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowUpRight, Shield } from 'lucide-react'
-import { Navigation } from './Navigation'
 
 interface HeroSectionProps {
   trustBadgeText?: string
@@ -33,21 +32,21 @@ export function HeroSection({
 }: HeroSectionProps) {
   return (
     <section className="relative min-h-screen bg-[#0A1628] overflow-hidden">
-      {/* Background Image */}
+      {/* Background Video */}
       <div className="absolute inset-0">
-        <Image
-          src="/images/hero/hero-bg.png"
-          alt=""
-          fill
-          className="object-cover object-center"
-          priority
-        />
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover"
+        >
+          <source src="/Enrich Hero Section Video.mp4" type="video/mp4" />
+        </video>
         {/* Gradient overlay for better text readability */}
         <div className="absolute inset-0 bg-gradient-to-b from-[#0A1628]/80 via-[#0A1628]/60 to-[#0A1628]/90" />
       </div>
 
-      {/* Navigation */}
-      <Navigation />
 
       {/* Hero Content */}
       <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-6 pt-24 pb-32">

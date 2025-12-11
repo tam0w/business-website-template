@@ -1,40 +1,46 @@
 'use client'
 
+import { usePathname } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
 import { ArrowUpRight } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { useNavbar } from '@/contexts/NavbarContext'
 
 const navItems = [
-  { name: 'Services', href: '#services' },
-  { name: 'Why Enrich?', href: '#why-enrich' },
+  { name: 'Services', href: '/#services' },
+  { name: 'Why Enrich?', href: '/#why-enrich' },
   { name: 'Blogs', href: '/blog' },
-  { name: 'About Us', href: '#leadership' },
+  { name: 'About Us', href: '/#leadership' },
 ]
 
-interface NavigationProps {
-  variant?: 'transparent' | 'solid'
-  className?: string
-}
+export function Navigation() {
+  const pathname = usePathname()
+  const isHomepage = pathname === '/'
+  const { isPastHero } = useNavbar()
 
-export function Navigation({ variant = 'transparent', className }: NavigationProps) {
+  // On non-homepage, always show solid style; on homepage, based on sentinel
+  const showSolid = !isHomepage || isPastHero
+
   return (
     <nav
       className={cn(
-        'absolute top-0 left-0 right-0 z-50 px-8 py-6',
-        variant === 'solid' && 'bg-[#0A1628]',
-        className
+        'fixed top-0 left-0 right-0 z-50 px-8 py-6 transition-all duration-300',
+        showSolid && 'bg-white/80 backdrop-blur-md border-b border-gray-200/50 shadow-sm'
       )}
     >
       <div className="max-w-[1376px] mx-auto flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex-shrink-0">
           <Image
-            src="/images/logos/enrich-logo.svg"
+            src={showSolid ? '/images/logos/enrich-logo-blue.svg' : '/images/logos/enrich-logo.svg'}
             alt="Enrich"
-            width={128}
-            height={50}
-            className="h-[50px] w-auto"
+            width={144}
+            height={56}
+            className={cn(
+              'w-auto transition-all duration-300',
+              showSolid ? 'h-[56px]' : 'h-[50px]'
+            )}
           />
         </Link>
 
@@ -44,7 +50,12 @@ export function Navigation({ variant = 'transparent', className }: NavigationPro
             <Link
               key={item.name}
               href={item.href}
-              className="text-[#EDEDED] text-lg font-semibold hover:text-white transition-colors"
+              className={cn(
+                'text-lg font-semibold transition-colors',
+                showSolid
+                  ? 'text-[#0A1628] hover:text-[#0070B3]'
+                  : 'text-[#EDEDED] hover:text-white'
+              )}
             >
               {item.name}
             </Link>
@@ -53,15 +64,20 @@ export function Navigation({ variant = 'transparent', className }: NavigationPro
 
         {/* CTA Button */}
         <Link
-          href="#contact"
-          className="hidden md:flex items-center gap-3 bg-[#EDEDED] text-[#0A1628] px-6 py-3 rounded-xl font-semibold text-base hover:bg-white transition-colors"
+          href="/#contact"
+          className={cn(
+            'hidden md:flex items-center gap-3 px-6 py-3 rounded-md font-semibold text-base transition-colors',
+            showSolid
+              ? 'bg-[#0A1628] text-white hover:bg-[#162a45]'
+              : 'bg-white text-[#0A1628] hover:bg-gray-100'
+          )}
         >
           Free Security Audit
-          <ArrowUpRight className="w-5 h-5 rotate-45" />
+          <ArrowUpRight className="w-5 h-5" />
         </Link>
 
         {/* Mobile Menu Button */}
-        <button className="md:hidden text-[#EDEDED]">
+        <button className={cn('md:hidden', showSolid ? 'text-[#0A1628]' : 'text-[#EDEDED]')}>
           <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
           </svg>

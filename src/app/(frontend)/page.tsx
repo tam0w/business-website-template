@@ -7,11 +7,13 @@ import {
   StatsSection,
   ContactSection,
 } from '@/components/landing'
+import { NavbarSentinel } from '@/components/NavbarSentinel'
 
 export default function HomePage() {
   return (
     <main>
       <HeroSection />
+      <NavbarSentinel />
       <PartnersSection />
       <ServicesSection />
       <TestimonialsSection />
