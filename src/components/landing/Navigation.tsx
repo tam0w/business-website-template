@@ -8,10 +8,10 @@ import { cn } from '@/lib/utils'
 import { useNavbar } from '@/contexts/NavbarContext'
 
 const navItems = [
-  { name: 'Services', href: '/#services' },
-  { name: 'Why Enrich?', href: '/#why-enrich' },
+  { name: 'Services', href: '/services' },
+  { name: 'Why Enrich?', href: '/why-enrich' },
   { name: 'Blogs', href: '/blog' },
-  { name: 'About Us', href: '/#leadership' },
+  { name: 'About Us', href: '/about' },
 ]
 
 export function Navigation() {
