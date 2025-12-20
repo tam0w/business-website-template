@@ -4,6 +4,7 @@ import { useState } from 'react'
 import Image from 'next/image'
 import { cn } from '@/lib/utils'
 import { SectionLabel } from './SectionLabel'
+import { HighlightStrip } from '@/components/ui/highlight-strip'
 
 interface Leader {
   name: string
@@ -61,15 +62,9 @@ function LeaderCard({ leader, isHovered, onHover }: LeaderCardProps) {
 
           {/* Name Badge - positioned at bottom of image with slight rotation */}
           <div className="absolute bottom-4 left-1/2 -translate-x-1/2 -rotate-1">
-            <div
-              className="text-[#EDEDED] px-6 py-3 rounded-md whitespace-nowrap font-semibold text-2xl capitalize"
-              style={{
-                background: 'linear-gradient(90deg, #0070B3 0%, #004D7A 100%)',
-                textShadow: '0px 3px 4px rgba(0, 0, 0, 0.16)',
-              }}
-            >
+            <HighlightStrip variant="badge" gradient="horizontal">
               {leader.name} - {leader.title}
-            </div>
+            </HighlightStrip>
           </div>
         </div>
 

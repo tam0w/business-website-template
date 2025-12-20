@@ -1,6 +1,7 @@
 'use client'
 
 import { Marquee, MarqueeItem } from '@/components/ui/marquee'
+import { HighlightStrip } from '@/components/ui/highlight-strip'
 
 const row1Logos = [
   { name: 'Fortinet', src: '/images/logos/fortinet.svg' },
@@ -51,22 +52,14 @@ export function PartnersSection({
           </Marquee>
 
           {/* Blue Certification Strip - full width */}
-          <div
-            className="absolute left-1/2 top-1/2 z-40 w-[110vw]"
-            style={{ transform: 'translate(-50%, -50%) rotate(-1deg)' }}
-          >
-            <div
-              className="w-full py-3 text-[#EDEDED] font-semibold text-lg md:text-2xl text-center"
-              style={{
-                background: '#0070B3',
-                boxShadow:
-                  '0px 8px 12px 6px rgba(0,0,0,0.15), 0px 4px 4px 0px rgba(0,0,0,0.3)',
-                textShadow: '0px 3px 4px rgba(0, 0, 0, 0.16)',
-              }}
-            >
-              15+ OEM Partnerships &nbsp;&nbsp;•&nbsp;&nbsp; 10+ Years Enterprise Security &nbsp;&nbsp;•&nbsp;&nbsp; ISO 27001 Certified
-            </div>
-          </div>
+          <HighlightStrip
+            variant="diagonal"
+            items={[
+              '15+ OEM Partnerships',
+              '10+ Years Enterprise Security',
+              'ISO 27001 Certified',
+            ]}
+          />
 
           {/* Row 2 - Scrolling right */}
           <Marquee duration={30} direction="right" className="h-[50px] md:h-[60px]" showFade={false}>

@@ -1,129 +1,157 @@
 'use client'
 
-import { Link, Network, Wifi, Route, LucideIcon, Building2 } from 'lucide-react'
+import { useState } from 'react'
+import Link from 'next/link'
+import { Link2, Network, Wifi, Route, LucideIcon, ArrowUpRight } from 'lucide-react'
+import { cn } from '@/lib/utils'
 import { SectionLabel } from '@/components/landing'
+import { Card, CardContent } from '@/components/ui/card'
 
 interface NetworkService {
   icon: LucideIcon
   title: string
   description: string
+  href?: string
 }
 
 const defaultServices: NetworkService[] = [
   {
-    icon: Link,
+    icon: Link2,
     title: 'WAN & SD-WAN',
-    description: 'Multi-site intelligent routing',
+    description:
+      'Multi-site connectivity with intelligent traffic routing, automatic failover, and 99.99% uptime SLA.',
+    href: '#',
   },
   {
     icon: Network,
     title: 'LAN & Switching',
-    description: 'High-performance local infra',
+    description:
+      'High-performance Cisco/Juniper switching with PoE+, stacking, and network segmentation.',
+    href: '#',
   },
   {
     icon: Wifi,
     title: 'Enterprise Wireless',
-    description: 'Scalable Wi-Fi, seamless roaming',
+    description:
+      'Scalable Wi-Fi 6/6E with centralized management, guest portals, and location analytics.',
+    href: '#',
   },
   {
     icon: Route,
-    title: 'Advanced Routing',
-    description: 'Complex topology support',
+    title: 'Network Design',
+    description:
+      'Custom network architecture, BGP/OSPF routing, and performance tuning for complex topologies.',
+    href: '#',
   },
 ]
 
-interface NetworkingServiceCardProps {
+interface NetworkCardProps {
   service: NetworkService
+  isHovered: boolean
+  onHover: (hovered: boolean) => void
 }
 
-function NetworkingServiceCard({ service }: NetworkingServiceCardProps) {
+function NetworkCard({ service, isHovered, onHover }: NetworkCardProps) {
   const Icon = service.icon
 
   return (
-    <div className="flex items-start gap-4 p-5 rounded-xl bg-white border border-[#DADADA] hover:border-[#0070B3]/30 hover:shadow-md transition-all">
-      <div className="w-12 h-12 rounded-lg bg-[#0070B3]/10 flex items-center justify-center flex-shrink-0">
-        <Icon className="w-6 h-6 text-[#0070B3]" />
-      </div>
-      <div>
-        <h4 className="text-[#0A1628] text-lg font-semibold mb-1">
+    <Card
+      variant="feature"
+      hovered={isHovered}
+      padding="default"
+      gap="none"
+      onMouseEnter={() => onHover(true)}
+      onMouseLeave={() => onHover(false)}
+    >
+      <CardContent className="space-y-0">
+        {/* Icon */}
+        <div
+          className={cn(
+            'w-14 h-14 rounded-xl flex items-center justify-center mb-5 transition-all duration-300',
+            isHovered
+              ? 'bg-[#0070B3] shadow-[0_4px_16px_rgba(0,112,179,0.25)]'
+              : 'bg-[#0070B3]/10'
+          )}
+        >
+          <Icon
+            className={cn(
+              'w-7 h-7 transition-colors duration-300',
+              isHovered ? 'text-white' : 'text-[#0070B3]'
+            )}
+          />
+        </div>
+
+        {/* Title */}
+        <h3 className="text-[#0A1628] text-xl font-semibold tracking-[-0.02em] mb-2.5">
           {service.title}
-        </h4>
-        <p className="text-[#666666] text-base">
+        </h3>
+
+        {/* Description */}
+        <p className="text-[#666666] text-base font-medium leading-[1.6] tracking-[-0.01em] mb-4">
           {service.description}
         </p>
-      </div>
-    </div>
+
+        {/* Know More Link */}
+        {service.href && (
+          <Link
+            href={service.href}
+            className={cn(
+              'flex items-center gap-2 text-[#0A1628] text-base font-semibold transition-all duration-300',
+              isHovered
+                ? 'opacity-100 translate-y-0'
+                : 'opacity-0 translate-y-2 pointer-events-none'
+            )}
+          >
+            Know more
+            <ArrowUpRight className="w-4 h-4 rotate-45" />
+          </Link>
+        )}
+      </CardContent>
+    </Card>
   )
 }
 
 interface NetworkingSectionProps {
   label?: string
   headline?: string
+  description?: string
   services?: NetworkService[]
 }
 
 export function NetworkingSection({
-  label = 'NETWORKING & WIRELESS',
-  headline = 'Infrastructure That Scales',
+  label = 'NETWORKING',
+  headline = 'Enterprise Network Infrastructure',
+  description = 'Design, deploy, and manage high-performance networks — from single office to 250+ distributed locations.',
   services = defaultServices,
 }: NetworkingSectionProps) {
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
+
   return (
-    <section className="bg-white py-16 lg:py-24 px-6 lg:px-20">
+    <section className="bg-[#F5F5F5] py-16 px-6 lg:px-20">
       <div className="max-w-[1280px] mx-auto">
-        <div className="flex flex-col lg:flex-row gap-12 lg:gap-20 items-center">
-          {/* Left - Illustration Placeholder */}
-          <div className="flex-1 w-full max-w-[500px]">
-            <div className="relative aspect-[4/3] rounded-2xl bg-gradient-to-br from-[#0070B3]/10 to-[#00A0FF]/5 border border-[#0070B3]/20 overflow-hidden">
-              {/* Network topology placeholder */}
-              <div className="absolute inset-0 flex items-center justify-center p-8">
-                {/* Buildings */}
-                <div className="flex items-end justify-between w-full max-w-[350px]">
-                  <div className="flex flex-col items-center">
-                    <Building2 className="w-10 h-10 text-[#0070B3]/60 mb-2" />
-                    <div className="w-20 h-16 rounded-lg bg-[#0070B3]/20" />
-                  </div>
-
-                  {/* Connection lines */}
-                  <div className="flex-1 h-px bg-[#0070B3]/30 self-center mx-4 relative">
-                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 rounded-full bg-[#00A0FF]" />
-                  </div>
-
-                  <div className="flex flex-col items-center">
-                    <Wifi className="w-8 h-8 text-[#00A0FF]/60 mb-2" />
-                    <div className="w-16 h-12 rounded-lg bg-[#00A0FF]/20" />
-                  </div>
-
-                  <div className="flex-1 h-px bg-[#0070B3]/30 self-center mx-4 relative">
-                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 rounded-full bg-[#00A0FF]" />
-                  </div>
-
-                  <div className="flex flex-col items-center">
-                    <Building2 className="w-10 h-10 text-[#0070B3]/60 mb-2" />
-                    <div className="w-20 h-16 rounded-lg bg-[#0070B3]/20" />
-                  </div>
-                </div>
-              </div>
-
-              <p className="absolute bottom-4 left-0 right-0 text-center text-[#666666]/60 text-xs">
-                Custom SVG: Network Topology
-              </p>
-            </div>
-          </div>
-
-          {/* Right - Content */}
-          <div className="flex-1">
-            <SectionLabel className="mb-4">{label}</SectionLabel>
-            <h2 className="text-[#0A1628] text-3xl lg:text-[36px] font-semibold leading-[1.2] tracking-[-0.02em] mb-8">
+        {/* Header */}
+        <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between mb-16 gap-8">
+          <div className="space-y-2 max-w-[565px]">
+            <SectionLabel>{label}</SectionLabel>
+            <h2 className="text-[#0A1628] text-3xl lg:text-[42px] font-semibold leading-[1.2] tracking-[-0.02em]">
               {headline}
             </h2>
-
-            {/* Service Cards */}
-            <div className="flex flex-col gap-4">
-              {services.map((service) => (
-                <NetworkingServiceCard key={service.title} service={service} />
-              ))}
-            </div>
           </div>
+          <p className="text-[#666666] text-lg font-medium leading-[1.5] tracking-[-0.016em] max-w-[538px]">
+            {description}
+          </p>
+        </div>
+
+        {/* Network Cards Grid - 4 columns on desktop */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
+          {services.map((service, index) => (
+            <NetworkCard
+              key={service.title}
+              service={service}
+              isHovered={hoveredIndex === index}
+              onHover={(hovered) => setHoveredIndex(hovered ? index : null)}
+            />
+          ))}
         </div>
       </div>
     </section>

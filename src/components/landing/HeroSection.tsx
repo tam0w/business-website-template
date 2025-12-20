@@ -1,4 +1,3 @@
-import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowUpRight, Shield } from 'lucide-react'
 
@@ -61,10 +60,10 @@ export function HeroSection({
 
           {/* Heading */}
           <div className="space-y-4">
-            <h1 className="text-[#EDEDED] text-4xl md:text-5xl lg:text-[56px] font-semibold leading-[1.2] tracking-[-0.02em] capitalize drop-shadow-[0_4px_4px_rgba(0,0,0,0.25)]">
+            <h1 className="w-full text-[#EDEDED] text-4xl md:text-5xl lg:text-[56px] font-semibold leading-[1.2] tracking-[-0.02em] capitalize drop-shadow-[0_4px_4px_rgba(0,0,0,0.25)]">
               {heading}
             </h1>
-            <p className="text-[#EDEDED] text-lg md:text-xl font-medium leading-[1.5] max-w-[770px] mx-auto">
+            <p className="w-full text-[#EDEDED] text-lg md:text-xl font-medium leading-[1.5] max-w-[770px] mx-auto">
               {subheading}
             </p>
           </div>

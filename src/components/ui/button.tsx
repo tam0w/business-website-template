@@ -58,6 +58,20 @@ function Button({
 }: ButtonProps) {
   const Comp = asChild ? Slot : "button"
 
+  // When asChild is true, Slot expects a single child element
+  // Icons should be included inside the child component
+  if (asChild) {
+    return (
+      <Comp
+        data-slot="button"
+        className={cn(buttonVariants({ variant, size, className }))}
+        {...props}
+      >
+        {children}
+      </Comp>
+    )
+  }
+
   return (
     <Comp
       data-slot="button"

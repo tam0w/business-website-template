@@ -1,10 +1,13 @@
 import { Metadata } from 'next'
 import {
   WhyEnrichHero,
+  CitizenLifecycleSection,
   DifferentiatorsSection,
+  TimelineSection,
   TrustedSectorsSection,
   CTASection,
 } from '@/components/pages/why-enrich'
+import { NavbarSentinel } from '@/components/NavbarSentinel'
 
 export const metadata: Metadata = {
   title: 'Why Choose Enrich | Securing India\'s Citizen-Facing Digital Platforms',
@@ -16,7 +19,10 @@ export default function WhyEnrichPage() {
   return (
     <main>
       <WhyEnrichHero />
+      <NavbarSentinel />
+      <CitizenLifecycleSection />
       <DifferentiatorsSection />
+      <TimelineSection />
       <TrustedSectorsSection />
       <CTASection />
     </main>

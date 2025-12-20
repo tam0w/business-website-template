@@ -2,10 +2,11 @@ import { getPayload } from 'payload'
 import config from '@/payload.config'
 import { notFound } from 'next/navigation'
 import { format } from 'date-fns'
-import { BlogContent } from '@/components/blog/blog-content'
+import { BlogArticleHero, BlogContent } from '@/components/blog'
+import { NavbarSentinel } from '@/components/NavbarSentinel'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
-import { ArrowLeft, Twitter, Linkedin, Github, Globe } from 'lucide-react'
+import { Twitter, Linkedin, Github, Globe } from 'lucide-react'
 import Link from 'next/link'
 import type { Post, User, Media } from '@/payload-types'
 
@@ -116,122 +117,96 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   ].filter((link) => link.url)
 
   return (
-    <article className="pt-32 md:pt-36 lg:pt-40 pb-12 md:pb-16 lg:pb-24">
-      {/* Hero Section - Centered */}
-      <div className="container mx-auto px-4">
-        <div className="mx-auto max-w-4xl">
-          <Link
-            href="/blog"
-            className="inline-flex items-center text-sm font-medium hover:underline mb-8"
-          >
-            <ArrowLeft className="mr-2 size-4" />
-            Back to Blog
-          </Link>
-        </div>
-
-        <div className="mx-auto flex max-w-4xl flex-col items-center gap-6 text-center">
-          {/* Tags */}
-          {post.tags && post.tags.length > 0 && (
-            <div className="flex flex-wrap justify-center gap-3 text-xs uppercase tracking-wider text-muted-foreground">
-              {post.tags.map((tag) => (
-                <span key={tag}>{tag}</span>
-              ))}
-            </div>
-          )}
-
-          {/* Title */}
-          <h1 className="text-4xl font-bold md:text-5xl lg:text-6xl">
-            {post.title}
-          </h1>
-
-          {/* Subtitle */}
-          {post.subTitle && (
-            <p className="text-lg text-muted-foreground md:text-xl">
-              {post.subTitle}
-            </p>
-          )}
-
-          {/* Author & Date */}
-          <div className="flex items-center gap-3">
-            <Avatar className="h-10 w-10 border">
-              {authorAvatar?.url && (
-                <AvatarImage src={authorAvatar.url} alt={author?.name} />
-              )}
-              <AvatarFallback>{getAuthorInitials(author?.name)}</AvatarFallback>
-            </Avatar>
-            <span className="text-sm md:text-base">
-              <span className="font-semibold">{author?.name || 'Anonymous'}</span>
-              <span className="text-muted-foreground"> on </span>
-              <time dateTime={post.publishedAt || post.createdAt} className="text-muted-foreground">
-                {getPublishedDate()}
-              </time>
-            </span>
-          </div>
-
-          {/* Featured Image */}
-          {featuredImage?.url && (
-            <img
-              src={featuredImage.url}
-              alt={featuredImage.alt || post.title}
-              className="mb-8 mt-4 aspect-video w-full rounded-lg border border-border object-cover"
-            />
-          )}
-        </div>
-      </div>
+    <article>
+      <BlogArticleHero
+        title={post.title}
+        subtitle={post.subTitle}
+        tags={post.tags || undefined}
+        author={author ? {
+          name: author.name,
+          avatar: authorAvatar?.url,
+          initials: getAuthorInitials(author.name),
+        } : undefined}
+        publishedDate={getPublishedDate()}
+        featuredImage={featuredImage?.url ? {
+          url: featuredImage.url,
+          alt: featuredImage.alt || post.title,
+        } : null}
+      />
+      <NavbarSentinel />
 
       {/* Content Section */}
-      <div className="container mx-auto px-4 mt-12 md:mt-16">
-        <div className="mx-auto max-w-4xl">
-          <BlogContent content={post.content} />
-        </div>
-      </div>
+      <div className={`bg-[#F5F5F5] ${featuredImage?.url ? 'pt-32 md:pt-40' : 'pt-12 md:pt-16'} pb-16 md:pb-24`}>
+        <div className="max-w-[800px] mx-auto px-6">
+          {/* Article Content */}
+          <div className="bg-white rounded-2xl border border-[#DADADA] p-8 md:p-12 lg:p-16 shadow-sm">
+            <BlogContent content={post.content} />
+          </div>
 
-      {/* Author Bio Section */}
-      {author && (
-        <div className="container mx-auto px-4 mt-16 md:mt-24">
-          <div className="mx-auto max-w-4xl border-t border-border pt-12">
-            <div className="flex items-start gap-6">
-              <Avatar className="h-20 w-20 border-2">
-                {authorAvatar?.url && (
-                  <AvatarImage src={authorAvatar.url} alt={author.name} />
-                )}
-                <AvatarFallback className="text-xl">{getAuthorInitials(author.name)}</AvatarFallback>
-              </Avatar>
-              <div className="flex-1">
-                <div className="mb-2">
-                  <p className="text-lg font-semibold">{author.name}</p>
-                  {author.designation && (
-                    <p className="text-sm text-muted-foreground">{author.designation}</p>
+          {/* Author Bio Section */}
+          {author && (
+            <div className="mt-12 bg-white rounded-2xl border border-[#DADADA] p-8 md:p-10">
+              <div className="flex flex-col sm:flex-row items-start gap-6">
+                <Avatar className="h-20 w-20 border-4 border-[#0070B3]/20 flex-shrink-0">
+                  {authorAvatar?.url && (
+                    <AvatarImage src={authorAvatar.url} alt={author.name} />
+                  )}
+                  <AvatarFallback className="bg-[#0A1628] text-[#EDEDED] text-xl font-semibold">
+                    {getAuthorInitials(author.name)}
+                  </AvatarFallback>
+                </Avatar>
+                <div className="flex-1">
+                  <div className="mb-3">
+                    <p className="text-xl font-semibold text-[#0A1628]">{author.name}</p>
+                    {author.designation && (
+                      <p className="text-sm text-[#0070B3] font-medium">{author.designation}</p>
+                    )}
+                  </div>
+                  {author.bio && (
+                    <p className="text-[#666666] text-base leading-relaxed mb-4">{author.bio}</p>
+                  )}
+                  {socialLinks.length > 0 && (
+                    <div className="flex gap-2">
+                      {socialLinks.map((link) => {
+                        const Icon = link.icon
+                        return (
+                          <Button
+                            key={link.name}
+                            variant="outline"
+                            size="sm"
+                            asChild
+                            className="border-[#DADADA] hover:border-[#0070B3] hover:text-[#0070B3]"
+                          >
+                            <a
+                              href={link.url || '#'}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="gap-2"
+                            >
+                              <Icon className="h-4 w-4" />
+                              <span className="hidden sm:inline">{link.name}</span>
+                            </a>
+                          </Button>
+                        )
+                      })}
+                    </div>
                   )}
                 </div>
-                {author.bio && (
-                  <p className="text-sm text-muted-foreground mb-4">{author.bio}</p>
-                )}
-                {socialLinks.length > 0 && (
-                  <div className="flex gap-2">
-                    {socialLinks.map((link) => {
-                      const Icon = link.icon
-                      return (
-                        <Button key={link.name} variant="outline" size="sm" asChild>
-                          <a
-                            href={link.url || '#'}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="gap-2"
-                          >
-                            <Icon className="h-4 w-4" />
-                            <span className="hidden sm:inline">{link.name}</span>
-                          </a>
-                        </Button>
-                      )
-                    })}
-                  </div>
-                )}
               </div>
             </div>
+          )}
+
+          {/* Back to Blog */}
+          <div className="mt-10 text-center">
+            <Link
+              href="/blog"
+              className="inline-flex items-center gap-2 text-[#0070B3] hover:text-[#0A1628] font-semibold transition-colors"
+            >
+              ← Back to all articles
+            </Link>
           </div>
         </div>
-      )}
+      </div>
     </article>
   )
 }

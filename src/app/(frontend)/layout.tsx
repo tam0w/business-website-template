@@ -2,6 +2,7 @@ import { ReactNode } from 'react'
 import { Sora, DM_Sans } from 'next/font/google'
 import { NavbarProvider } from '@/contexts/NavbarContext'
 import { Navigation } from '@/components/landing/Navigation'
+import { SiteFooter } from '@/components/SiteFooter'
 import './globals.css'
 
 const sora = Sora({
@@ -29,6 +30,7 @@ const Layout = ({ children }: LayoutProps) => {
         <NavbarProvider>
           <Navigation />
           {children}
+          <SiteFooter />
         </NavbarProvider>
       </body>
     </html>

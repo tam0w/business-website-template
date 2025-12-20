@@ -11,16 +11,21 @@ const navItems = [
   { name: 'Services', href: '/services' },
   { name: 'Why Enrich?', href: '/why-enrich' },
   { name: 'Blogs', href: '/blog' },
-  { name: 'About Us', href: '/about' },
+  { name: 'Contact', href: '/contact' },
 ]
+
+// Pages that have dark hero sections and should start with transparent navbar
+const darkHeroRoutes = ['/', '/services', '/contact', '/why-enrich', '/blog', '/careers']
 
 export function Navigation() {
   const pathname = usePathname()
-  const isHomepage = pathname === '/'
   const { isPastHero } = useNavbar()
 
-  // On non-homepage, always show solid style; on homepage, based on sentinel
-  const showSolid = !isHomepage || isPastHero
+  // Check if current page or blog article pages have dark hero
+  const hasDarkHero = darkHeroRoutes.includes(pathname) || pathname.startsWith('/blog/')
+
+  // Show solid when past hero OR when page doesn't have a dark hero
+  const showSolid = !hasDarkHero || isPastHero
 
   return (
     <nav

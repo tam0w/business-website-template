@@ -1,6 +1,9 @@
 'use client'
 
-import { Shield, Users, Zap, Lightbulb, LucideIcon } from 'lucide-react'
+import { useState } from 'react'
+import { Shield, Users, Zap, Lightbulb, LucideIcon, Quote } from 'lucide-react'
+import { cn } from '@/lib/utils'
+import { SectionLabel } from '@/components/landing'
 
 interface Value {
   icon: LucideIcon
@@ -9,70 +12,128 @@ interface Value {
 }
 
 const defaultValues: Value[] = [
-  { icon: Shield, title: 'Security First', description: 'Every solution built on security foundations' },
-  { icon: Users, title: 'True Partnership', description: 'Backbone support, not just a vendor' },
-  { icon: Zap, title: 'Rapid Response', description: '<2hr for critical issues, 24/7' },
-  { icon: Lightbulb, title: 'Continuous Innovation', description: 'Staying ahead of threats' },
+  {
+    icon: Shield,
+    title: 'Security First',
+    description: 'Every solution built on security foundations',
+  },
+  {
+    icon: Users,
+    title: 'True Partnership',
+    description: 'Backbone support, not just a vendor relationship',
+  },
+  {
+    icon: Zap,
+    title: 'Rapid Response',
+    description: '<2hr response for critical issues, 24/7 availability',
+  },
+  {
+    icon: Lightbulb,
+    title: 'Continuous Innovation',
+    description: 'Staying ahead of evolving threats and technologies',
+  },
 ]
 
 interface ValueCardProps {
   value: Value
+  isHovered: boolean
+  onHover: (hovered: boolean) => void
 }
 
-function ValueCard({ value }: ValueCardProps) {
+function ValueCard({ value, isHovered, onHover }: ValueCardProps) {
   const Icon = value.icon
 
   return (
-    <div className="p-5 rounded-xl bg-white border border-[#DADADA] hover:border-[#0070B3]/30 hover:shadow-md transition-all">
-      <div className="w-12 h-12 rounded-lg bg-[#0070B3]/10 flex items-center justify-center mb-4">
-        <Icon className="w-6 h-6 text-[#0070B3]" />
+    <div
+      className={cn(
+        'group relative p-5 rounded-xl transition-all duration-300',
+        'bg-white border border-[#E5E5E5]',
+        'hover:border-[#0070B3]/30 hover:shadow-md',
+        isHovered && 'border-[#0070B3]/30 shadow-md'
+      )}
+      onMouseEnter={() => onHover(true)}
+      onMouseLeave={() => onHover(false)}
+    >
+      <div
+        className={cn(
+          'w-12 h-12 rounded-lg flex items-center justify-center mb-4 transition-all duration-300',
+          'bg-[#0070B3]/10',
+          isHovered && 'bg-[#0070B3]'
+        )}
+      >
+        <Icon
+          className={cn(
+            'w-6 h-6 transition-colors duration-300',
+            isHovered ? 'text-white' : 'text-[#0070B3]'
+          )}
+        />
       </div>
-      <h4 className="text-[#0A1628] text-lg font-semibold mb-1">
-        {value.title}
-      </h4>
-      <p className="text-[#666666] text-sm">
-        {value.description}
-      </p>
+      <h4 className="text-[#0A1628] text-lg font-semibold mb-1.5">{value.title}</h4>
+      <p className="text-[#666666] text-sm leading-relaxed">{value.description}</p>
     </div>
   )
 }
 
 interface MissionValuesSectionProps {
+  missionLabel?: string
   mission?: string
+  valuesLabel?: string
   values?: Value[]
 }
 
 export function MissionValuesSection({
+  missionLabel = 'Our Mission',
   mission = 'To empower organizations with enterprise-grade cybersecurity, networking, and data center solutions that protect critical infrastructure while enabling business growth.',
+  valuesLabel = 'Our Values',
   values = defaultValues,
 }: MissionValuesSectionProps) {
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
+
   return (
-    <section className="bg-white py-16 lg:py-24 px-6 lg:px-20">
-      <div className="max-w-[1280px] mx-auto">
-        <div className="flex flex-col lg:flex-row gap-12 lg:gap-20">
+    <section className="relative bg-white py-20 lg:py-28 px-6 lg:px-20 overflow-hidden">
+      <div className="relative z-10 max-w-[1280px] mx-auto">
+        <div className="flex flex-col lg:flex-row gap-16 lg:gap-20">
           {/* Mission */}
           <div className="flex-1">
-            <h3 className="text-[#0070B3] text-sm font-bold uppercase tracking-wider mb-4">
-              Our Mission
-            </h3>
-            <blockquote className="relative">
-              <span className="absolute -top-4 -left-2 text-[#0070B3]/20 text-6xl font-serif">
-                "
+            <SectionLabel className="mb-6">{missionLabel}</SectionLabel>
+            <div className="relative">
+              {/* Large decorative quote */}
+              <div className="absolute -top-4 -left-3">
+                <Quote className="w-12 h-12 text-[#0070B3]/15 rotate-180" />
+              </div>
+              <blockquote className="relative pl-8 border-l-2 border-[#0070B3]/30">
+                <p className="text-[#0A1628] text-xl lg:text-2xl font-medium leading-relaxed">
+                  {mission}
+                </p>
+              </blockquote>
+            </div>
+
+            {/* Mission visual element */}
+            <div className="mt-10 flex items-center gap-4">
+              <div className="flex -space-x-2">
+                <div className="w-10 h-10 rounded-full bg-[#0070B3]/20 border-2 border-white" />
+                <div className="w-10 h-10 rounded-full bg-[#00A0FF]/20 border-2 border-white" />
+                <div className="w-10 h-10 rounded-full bg-[#0070B3]/10 border-2 border-white flex items-center justify-center text-[#0070B3] text-xs font-bold">
+                  200+
+                </div>
+              </div>
+              <span className="text-[#666666] text-sm font-medium">
+                Organizations trust our mission
               </span>
-              <p className="text-[#0A1628] text-xl lg:text-2xl font-medium leading-relaxed pl-6">
-                {mission}
-              </p>
-            </blockquote>
+            </div>
           </div>
 
           {/* Values */}
           <div className="flex-1">
-            <h3 className="text-[#0070B3] text-sm font-bold uppercase tracking-wider mb-4">
-              Our Values
-            </h3>
+            <SectionLabel className="mb-6">{valuesLabel}</SectionLabel>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {values.map((value) => (
-                <ValueCard key={value.title} value={value} />
+              {values.map((value, index) => (
+                <ValueCard
+                  key={value.title}
+                  value={value}
+                  isHovered={hoveredIndex === index}
+                  onHover={(hovered) => setHoveredIndex(hovered ? index : null)}
+                />
               ))}
             </div>
           </div>

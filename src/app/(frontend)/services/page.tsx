@@ -4,9 +4,9 @@ import {
   CyberSecuritySection,
   NetworkingSection,
   DataCenterSection,
-  TechnologyPartnersSection,
 } from '@/components/pages/services'
 import { CTASection } from '@/components/pages/why-enrich'
+import { NavbarSentinel } from '@/components/NavbarSentinel'
 
 export const metadata: Metadata = {
   title: 'Cybersecurity & Network Security Services | ZTNA, SASE, SOC | Enrich',
@@ -18,10 +18,10 @@ export default function ServicesPage() {
   return (
     <main>
       <ServicesHero />
+      <NavbarSentinel />
       <CyberSecuritySection />
       <NetworkingSection />
       <DataCenterSection />
-      <TechnologyPartnersSection />
       <CTASection
         headline="Not Sure Which Solution Fits?"
         body="Free consultation. We'll analyze your environment."

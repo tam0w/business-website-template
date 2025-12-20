@@ -1,4 +1,6 @@
 export { WhyEnrichHero } from './WhyEnrichHero'
+export { CitizenLifecycleSection } from './CitizenLifecycleSection'
 export { DifferentiatorsSection } from './DifferentiatorsSection'
+export { TimelineSection } from './TimelineSection'
 export { TrustedSectorsSection } from './TrustedSectorsSection'
 export { CTASection } from './CTASection'

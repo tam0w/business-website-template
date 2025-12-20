@@ -22,8 +22,10 @@ const cardVariants = cva(
         dark: "bg-[#0A1628] text-[#EDEDED]",
         // Glass - for overlays on dark backgrounds
         glass: "bg-white/5 backdrop-blur-sm border border-[#EDEDED]/20 text-[#EDEDED]",
-        // Interactive - hover state (matches service cards)
+        // Interactive - hover state (matches service cards from landing)
         interactive: "bg-white text-[#0A1628] cursor-pointer hover:bg-neutral-100 hover:shadow-[0px_2px_4px_0px_rgba(0,0,0,0.24)]",
+        // Feature - for service/feature cards with controlled hover state
+        feature: "bg-white text-[#0A1628] cursor-pointer",
       },
       padding: {
         none: "",
@@ -37,11 +39,17 @@ const cardVariants = cva(
         default: "gap-3",
         lg: "gap-6",
       },
+      // Controlled hover state for feature cards
+      hovered: {
+        true: "bg-neutral-100 shadow-[0px_2px_4px_0px_rgba(0,0,0,0.24)]",
+        false: "",
+      },
     },
     defaultVariants: {
       variant: "default",
       padding: "default",
       gap: "default",
+      hovered: false,
     },
   }
 )
@@ -50,11 +58,11 @@ export interface CardProps
   extends React.ComponentProps<"div">,
     VariantProps<typeof cardVariants> {}
 
-function Card({ className, variant, padding, gap, ...props }: CardProps) {
+function Card({ className, variant, padding, gap, hovered, ...props }: CardProps) {
   return (
     <div
       data-slot="card"
-      className={cn(cardVariants({ variant, padding, gap, className }))}
+      className={cn(cardVariants({ variant, padding, gap, hovered, className }))}
       {...props}
     />
   )

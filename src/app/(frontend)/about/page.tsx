@@ -8,6 +8,7 @@ import {
   ContactLocationSection,
 } from '@/components/pages/about'
 import { CTASection } from '@/components/pages/why-enrich'
+import { NavbarSentinel } from '@/components/NavbarSentinel'
 
 export const metadata: Metadata = {
   title: 'About Enrich Data Services (EDSPL) | Enterprise Cybersecurity Since 2014',
@@ -19,6 +20,7 @@ export default function AboutPage() {
   return (
     <main>
       <AboutHero />
+      <NavbarSentinel />
       <LeadershipExpandedSection />
       <TimelineSection />
       <MissionValuesSection />
@@ -28,7 +30,6 @@ export default function AboutPage() {
         headline="Ready to Partner with Enrich?"
         body="Join 200+ enterprises securing their infrastructure with us."
         ctaText="Schedule a Consultation"
-        variant="dark"
       />
     </main>
   )

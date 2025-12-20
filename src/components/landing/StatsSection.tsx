@@ -72,7 +72,7 @@ export function StatsSection({
             <SectionLabel variant="both" className="justify-center mb-3">
               {label}
             </SectionLabel>
-            <h2 className="text-[#0A1628] text-3xl lg:text-4xl font-semibold leading-[1.2] tracking-[-0.02em]">
+            <h2 className="w-full text-[#0A1628] text-3xl lg:text-4xl font-semibold leading-[1.2] tracking-[-0.02em]">
               {heading}
             </h2>
           </div>
