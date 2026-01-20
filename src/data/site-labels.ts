@@ -5,7 +5,7 @@ export const siteLabels: SiteLabels = {
   learnMore: 'Learn more',
   loading: 'Loading...',
   viewDetails: 'View details',
-  authorFallback: 'Anonymous',
+  authorFallback: 'Ryebrim Team',
   noExcerptFallback: 'No excerpt available',
   noImageFallback: 'No image available',
 }

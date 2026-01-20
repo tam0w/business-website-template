@@ -1,8 +1,6 @@
-import DarkVeil from '@/components/DarkVeil'
 import FeatureShowcase from '@/components/FeatureShowcase'
 import Testimonials from '@/components/Testimonials'
 import FAQ from '@/components/FAQ'
-import { TextReveal } from '@/components/ui/text-reveal'
 import { LogoWithText } from '@/components/LogoWithText'
 import { WaitlistCTA } from '@/components/WaitlistCTA'
 import { PricingCTA } from '@/components/PricingCTA'
@@ -61,42 +59,43 @@ export default function HomePage() {
   const faqs = faqContent.faqs
 
   return (
-    <div className="min-h-dvh snap-y snap-mandatory overflow-y-scroll h-dvh">
-      {/* Hero Section with DarkVeil Background */}
-      <section className="relative h-dvh flex items-end pb-32 md:pb-40 justify-center bg-gradient-to-br from-[oklch(0.15_0.15_265)] via-[oklch(0.08_0.05_265)] to-background snap-start snap-always border-b border-border">
-        <div className="absolute inset-0 w-full h-full">
-          <DarkVeil
-            hueShift={27}
-            noiseIntensity={0}
-            scanlineIntensity={0.02}
-            speed={0.5}
-            scanlineFrequency={0.05}
-            warpAmount={0}
-            resolutionScale={1}
-          />
-        </div>
+    <div className="min-h-dvh">
+      {/* Hero Section - Editorial Style */}
+      <section className="min-h-dvh flex flex-col justify-center px-6 py-32 border-b border-border relative overflow-hidden">
+        {/* Subtle decorative element */}
+        <div className="absolute top-0 right-0 w-1/3 h-full bg-primary/5 -skew-x-12 translate-x-1/4" />
 
-        <div className="relative z-10 max-w-7xl mx-auto px-6 text-center space-y-8">
-          {/* Combined Logo: Icon + Text */}
-          <div className="mb-12">
+        <div className="relative z-10 max-w-5xl mx-auto w-full">
+          {/* Logo */}
+          <div className="mb-16">
             <LogoWithText iconName={logoIcon} logoText={logoText} />
           </div>
 
-          <h1 className="text-4xl md:text-6xl font-bold text-foreground">
-            <TextReveal split="word" delay={0.15} duration={0.8} from="bottom" blur={10}>
-              {heroHeading}
-            </TextReveal>
+          {/* Divider */}
+          <div className="divider-primary w-24 mb-12" />
+
+          {/* Headline */}
+          <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold text-foreground leading-[0.95] mb-8 max-w-4xl">
+            {heroHeading}
           </h1>
-          <div className="text-lg md:text-xl text-muted-foreground mx-auto leading-relaxed">
-            <TextReveal split="word" delay={0.05} duration={0.4} from="bottom" blur={8}>
-              {heroSubheading}
-            </TextReveal>
-          </div>
-          <div className="flex gap-6 justify-center flex-wrap">
-            <a href={heroPrimaryButtonLink} className="px-12 py-4 bg-primary text-primary-foreground text-lg font-semibold hover:bg-primary/90 transition-all duration-300 hover:scale-105 glow-primary border border-primary/20">
+
+          {/* Subheading */}
+          <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl mb-12 leading-relaxed font-body">
+            {heroSubheading}
+          </p>
+
+          {/* CTA Buttons */}
+          <div className="flex gap-4 flex-wrap">
+            <a
+              href={heroPrimaryButtonLink}
+              className="px-8 py-4 bg-primary text-primary-foreground text-lg font-medium hover:bg-primary/90 transition-colors border border-primary"
+            >
               {heroPrimaryButtonText}
             </a>
-            <a href={heroSecondaryButtonLink} className="px-12 py-4 glass text-foreground text-lg font-semibold hover:border-primary/40 transition-all duration-300 border-glow-hover">
+            <a
+              href={heroSecondaryButtonLink}
+              className="px-8 py-4 bg-transparent text-foreground text-lg font-medium border border-border hover:border-primary hover:text-primary transition-colors"
+            >
               {heroSecondaryButtonText}
             </a>
           </div>
@@ -104,9 +103,7 @@ export default function HomePage() {
       </section>
 
       {/* Features Section */}
-      <section className="min-h-dvh px-6 py-20 bg-background flex items-center justify-center snap-start snap-always relative border-b border-border">
-        {/* Dot Grid Background */}
-        <div className="absolute inset-0 size-full -z-10 dot-grid opacity-30" />
+      <section className="min-h-dvh px-6 py-24 bg-background flex items-center justify-center relative border-b border-border">
         <div className="relative z-10 w-full">
           <FeatureShowcase
             heading={featuresHeading}
@@ -134,10 +131,8 @@ export default function HomePage() {
         />
       </div>
 
-      {/* CTA Section */}
-      <section className="h-dvh px-6 bg-gradient-radial-primary flex items-center justify-center snap-start snap-always border-b border-border relative">
-        {/* Dot Grid Background */}
-        <div className="absolute inset-0 size-full -z-10 dot-grid opacity-20" />
+      {/* CTA Section - Inverted (green background) */}
+      <section className="min-h-[80vh] px-6 py-24 surface-inverted flex items-center justify-center border-b border-border">
         {ctaType === 'waitlist' ? (
           <WaitlistCTA
             heading={ctaHeading}
@@ -160,57 +155,65 @@ export default function HomePage() {
       </section>
 
       {/* Footer */}
-      <footer className="min-h-dvh border-t border-border py-16 px-6 flex items-center justify-center snap-start snap-always relative">
-        {/* Dot Grid Background */}
-        <div className="absolute inset-0 size-full -z-10 dot-grid opacity-30" />
-        <div className="max-w-6xl mx-auto space-y-12">
-          {/* Logo: Icon + Text */}
-          <div className="pb-8">
+      <footer className="py-24 px-6 border-t border-border">
+        <div className="max-w-5xl mx-auto">
+          {/* Logo */}
+          <div className="mb-16">
             <LogoWithText
               iconName={logoIcon}
               logoText={logoText}
-              iconSize="clamp(2.5rem, 4vw, 4rem)"
-              textClassName="text-4xl md:text-5xl lg:text-6xl"
-              gap="gap-5 md:gap-6 lg:gap-8"
+              iconSize="clamp(2rem, 3vw, 3rem)"
+              textClassName="text-3xl md:text-4xl"
+              gap="gap-4 md:gap-5"
             />
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
+
+          {/* Divider */}
+          <div className="divider mb-12" />
+
+          {/* Footer Links */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 mb-16">
             <div className="space-y-4">
-              <h3 className="font-bold">Product</h3>
-              <ul className="space-y-2 text-muted-foreground">
+              <h3 className="tracking-caps text-foreground">Product</h3>
+              <ul className="space-y-3 text-muted-foreground">
                 <li className="hover:text-primary transition-colors cursor-pointer">Features</li>
                 <li className="hover:text-primary transition-colors cursor-pointer">Pricing</li>
                 <li className="hover:text-primary transition-colors cursor-pointer">Security</li>
               </ul>
             </div>
             <div className="space-y-4">
-              <h3 className="font-bold">Company</h3>
-              <ul className="space-y-2 text-muted-foreground">
+              <h3 className="tracking-caps text-foreground">Company</h3>
+              <ul className="space-y-3 text-muted-foreground">
                 <li className="hover:text-primary transition-colors cursor-pointer">About</li>
                 <li className="hover:text-primary transition-colors cursor-pointer">Blog</li>
                 <li className="hover:text-primary transition-colors cursor-pointer">Careers</li>
               </ul>
             </div>
             <div className="space-y-4">
-              <h3 className="font-bold">Resources</h3>
-              <ul className="space-y-2 text-muted-foreground">
+              <h3 className="tracking-caps text-foreground">Resources</h3>
+              <ul className="space-y-3 text-muted-foreground">
                 <li className="hover:text-primary transition-colors cursor-pointer">Documentation</li>
                 <li className="hover:text-primary transition-colors cursor-pointer">Help Center</li>
                 <li className="hover:text-primary transition-colors cursor-pointer">API</li>
               </ul>
             </div>
             <div className="space-y-4">
-              <h3 className="font-bold">Legal</h3>
-              <ul className="space-y-2 text-muted-foreground">
+              <h3 className="tracking-caps text-foreground">Legal</h3>
+              <ul className="space-y-3 text-muted-foreground">
                 <li className="hover:text-primary transition-colors cursor-pointer">Privacy</li>
                 <li className="hover:text-primary transition-colors cursor-pointer">Terms</li>
                 <li className="hover:text-primary transition-colors cursor-pointer">Cookies</li>
               </ul>
             </div>
           </div>
-          <div className="pt-12 border-t border-border text-center text-muted-foreground">
-            <p>&copy; 2025 {companyName}. All rights reserved.</p>
-          </div>
+
+          {/* Divider */}
+          <div className="divider mb-8" />
+
+          {/* Copyright */}
+          <p className="text-muted-foreground text-sm">
+            &copy; 2025 {companyName}. All rights reserved.
+          </p>
         </div>
       </footer>
     </div>

@@ -1,7 +1,7 @@
 import type { SiteBranding } from '@/types'
 
 export const siteBranding: SiteBranding = {
-  logoIcon: 'react',
-  logoText: 'Seerah',
-  companyName: 'Seerah',
+  logoIcon: 'leaf',
+  logoText: 'Ryebrim',
+  companyName: 'Ryebrim',
 }

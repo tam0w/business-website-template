@@ -1,9 +1,9 @@
 import type { CareersPageContent } from '@/types'
 
 export const careersPageContent: CareersPageContent = {
-  heading: 'Example Careers Page',
-  description: 'This is a demo page showing how you can use collections for job listings',
-  emptyStateTitle: 'No positions configured',
-  emptyStateDescription: 'Add job listings through the PayloadCMS admin panel.',
-  ctaText: 'View details',
+  heading: 'Join the Team',
+  description: "We're building a team of curious, driven people who care about doing great work for great clients.",
+  emptyStateTitle: 'No open positions',
+  emptyStateDescription: "We're not actively hiring right now, but we're always open to meeting talented people. Reach out if you think you'd be a great fit.",
+  ctaText: 'Learn more',
 }

@@ -84,8 +84,8 @@ export interface Career {
 export interface Feature {
   title: string
   description: string
-  illustration: 'lightning' | 'shield' | 'layers' | 'branches' | 'sparkles' | 'rocket'
-  icon: 'Zap' | 'Shield' | 'Layers' | 'GitBranch' | 'Sparkles' | 'Rocket' | 'Lock' | 'Database' | 'Cloud' | 'Code' | 'Globe' | 'Settings'
+  illustration: 'lightning' | 'shield' | 'layers' | 'branches' | 'sparkles' | 'rocket' | 'code' | 'pen' | 'network' | 'automation'
+  icon: 'Zap' | 'Shield' | 'Layers' | 'GitBranch' | 'Sparkles' | 'Rocket' | 'Lock' | 'Database' | 'Cloud' | 'Code' | 'Globe' | 'Settings' | 'FileText' | 'PenTool' | 'Linkedin' | 'Bot'
 }
 
 // Testimonial

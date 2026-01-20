@@ -1,32 +1,32 @@
 import type { FeaturesContent } from '@/types'
 
 export const featuresContent: FeaturesContent = {
-  heading: 'Built for Modern Development',
-  subheading: 'Everything you need to launch your next project',
+  heading: 'Services That Drive Growth',
+  subheading: 'From technical deep-dives to LinkedIn dominance, we handle the heavy lifting so you can focus on building.',
   features: [
     {
-      title: 'CMS-First Architecture',
-      description: 'PayloadCMS integration with pre-configured globals and collections. Edit all content through the admin panel without touching code.',
-      illustration: 'lightning',
-      icon: 'Zap',
+      title: 'Technical Content',
+      description: 'In-depth articles, whitepapers, and documentation that establish your authority. We translate complex technical concepts into compelling narratives that resonate with developers and decision-makers alike.',
+      illustration: 'code',
+      icon: 'FileText',
     },
     {
-      title: 'Component Library Included',
-      description: 'Shadcn/ui components with custom variants. Responsive design system built on Tailwind CSS variables.',
-      illustration: 'shield',
-      icon: 'Shield',
+      title: 'Brand Storytelling',
+      description: 'Thought leadership pieces, case studies, and brand narratives that connect with your audience. We craft content that builds trust and positions your company as an industry leader.',
+      illustration: 'pen',
+      icon: 'PenTool',
     },
     {
-      title: 'TypeScript & Modern Stack',
-      description: 'Full TypeScript support with strict mode enabled. ESLint and Prettier configured for consistent code quality.',
-      illustration: 'layers',
-      icon: 'Code',
+      title: 'LinkedIn Management',
+      description: 'Full-service LinkedIn presence management for founders and companies. From content strategy to engagement, we build your professional network and generate qualified leads.',
+      illustration: 'network',
+      icon: 'Linkedin',
     },
     {
-      title: 'Cloud-Ready Deployment',
-      description: 'Optimized for Vercel deployment with automatic builds and previews. Environment variables configured and ready for production. One-click deploy with zero configuration.',
-      illustration: 'rocket',
-      icon: 'Cloud',
+      title: 'AI Business Automation',
+      description: 'Custom AI workflows that eliminate repetitive tasks and scale your operations. We implement intelligent automation using modern tools to give your team superpowers.',
+      illustration: 'automation',
+      icon: 'Bot',
     },
   ],
 }

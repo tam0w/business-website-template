@@ -105,7 +105,7 @@ export function PricingCTA({
 
             <div className="pt-4 border-t border-border">
               <Button
-                variant="glow"
+                variant="default"
                 size="lg"
                 asChild
                 className="w-full"

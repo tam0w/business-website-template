@@ -78,7 +78,7 @@ export function WaitlistCTA({
                 />
                 <Button
                   type="submit"
-                  variant="glow"
+                  variant="default"
                 >
                   {buttonText}
                 </Button>

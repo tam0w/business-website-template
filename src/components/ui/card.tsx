@@ -4,13 +4,16 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
 
 const cardVariants = cva(
-  "text-card-foreground flex flex-col gap-sm border transition-all duration-300",
+  "text-card-foreground flex flex-col gap-sm border transition-colors duration-200",
   {
     variants: {
       variant: {
-        default: "bg-card border-glow-hover shadow-sm",
-        ghost: "bg-card/30 border-border hover:border-primary/40",
+        default: "bg-card border-border hover:border-primary/30",
+        ghost: "bg-transparent border-border/50 hover:border-border",
         outline: "bg-transparent border-border",
+        inverted:
+          "bg-primary text-primary-foreground border-primary hover:bg-primary/95",
+        paper: "bg-card border-border shadow-sm",
       },
     },
     defaultVariants: {
@@ -50,7 +53,7 @@ function CardTitle({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="card-title"
-      className={cn("leading-none font-semibold", className)}
+      className={cn("leading-none font-semibold font-display", className)}
       {...props}
     />
   )
