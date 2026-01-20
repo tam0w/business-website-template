@@ -2,6 +2,7 @@ import { useQuery } from 'convex/react'
 import { api } from '../../convex/_generated/api'
 import { BlogList } from '@/components/blog/blog-list'
 import { Empty, EmptyTitle, EmptyDescription } from '@/components/ui/empty'
+import { Footer } from '@/components/Footer'
 import { blogPageContent } from '@/data'
 import type { Post } from '@/types'
 
@@ -18,20 +19,26 @@ export default function BlogPage() {
 
   if (posts.length === 0) {
     return (
-      <div className="min-h-screen pt-32 pb-16 px-4">
-        <div className="max-w-6xl mx-auto">
-          <h1 className="text-4xl font-display md:text-5xl text-foreground mb-4">
-            {blogPageContent.heading}
-          </h1>
-          <p className="text-muted-foreground text-base md:text-lg mb-16">
-            {blogPageContent.description}
-          </p>
-          <Empty>
-            <EmptyTitle>{blogPageContent.emptyStateTitle}</EmptyTitle>
-            <EmptyDescription>{blogPageContent.emptyStateDescription}</EmptyDescription>
-          </Empty>
+      <section className="w-full">
+        <div className="mx-auto h-full max-w-6xl lg:border-x border-border">
+          <div className="flex grow flex-col justify-center px-4 md:px-6 pt-32 pb-16">
+            <h1 className="text-4xl font-display font-bold md:text-5xl text-foreground">
+              {blogPageContent.heading}
+            </h1>
+            <p className="text-muted-foreground mt-4 text-base md:text-lg">
+              {blogPageContent.description}
+            </p>
+          </div>
+          <div className="border-separator" />
+          <div className="p-4 md:p-6">
+            <Empty>
+              <EmptyTitle>{blogPageContent.emptyStateTitle}</EmptyTitle>
+              <EmptyDescription>{blogPageContent.emptyStateDescription}</EmptyDescription>
+            </Empty>
+          </div>
         </div>
-      </div>
+        <Footer />
+      </section>
     )
   }
 
@@ -53,11 +60,14 @@ export default function BlogPage() {
   }))
 
   return (
-    <BlogList
-      heading={blogPageContent.heading}
-      description={blogPageContent.description}
-      ctaText={blogPageContent.ctaText}
-      posts={transformedPosts}
-    />
+    <>
+      <BlogList
+        heading={blogPageContent.heading}
+        description={blogPageContent.description}
+        ctaText={blogPageContent.ctaText}
+        posts={transformedPosts}
+      />
+      <Footer />
+    </>
   )
 }

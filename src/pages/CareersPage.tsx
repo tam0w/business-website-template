@@ -2,6 +2,7 @@ import { useQuery } from 'convex/react'
 import { api } from '../../convex/_generated/api'
 import { CareersList } from '@/components/careers/careers-list'
 import { Empty, EmptyTitle, EmptyDescription } from '@/components/ui/empty'
+import { Footer } from '@/components/Footer'
 import { careersPageContent } from '@/data'
 import type { Career } from '@/types'
 
@@ -18,20 +19,26 @@ export default function CareersPage() {
 
   if (careers.length === 0) {
     return (
-      <div className="min-h-screen pt-32 pb-16 px-4">
-        <div className="max-w-6xl mx-auto text-center">
-          <h1 className="text-4xl font-display md:text-5xl text-foreground mb-4">
-            {careersPageContent.heading}
-          </h1>
-          <p className="text-muted-foreground text-base md:text-lg mb-16">
-            {careersPageContent.description}
-          </p>
-          <Empty>
-            <EmptyTitle>{careersPageContent.emptyStateTitle}</EmptyTitle>
-            <EmptyDescription>{careersPageContent.emptyStateDescription}</EmptyDescription>
-          </Empty>
+      <article className="w-full min-h-screen flex flex-col">
+        <div className="mx-auto flex-1 flex flex-col max-w-6xl lg:border-x border-border w-full">
+          <div className="flex grow flex-col justify-center px-4 md:px-6 pt-32 pb-16">
+            <h1 className="text-4xl font-display font-bold md:text-5xl text-foreground">
+              {careersPageContent.heading}
+            </h1>
+            <p className="text-muted-foreground mt-4 text-base md:text-lg">
+              {careersPageContent.description}
+            </p>
+          </div>
+          <div className="border-separator" />
+          <div className="p-4 md:p-6 flex-1">
+            <Empty>
+              <EmptyTitle>{careersPageContent.emptyStateTitle}</EmptyTitle>
+              <EmptyDescription>{careersPageContent.emptyStateDescription}</EmptyDescription>
+            </Empty>
+          </div>
         </div>
-      </div>
+        <Footer />
+      </article>
     )
   }
 
@@ -60,10 +67,15 @@ export default function CareersPage() {
   }))
 
   return (
-    <CareersList
-      heading={careersPageContent.heading}
-      description={careersPageContent.description}
-      careers={transformedCareers}
-    />
+    <article className="w-full min-h-screen flex flex-col">
+      <div className="mx-auto flex-1 flex flex-col max-w-6xl lg:border-x border-border w-full">
+        <CareersList
+          heading={careersPageContent.heading}
+          description={careersPageContent.description}
+          careers={transformedCareers}
+        />
+      </div>
+      <Footer />
+    </article>
   )
 }

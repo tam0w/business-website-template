@@ -1,30 +1,30 @@
 import type { FeaturesContent } from '@/types'
 
 export const featuresContent: FeaturesContent = {
-  heading: 'Services That Drive Growth',
-  subheading: 'From technical deep-dives to LinkedIn dominance, we handle the heavy lifting so you can focus on building.',
+  heading: 'What We Do',
+  subheading: 'Content strategy, personal branding, and automation for expertise-driven businesses.',
   features: [
     {
-      title: 'Technical Content',
-      description: 'In-depth articles, whitepapers, and documentation that establish your authority. We translate complex technical concepts into compelling narratives that resonate with developers and decision-makers alike.',
+      title: 'Expert Content',
+      description: 'Technical documentation, educational guides, industry deep-dives, and thought leadership. Content that ranks, gets shared, and positions you as the authority in your space.',
       illustration: 'code',
       icon: 'FileText',
     },
     {
-      title: 'Brand Storytelling',
-      description: 'Thought leadership pieces, case studies, and brand narratives that connect with your audience. We craft content that builds trust and positions your company as an industry leader.',
+      title: "Founder's Voice",
+      description: "Turn your expertise into a competitive moat. We help founders build personal brands that generate investor intros, inbound talent, and customer trust.",
       illustration: 'pen',
       icon: 'PenTool',
     },
     {
       title: 'LinkedIn Management',
-      description: 'Full-service LinkedIn presence management for founders and companies. From content strategy to engagement, we build your professional network and generate qualified leads.',
+      description: "End-to-end LinkedIn for founders and companies. Strategy, ghostwriting, engagement, and growth. All your pages, working together like a trained force.",
       illustration: 'network',
       icon: 'Linkedin',
     },
     {
       title: 'AI Business Automation',
-      description: 'Custom AI workflows that eliminate repetitive tasks and scale your operations. We implement intelligent automation using modern tools to give your team superpowers.',
+      description: 'Custom AI agents, smart CRM/ERP integrations, knowledge bases, and workflow automation. We build intelligent systems that handle complex tasks for 100x employees.',
       illustration: 'automation',
       icon: 'Bot',
     },

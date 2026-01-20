@@ -4,7 +4,8 @@ import { api } from '../../convex/_generated/api'
 import { ArrowLeft, MapPin, Briefcase, Clock, Shield, DollarSign } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Footer } from '@/components/Footer'
+import { LexicalRenderer } from '@/components/LexicalRenderer'
 
 export default function CareerPage() {
   const { slug } = useParams<{ slug: string }>()
@@ -20,29 +21,36 @@ export default function CareerPage() {
 
   if (career === null) {
     return (
-      <div className="min-h-screen pt-32 pb-16 px-4">
-        <div className="max-w-3xl mx-auto text-center">
-          <h1 className="text-4xl font-bold mb-4">Position Not Found</h1>
-          <p className="text-muted-foreground mb-8">
-            The position you're looking for doesn't exist or has been filled.
-          </p>
-          <Button asChild>
-            <Link to="/careers">
-              <ArrowLeft className="mr-2 h-4 w-4" />
-              Back to Careers
-            </Link>
-          </Button>
+      <section className="w-full">
+        <div className="mx-auto h-full max-w-6xl lg:border-x border-border">
+          <div className="flex grow flex-col justify-center px-4 md:px-6 pt-32 pb-16 text-center min-h-[60vh]">
+            <h1 className="text-4xl font-display font-bold md:text-5xl text-foreground">
+              Position Not Found
+            </h1>
+            <p className="text-muted-foreground mt-4 text-base md:text-lg">
+              The position you're looking for doesn't exist or has been filled.
+            </p>
+            <div className="mt-8">
+              <Button asChild>
+                <Link to="/careers">
+                  <ArrowLeft className="mr-2 h-4 w-4" />
+                  Back to Careers
+                </Link>
+              </Button>
+            </div>
+          </div>
         </div>
-      </div>
+        <Footer />
+      </section>
     )
   }
 
   const getDepartmentLabel = (dept: string): string => {
     const labels: Record<string, string> = {
-      'cybersecurity': 'Cybersecurity',
+      cybersecurity: 'Cybersecurity',
       'data-services': 'Data Services',
-      'engineering': 'Engineering',
-      'operations': 'Operations',
+      engineering: 'Engineering',
+      operations: 'Operations',
       'sales-marketing': 'Sales & Marketing',
     }
     return labels[dept] || dept
@@ -52,17 +60,17 @@ export default function CareerPage() {
     const labels: Record<string, string> = {
       'full-time': 'Full-time',
       'part-time': 'Part-time',
-      'contract': 'Contract',
-      'internship': 'Internship',
+      contract: 'Contract',
+      internship: 'Internship',
     }
     return labels[type] || type
   }
 
   const getRemoteLabel = (option: string): string => {
     const labels: Record<string, string> = {
-      'remote': 'Remote',
-      'onsite': 'On-site',
-      'hybrid': 'Hybrid',
+      remote: 'Remote',
+      onsite: 'On-site',
+      hybrid: 'Hybrid',
     }
     return labels[option] || option
   }
@@ -71,25 +79,23 @@ export default function CareerPage() {
     const salary = career.salary
     if (!salary) return null
 
-    const getCurrencySymbol = (currency: string): string => {
-      const symbols: Record<string, string> = {
-        'USD': '$',
-        'EUR': '€',
-        'GBP': '£',
+    const formatNumber = (num: number): string => {
+      if (num >= 100000) {
+        return `${(num / 100000).toFixed(1)}L`
       }
-      return symbols[currency] || currency
+      return num.toLocaleString()
     }
 
     if (salary.type === 'competitive') return 'Competitive'
 
-    const symbol = getCurrencySymbol(salary.currency || 'USD')
+    const currency = salary.currency || 'INR'
 
     if (salary.type === 'range' && salary.min && salary.max) {
-      return `${symbol}${salary.min.toLocaleString()} - ${symbol}${salary.max.toLocaleString()}`
+      return `${currency} ${formatNumber(salary.min)} - ${formatNumber(salary.max)}`
     }
 
     if (salary.type === 'fixed' && salary.amount) {
-      return `${symbol}${salary.amount.toLocaleString()}`
+      return `${currency} ${formatNumber(salary.amount)}`
     }
 
     return null
@@ -98,10 +104,10 @@ export default function CareerPage() {
   const salary = formatSalary()
 
   return (
-    <article className="min-h-screen">
-      {/* Header */}
-      <header className="pt-32 pb-12 px-4 border-b border-border">
-        <div className="max-w-4xl mx-auto">
+    <article className="w-full">
+      <div className="mx-auto h-full max-w-6xl lg:border-x border-border">
+        {/* Header */}
+        <header className="px-4 md:px-6 pt-32 pb-12">
           <Link
             to="/careers"
             className="inline-flex items-center text-sm text-muted-foreground hover:text-foreground mb-8 transition-colors"
@@ -110,7 +116,6 @@ export default function CareerPage() {
             Back to Careers
           </Link>
 
-          {/* Department Badge */}
           <div className="flex flex-wrap items-center gap-2 mb-4">
             <Badge variant="secondary">{getDepartmentLabel(career.department)}</Badge>
             {career.clearanceRequired && (
@@ -121,9 +126,8 @@ export default function CareerPage() {
             )}
           </div>
 
-          <h1 className="text-4xl md:text-5xl font-bold mb-6">{career.title}</h1>
+          <h1 className="text-4xl md:text-5xl font-display font-bold mb-6">{career.title}</h1>
 
-          {/* Meta */}
           <div className="flex flex-wrap items-center gap-6 text-sm text-muted-foreground">
             <div className="flex items-center gap-2">
               <MapPin className="h-4 w-4" />
@@ -144,78 +148,45 @@ export default function CareerPage() {
               </div>
             )}
           </div>
-        </div>
-      </header>
+        </header>
 
-      {/* Content */}
-      <div className="max-w-4xl mx-auto px-4 py-12">
-        <div className="grid gap-8">
-          {/* Description */}
-          <Card>
-            <CardHeader>
-              <CardTitle>About the Role</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="prose prose-invert max-w-none">
-                <p className="text-muted-foreground">
-                  Role description will be rendered here using a Lexical renderer component.
-                </p>
-              </div>
-            </CardContent>
-          </Card>
+        <div className="border-separator" />
 
-          {/* Responsibilities */}
-          <Card>
-            <CardHeader>
-              <CardTitle>Responsibilities</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="prose prose-invert max-w-none">
-                <p className="text-muted-foreground">
-                  Responsibilities will be rendered here using a Lexical renderer component.
-                </p>
-              </div>
-            </CardContent>
-          </Card>
+        {/* About the Role */}
+        <section className="px-4 md:px-6 py-12 border-b border-border">
+          <h2 className="text-sm tracking-caps font-bold text-muted-foreground mb-6">About the Role</h2>
+          <LexicalRenderer content={career.description} />
+        </section>
 
-          {/* Requirements */}
-          <Card>
-            <CardHeader>
-              <CardTitle>Requirements</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="prose prose-invert max-w-none">
-                <p className="text-muted-foreground">
-                  Requirements will be rendered here using a Lexical renderer component.
-                </p>
-              </div>
-            </CardContent>
-          </Card>
+        {/* Responsibilities */}
+        <section className="px-4 md:px-6 py-12 border-b border-border">
+          <h2 className="text-sm tracking-caps font-bold text-muted-foreground mb-6">Responsibilities</h2>
+          <LexicalRenderer content={career.responsibilities} />
+        </section>
 
-          {/* Nice to Have */}
-          {career.niceToHave && (
-            <Card>
-              <CardHeader>
-                <CardTitle>Nice to Have</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="prose prose-invert max-w-none">
-                  <p className="text-muted-foreground">
-                    Nice to have qualifications will be rendered here.
-                  </p>
-                </div>
-              </CardContent>
-            </Card>
-          )}
+        {/* Requirements */}
+        <section className="px-4 md:px-6 py-12 border-b border-border">
+          <h2 className="text-sm tracking-caps font-bold text-muted-foreground mb-6">Requirements</h2>
+          <LexicalRenderer content={career.requirements} />
+        </section>
 
-          {/* Apply CTA */}
-          <div className="flex justify-center pt-8">
-            <Button size="lg" className="px-12">
-              Apply for this Position
-            </Button>
-          </div>
+        {/* Nice to Have */}
+        {career.niceToHave && (
+          <section className="px-4 md:px-6 py-12 border-b border-border">
+            <h2 className="text-sm tracking-caps font-bold text-muted-foreground mb-6">Nice to Have</h2>
+            <LexicalRenderer content={career.niceToHave} />
+          </section>
+        )}
+
+        {/* Apply CTA */}
+        <div className="px-4 md:px-6 py-16 flex justify-center">
+          <Button size="lg" className="px-12">
+            Apply for this Position
+          </Button>
         </div>
       </div>
+
+      <Footer />
     </article>
   )
 }

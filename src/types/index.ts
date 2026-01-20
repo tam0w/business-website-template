@@ -201,3 +201,62 @@ export interface CareersPageContent {
   emptyStateDescription: string
   ctaText: string
 }
+
+// About page content
+export interface AboutContent {
+  heading: string
+  subheading: string
+  story: {
+    heading: string
+    paragraphs: string[]
+  }
+  approach: {
+    heading: string
+    items: {
+      title: string
+      description: string
+    }[]
+  }
+  team: {
+    heading: string
+    description: string
+  }
+  cta: {
+    heading: string
+    description: string
+    buttonText: string
+    buttonLink: string
+  }
+}
+
+// Service item
+export interface Service {
+  id: string
+  title: string
+  tagline: string
+  description: string
+  icon: string
+  features: {
+    title: string
+    description: string
+  }[]
+  process: {
+    step: string
+    title: string
+    description: string
+  }[]
+  outcomes: string[]
+}
+
+// Services page content
+export interface ServicesContent {
+  heading: string
+  subheading: string
+  services: Service[]
+  cta: {
+    heading: string
+    description: string
+    buttonText: string
+    buttonLink: string
+  }
+}

@@ -52,7 +52,7 @@ export function BlogList({
       <div className="mx-auto h-full max-w-6xl lg:border-x border-border">
         {/* Header Section */}
         <div className="flex grow flex-col justify-center px-4 md:px-6 pt-32 pb-16">
-          <h1 className="text-4xl font-bold md:text-5xl text-foreground">
+          <h1 className="text-4xl font-display font-bold md:text-5xl text-foreground">
             {heading}
           </h1>
           <p className="text-muted-foreground mt-4 text-base md:text-lg">

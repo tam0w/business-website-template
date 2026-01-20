@@ -1,8 +1,9 @@
 "use client"
 
 import React, { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ChevronLeft, ChevronRight, Quote } from 'lucide-react'
+import { ChevronLeft, ChevronRight, Quote, ArrowRight } from 'lucide-react'
 import { IconType } from "react-icons"
 import {
   FaApple,
@@ -59,16 +60,12 @@ const BrandCard: React.FC<{
     transition={{ duration: 0.3 }}
     onMouseEnter={() => onHover(true)}
     onMouseLeave={() => onHover(false)}
+    className={cn("flex-shrink-0 p-md", className)}
   >
-    <Card
-      variant="ghost"
-      className={cn("flex-shrink-0 w-auto p-md", className)}
-    >
-      <div className="flex items-center space-x-3">
-        {React.createElement(brand.logo, { className: "text-3xl text-foreground" })}
-        <h3 className="text-lg font-semibold text-foreground">{brand.name}</h3>
-      </div>
-    </Card>
+    <div className="flex items-center space-x-3">
+      {React.createElement(brand.logo, { className: "text-3xl text-foreground" })}
+      <h3 className="text-lg font-semibold text-foreground">{brand.name}</h3>
+    </div>
   </motion.div>
 ))
 
@@ -130,10 +127,10 @@ export default function Testimonials({ heading = 'What Our Customers Say', subhe
   }
 
   return (
-    <section className="h-dvh px-6 bg-background flex items-center justify-center snap-start snap-always relative">
+    <section className="h-dvh px-6 py-16 lg:py-24 bg-background flex items-center justify-center snap-start snap-always relative">
       {/* Dot Grid Background */}
       <div className="absolute inset-0 size-full -z-10 dot-grid opacity-30" />
-      <div className="max-w-6xl mx-auto space-y-8 relative z-10">
+      <div className="max-w-6xl mx-auto space-y-10 relative z-10">
         <div className="text-center space-y-3">
           <h2 className="text-4xl font-bold">{heading}</h2>
           {subheading && (
@@ -143,7 +140,7 @@ export default function Testimonials({ heading = 'What Our Customers Say', subhe
           )}
         </div>
 
-        <div className="relative max-w-4xl mx-auto space-y-6">
+        <div className="relative max-w-4xl mx-auto space-y-8">
           <AnimatePresence mode="wait">
             <motion.div
               key={currentIndex}
@@ -152,25 +149,32 @@ export default function Testimonials({ heading = 'What Our Customers Say', subhe
               exit={{ opacity: 0, x: -20 }}
               transition={{ duration: 0.3 }}
             >
-              <Card variant="ghost" className="p-md space-y-4">
-                <Quote className="w-12 h-12 text-primary/20" />
-                <p className="text-xl md:text-2xl leading-relaxed">
-                  {testimonials[currentIndex].content}
-                </p>
-                <div className="flex items-center gap-4 pt-4 border-t border-border">
-                  <div className="w-10 h-10 bg-primary/10 flex items-center justify-center border border-primary/20">
-                    <span className="text-lg font-semibold text-primary">
-                      {testimonials[currentIndex].name.charAt(0)}
+              <Link to="/contact" className="block group">
+                <Card variant="ghost" className="p-md space-y-4">
+                  <Quote className="w-12 h-12 text-primary/20" />
+                  <p className="text-lg md:text-xl leading-relaxed">
+                    {testimonials[currentIndex].content}
+                  </p>
+                  <div className="flex items-center justify-between pt-4 border-t border-border">
+                    <div className="flex items-center gap-4">
+                      <div className="w-10 h-10 bg-primary/10 flex items-center justify-center border border-primary/20">
+                        <span className="text-lg font-semibold text-primary">
+                          {testimonials[currentIndex].name.charAt(0)}
+                        </span>
+                      </div>
+                      <div>
+                        <p className="font-semibold">{testimonials[currentIndex].name}</p>
+                        <p className="text-sm text-muted-foreground">
+                          {testimonials[currentIndex].role} at {testimonials[currentIndex].company}
+                        </p>
+                      </div>
+                    </div>
+                    <span className="flex items-center gap-1 text-sm text-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      Start yours <ArrowRight className="w-3 h-3" />
                     </span>
                   </div>
-                  <div>
-                    <p className="font-semibold">{testimonials[currentIndex].name}</p>
-                    <p className="text-sm text-muted-foreground">
-                      {testimonials[currentIndex].role} at {testimonials[currentIndex].company}
-                    </p>
-                  </div>
-                </div>
-              </Card>
+                </Card>
+              </Link>
             </motion.div>
           </AnimatePresence>
 

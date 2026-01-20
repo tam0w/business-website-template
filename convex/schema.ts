@@ -52,7 +52,29 @@ const salary = v.object({
   amount: v.optional(v.number()),
 })
 
+// Lead source tracking
+const leadSource = v.union(
+  v.literal('contact_form'),
+  v.literal('waitlist'),
+  v.literal('newsletter'),
+  v.literal('other')
+)
+
 export default defineSchema({
+  leads: defineTable({
+    name: v.string(),
+    email: v.string(),
+    company: v.optional(v.string()),
+    message: v.optional(v.string()),
+    source: leadSource,
+    status: v.union(v.literal('new'), v.literal('contacted'), v.literal('qualified'), v.literal('converted'), v.literal('closed')),
+    notes: v.optional(v.string()),
+  })
+    .index('by_email', ['email'])
+    .index('by_status', ['status'])
+    .index('by_source', ['source']),
+
+
   posts: defineTable({
     title: v.string(),
     slug: v.string(),

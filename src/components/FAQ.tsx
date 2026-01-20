@@ -50,7 +50,7 @@ export default function FAQ({ heading = 'Frequently Asked Questions', subheading
                 <AccordionTrigger>
                   <span className="text-lg font-semibold text-left">{faq.question}</span>
                 </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground">
+                <AccordionContent className="text-muted-foreground text-sm lg:text-base">
                   {faq.answer}
                 </AccordionContent>
               </AccordionItem>

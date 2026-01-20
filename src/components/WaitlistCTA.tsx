@@ -35,13 +35,13 @@ export function WaitlistCTA({
 
   return (
     <div className="max-w-2xl mx-auto space-y-8">
-      <div className="text-center space-y-4">
+      <div className="text-center space-y-5">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-4xl md:text-5xl font-display"
+          className="text-4xl md:text-5xl lg:text-6xl font-display leading-[1.1]"
         >
           {heading}
         </motion.h2>
@@ -51,7 +51,7 @@ export function WaitlistCTA({
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className="text-lg opacity-80"
+          className="text-lg md:text-xl opacity-80"
         >
           {description}
         </motion.p>

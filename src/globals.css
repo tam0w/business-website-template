@@ -16,9 +16,18 @@
     --spacing-2xl: 3rem;
     --spacing-3xl: 4rem;
 
-    /* Max-Width overrides */
+    /* Max-Width tokens - explicit to avoid spacing token clashes */
+    --max-width-xs: 20rem;
+    --max-width-sm: 24rem;
+    --max-width-md: 28rem;
+    --max-width-lg: 32rem;
+    --max-width-xl: 36rem;
     --max-width-2xl: 42rem;
     --max-width-3xl: 48rem;
+    --max-width-4xl: 56rem;
+    --max-width-5xl: 64rem;
+    --max-width-6xl: 72rem;
+    --max-width-7xl: 80rem;
 
     /* Font Families */
     --font-display: 'Playfair Display', Georgia, serif;
@@ -128,11 +137,24 @@
 
     html {
         font-family: var(--font-body);
+        scroll-behavior: smooth;
     }
 
     body {
         @apply bg-background text-foreground;
         font-family: var(--font-body);
+    }
+
+    /* Snap scrolling container */
+    .snap-container {
+        scroll-snap-type: y mandatory;
+        overflow-y: scroll;
+        height: 100dvh;
+    }
+
+    .snap-section {
+        scroll-snap-align: start;
+        min-height: 100dvh;
     }
 
     /* Display/heading typography uses Playfair */
@@ -153,10 +175,10 @@
 
     /* Small caps tracking for invoice-style headers */
     .tracking-caps {
-        letter-spacing: 0.1em;
+        letter-spacing: 0.08em;
         text-transform: uppercase;
-        font-size: 0.75em;
-        font-weight: 500;
+        font-size: 0.875rem;
+        font-weight: 700;
     }
 
     /* Divider utilities - signature element */

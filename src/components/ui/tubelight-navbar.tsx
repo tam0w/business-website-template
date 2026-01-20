@@ -3,7 +3,7 @@
 import React, { useEffect, useState, useRef } from "react"
 import { motion } from "framer-motion"
 import { Link, useLocation } from "react-router-dom"
-import { Home, Briefcase, FileText, Mail } from "lucide-react"
+import { Home, Briefcase, FileText, Mail, Users, Layers } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Logo } from "@/components/Logo"
 
@@ -12,6 +12,8 @@ const iconMap = {
   briefcase: Briefcase,
   fileText: FileText,
   mail: Mail,
+  users: Users,
+  layers: Layers,
 } as const
 
 interface NavItem {

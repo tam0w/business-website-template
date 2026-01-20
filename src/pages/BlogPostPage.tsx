@@ -6,6 +6,8 @@ import { ArrowLeft, Calendar, Clock } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { AuthorBio } from '@/components/blog/author-bio'
 import { Button } from '@/components/ui/button'
+import { Footer } from '@/components/Footer'
+import { LexicalRenderer } from '@/components/LexicalRenderer'
 
 export default function BlogPostPage() {
   const { slug } = useParams<{ slug: string }>()
@@ -21,20 +23,27 @@ export default function BlogPostPage() {
 
   if (post === null) {
     return (
-      <div className="min-h-screen pt-32 pb-16 px-4">
-        <div className="max-w-3xl mx-auto text-center">
-          <h1 className="text-4xl font-bold mb-4">Post Not Found</h1>
-          <p className="text-muted-foreground mb-8">
-            The post you're looking for doesn't exist or has been removed.
-          </p>
-          <Button asChild>
-            <Link to="/blog">
-              <ArrowLeft className="mr-2 h-4 w-4" />
-              Back to Blog
-            </Link>
-          </Button>
+      <section className="w-full">
+        <div className="mx-auto h-full max-w-6xl lg:border-x border-border">
+          <div className="flex grow flex-col justify-center px-4 md:px-6 pt-32 pb-16 text-center min-h-[60vh]">
+            <h1 className="text-4xl font-display font-bold md:text-5xl text-foreground">
+              Post Not Found
+            </h1>
+            <p className="text-muted-foreground mt-4 text-base md:text-lg">
+              The post you're looking for doesn't exist or has been removed.
+            </p>
+            <div className="mt-8">
+              <Button asChild>
+                <Link to="/blog">
+                  <ArrowLeft className="mr-2 h-4 w-4" />
+                  Back to Blog
+                </Link>
+              </Button>
+            </div>
+          </div>
         </div>
-      </div>
+        <Footer />
+      </section>
     )
   }
 
@@ -42,11 +51,25 @@ export default function BlogPostPage() {
     ? format(new Date(post.publishedAt), 'MMMM dd, yyyy')
     : format(new Date(post._creationTime), 'MMMM dd, yyyy')
 
+  // Estimate reading time based on content
+  const getReadingTime = (): string => {
+    const wordCount = post.content?.root?.children?.reduce((count: number, node: { children?: { text?: string }[] }) => {
+      if (node.children) {
+        return count + node.children.reduce((c: number, child: { text?: string }) => {
+          return c + (child.text?.split(/\s+/).length || 0)
+        }, 0)
+      }
+      return count
+    }, 0) || 0
+    const minutes = Math.max(1, Math.ceil(wordCount / 200))
+    return `${minutes} min read`
+  }
+
   return (
-    <article className="min-h-screen">
-      {/* Header */}
-      <header className="pt-32 pb-12 px-4 border-b border-border">
-        <div className="max-w-3xl mx-auto">
+    <article className="w-full">
+      <div className="mx-auto h-full max-w-6xl lg:border-x border-border">
+        {/* Header */}
+        <header className="px-4 md:px-6 pt-32 pb-12">
           <Link
             to="/blog"
             className="inline-flex items-center text-sm text-muted-foreground hover:text-foreground mb-8 transition-colors"
@@ -66,7 +89,7 @@ export default function BlogPostPage() {
             </div>
           )}
 
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">{post.title}</h1>
+          <h1 className="text-4xl md:text-5xl font-display font-bold mb-4">{post.title}</h1>
 
           {post.subTitle && (
             <p className="text-xl text-muted-foreground mb-6">{post.subTitle}</p>
@@ -80,40 +103,37 @@ export default function BlogPostPage() {
             </div>
             <div className="flex items-center gap-2">
               <Clock className="h-4 w-4" />
-              <span>5 min read</span>
+              <span>{getReadingTime()}</span>
             </div>
           </div>
-        </div>
-      </header>
+        </header>
 
-      {/* Featured Image */}
-      {post.featuredImage && (
-        <div className="w-full max-w-4xl mx-auto px-4 py-8">
-          <img
-            src={post.featuredImage}
-            alt={post.title}
-            className="w-full h-auto rounded-lg"
-          />
-        </div>
-      )}
+        <div className="border-separator" />
 
-      {/* Content */}
-      <div className="max-w-3xl mx-auto px-4 py-12">
-        {/* Lexical content would be rendered here with a proper Lexical renderer */}
-        <div className="prose prose-invert max-w-none">
-          <p className="text-muted-foreground">
-            {post.excerpt || 'Content will be rendered here using a Lexical renderer component.'}
-          </p>
-        </div>
-      </div>
+        {/* Featured Image */}
+        {post.featuredImage && (
+          <div className="px-4 md:px-6 py-8 border-b border-border">
+            <img
+              src={post.featuredImage}
+              alt={post.title}
+              className="w-full h-auto"
+            />
+          </div>
+        )}
 
-      {/* Author Bio */}
-      <div className="max-w-3xl mx-auto px-4 pb-16">
-        <div className="border-t border-border pt-12">
-          <h3 className="text-lg font-semibold mb-4">About the Author</h3>
+        {/* Content */}
+        <section className="px-4 md:px-6 py-12 border-b border-border">
+          <LexicalRenderer content={post.content} className="max-w-3xl" />
+        </section>
+
+        {/* Author Bio */}
+        <section className="px-4 md:px-6 py-12">
+          <h3 className="text-sm tracking-caps font-bold text-muted-foreground mb-6">About the Author</h3>
           <AuthorBio author={post.author} />
-        </div>
+        </section>
       </div>
+
+      <Footer />
     </article>
   )
 }
