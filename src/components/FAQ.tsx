@@ -7,6 +7,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion'
+import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 
 interface FAQItem {
@@ -59,9 +60,9 @@ export default function FAQ({ heading = 'Frequently Asked Questions', subheading
 
         <div className="mt-8 text-center space-y-4 pt-8 border-t border-border">
           <p className="text-muted-foreground text-sm">Still have questions?</p>
-          <button className="px-6 py-3 bg-primary text-primary-foreground hover:bg-primary/90 transition-all duration-300 border border-primary/20">
+          <Button variant="default" size="lg">
             Contact Support
-          </button>
+          </Button>
         </div>
       </div>
     </section>

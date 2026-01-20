@@ -15,6 +15,8 @@ import {
   FaInstagram,
 } from "react-icons/fa"
 import { cn } from '@/lib/utils'
+import { Card } from '@/components/ui/card'
+import { Button } from '@/components/ui/button'
 
 interface Testimonial {
   name: string
@@ -51,7 +53,6 @@ const BrandCard: React.FC<{
   className?: string
 }> = React.memo(({ brand, onHover, className }) => (
   <motion.div
-    className={`flex-shrink-0 w-auto flex flex-col items-start justify-center p-6 border border-border bg-card/30 hover:border-primary/40 transition-all duration-300 ${className}`}
     initial={{ opacity: 0, scale: 0.9 }}
     animate={{ opacity: 1, scale: 1 }}
     exit={{ opacity: 0, scale: 0.9 }}
@@ -59,10 +60,17 @@ const BrandCard: React.FC<{
     onMouseEnter={() => onHover(true)}
     onMouseLeave={() => onHover(false)}
   >
-    <div className="flex items-center space-x-3">
-      {React.createElement(brand.logo, { className: "text-3xl text-foreground" })}
-      <h3 className="text-lg font-semibold text-foreground">{brand.name}</h3>
-    </div>
+    <Card
+      variant="ghost"
+      padding="card"
+      gap="none"
+      className={cn("flex-shrink-0 w-auto", className)}
+    >
+      <div className="flex items-center space-x-3">
+        {React.createElement(brand.logo, { className: "text-3xl text-foreground" })}
+        <h3 className="text-lg font-semibold text-foreground">{brand.name}</h3>
+      </div>
+    </Card>
   </motion.div>
 ))
 
@@ -145,36 +153,38 @@ export default function Testimonials({ heading = 'What Our Customers Say', subhe
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -20 }}
               transition={{ duration: 0.3 }}
-              className="border border-border p-6 md:p-10 bg-card/30 space-y-4"
             >
-              <Quote className="w-12 h-12 text-primary/20" />
-              <p className="text-xl md:text-2xl leading-relaxed">
-                {testimonials[currentIndex].content}
-              </p>
-              <div className="flex items-center gap-4 pt-4 border-t border-border">
-                <div className="w-10 h-10 bg-primary/10 flex items-center justify-center border border-primary/20">
-                  <span className="text-lg font-semibold text-primary">
-                    {testimonials[currentIndex].name.charAt(0)}
-                  </span>
+              <Card variant="ghost" padding="card" gap="none" className="space-y-4">
+                <Quote className="w-12 h-12 text-primary/20" />
+                <p className="text-xl md:text-2xl leading-relaxed">
+                  {testimonials[currentIndex].content}
+                </p>
+                <div className="flex items-center gap-4 pt-4 border-t border-border">
+                  <div className="w-10 h-10 bg-primary/10 flex items-center justify-center border border-primary/20">
+                    <span className="text-lg font-semibold text-primary">
+                      {testimonials[currentIndex].name.charAt(0)}
+                    </span>
+                  </div>
+                  <div>
+                    <p className="font-semibold">{testimonials[currentIndex].name}</p>
+                    <p className="text-sm text-muted-foreground">
+                      {testimonials[currentIndex].role} at {testimonials[currentIndex].company}
+                    </p>
+                  </div>
                 </div>
-                <div>
-                  <p className="font-semibold">{testimonials[currentIndex].name}</p>
-                  <p className="text-sm text-muted-foreground">
-                    {testimonials[currentIndex].role} at {testimonials[currentIndex].company}
-                  </p>
-                </div>
-              </div>
+              </Card>
             </motion.div>
           </AnimatePresence>
 
           <div className="flex items-center justify-center gap-6">
-            <button
+            <Button
+              variant="outline"
+              size="icon"
               onClick={prev}
-              className="p-2 border border-border bg-card/50 hover:bg-card hover:border-primary/40 transition-all duration-300"
               aria-label="Previous testimonial"
             >
               <ChevronLeft className="w-5 h-5" />
-            </button>
+            </Button>
             <div className="flex gap-2">
               {testimonials.map((_, index) => (
                 <button
@@ -187,13 +197,14 @@ export default function Testimonials({ heading = 'What Our Customers Say', subhe
                 />
               ))}
             </div>
-            <button
+            <Button
+              variant="outline"
+              size="icon"
               onClick={next}
-              className="p-2 border border-border bg-card/50 hover:bg-card hover:border-primary/40 transition-all duration-300"
               aria-label="Next testimonial"
             >
               <ChevronRight className="w-5 h-5" />
-            </button>
+            </Button>
           </div>
         </div>
 
