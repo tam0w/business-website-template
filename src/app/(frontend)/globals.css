@@ -20,9 +20,13 @@
     --spacing-2xl: 3rem;
     --spacing-3xl: 4rem;
 
+    /* Max-Width overrides - highest priority, avoids spacing collision */
+    --max-width-2xl: 42rem;
+    --max-width-3xl: 48rem;
+
     /* Card Spacing */
-    --card-padding: 2rem;
-    --card-gap: 1.5rem;
+    --card-padding: 1rem;
+    --card-gap: 0.75rem;
 
     /* Color Mappings */
     --color-background: var(--background);
