@@ -45,8 +45,8 @@ export function PricingCTA({
   }
 
   return (
-    <div className="max-w-4xl mx-auto space-y-8">
-      <div className="text-center space-y-4">
+    <div className="max-w-4xl mx-auto space-y-6">
+      <div className="text-center space-y-3">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -73,18 +73,18 @@ export function PricingCTA({
         viewport={{ once: true }}
         transition={{ duration: 0.6, delay: 0.2 }}
         whileHover={{ scale: 1.02, y: -5 }}
-        className="glass rounded-2xl p-8 md:p-12 shadow-lg border-2 border-primary/20 hover:border-primary/40 transition-all duration-300 glow-primary"
+        className="border-2 border-primary/20 p-6 md:p-8 bg-card/30 hover:border-primary/40 transition-all duration-300"
       >
-        <div className="space-y-8">
-          <div className="space-y-2">
-            <h3 className="text-2xl font-bold text-primary">{planName}</h3>
+        <div className="space-y-6">
+          <div className="space-y-2 pb-4 border-b border-border">
+            <h3 className="text-xl font-bold text-primary">{planName}</h3>
             <div className="flex items-baseline justify-center gap-2">
-              <span className="text-5xl md:text-6xl font-bold">{price}</span>
-              <span className="text-muted-foreground">{priceSubtext}</span>
+              <span className="text-4xl md:text-5xl font-bold">{price}</span>
+              <span className="text-muted-foreground text-sm">{priceSubtext}</span>
             </div>
           </div>
 
-          <div className="space-y-4 py-6">
+          <div className="space-y-3">
             {features.map((item, index) => (
               <motion.div
                 key={index}
@@ -92,38 +92,32 @@ export function PricingCTA({
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: index * 0.1 }}
-                className="flex items-center gap-3"
+                className="flex items-center gap-2"
               >
-                <div className="flex-shrink-0 w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center">
-                  <Check className="w-4 h-4 text-primary" />
+                <div className="flex-shrink-0 w-5 h-5 bg-primary/20 flex items-center justify-center border border-primary/30">
+                  <Check className="w-3 h-3 text-primary" />
                 </div>
-                <span className="text-foreground">{item.feature}</span>
+                <span className="text-sm text-foreground">{item.feature}</span>
               </motion.div>
             ))}
           </div>
 
-          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+          <div className="pt-4 border-t border-border">
             <Button
               variant="glow"
               size="lg"
               asChild
-              className="w-full h-14 text-base rounded-xl font-semibold"
+              className="w-full h-12 text-base font-semibold"
             >
               <a href={buttonLink}>{buttonText}</a>
             </Button>
-          </motion.div>
+          </div>
         </div>
       </motion.div>
 
-      <motion.p
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6, delay: 0.3 }}
-        className="text-sm text-center text-muted-foreground"
-      >
+      <p className="text-xs text-center text-muted-foreground pt-2 border-t border-border">
         No credit card required • Cancel anytime • 14-day money-back guarantee
-      </motion.p>
+      </p>
     </div>
   )
 }

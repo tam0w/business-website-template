@@ -75,9 +75,9 @@ export function NavBar({ items, logo, className }: NavBarProps) {
         className,
       )}
     >
-      <nav className="flex items-center gap-2 glass py-2 px-2 rounded-xl shadow-lg border-glow-hover pointer-events-auto relative">
+      <nav className="flex items-center gap-1 border border-border bg-card/50 backdrop-blur-sm py-1 px-1 shadow-lg hover:border-primary/40 transition-all duration-300 pointer-events-auto relative">
         {logo && (
-          <div className="mr-2 px-2 py-2">
+          <div className="mr-1 px-2 py-2 border-r border-border">
             <Logo iconName={logo.iconName} companyName={logo.companyName} />
           </div>
         )}
@@ -91,7 +91,7 @@ export function NavBar({ items, logo, className }: NavBarProps) {
               href={item.url}
               ref={(el) => { itemRefs.current[index] = el }}
               className={cn(
-                "relative cursor-pointer text-base font-semibold px-4 py-2 rounded-xl transition-all duration-300 z-10",
+                "relative cursor-pointer text-base font-semibold px-3 py-2 transition-all duration-300 z-10",
                 "text-foreground/80 hover:text-primary hover:bg-primary/5",
                 isActive && "text-primary",
               )}
@@ -105,7 +105,7 @@ export function NavBar({ items, logo, className }: NavBarProps) {
         })}
 
         <motion.div
-          className="absolute bg-primary/10 rounded-xl border border-primary/20 -z-10"
+          className="absolute bg-primary/10 border border-primary/20 -z-10"
           animate={{
             left: indicatorStyle.left,
             width: indicatorStyle.width,
@@ -116,15 +116,10 @@ export function NavBar({ items, logo, className }: NavBarProps) {
             damping: 30,
           }}
           style={{
-            height: '40px',
-            top: '8px',
-            boxShadow: "0 0 20px oklch(0.55 0.25 265 / 20%), inset 0 0 20px oklch(0.55 0.25 265 / 10%)"
+            height: '36px',
+            top: '4px',
           }}
-        >
-          <div className="absolute -top-1 left-1/2 -translate-x-1/2 w-1/2 h-[2px] bg-primary rounded-full">
-            <div className="absolute w-full h-3 bg-primary/30 rounded-full blur-sm -top-1" />
-          </div>
-        </motion.div>
+        />
       </nav>
     </div>
   )

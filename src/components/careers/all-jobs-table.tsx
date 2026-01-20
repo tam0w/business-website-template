@@ -323,27 +323,44 @@ export function AllJobsTable({ careers }: AllJobsTableProps) {
           </p>
         </div>
 
-        <div className="absolute inset-x-0 h-px w-full border-b" />
+        <div className="border-separator" />
 
-        <div className="flex flex-col gap-8 px-4 md:px-6 py-16">
+        {/* Quick Stats Section - aligned with borders */}
+        <div className="grid md:grid-cols-3">
+          <div className="flex flex-col border-b md:border-b-0 md:border-r p-8 space-y-2">
+            <div className="text-4xl font-bold text-foreground">{careers.length}</div>
+            <div className="text-sm text-muted-foreground">Open Positions</div>
+          </div>
+          <div className="flex flex-col border-b md:border-b-0 md:border-r p-8 space-y-2">
+            <div className="text-4xl font-bold text-foreground">{uniqueDepartments.length}</div>
+            <div className="text-sm text-muted-foreground">Departments</div>
+          </div>
+          <div className="flex flex-col border-b md:border-b-0 p-8 space-y-2">
+            <div className="text-4xl font-bold text-foreground">{uniqueLocations.length}</div>
+            <div className="text-sm text-muted-foreground">Locations</div>
+          </div>
+        </div>
 
-          {/* Filters */}
-          <div className="flex flex-col gap-4">
-            {/* Search */}
-            <div className="relative w-full md:w-96">
+        <div className="border-separator" />
+
+        {/* Search & Filters Section - aligned with borders */}
+        <div className="bg-muted/20">
+          <div className="p-4 md:p-6 space-y-4">
+            {/* Search Bar */}
+            <div className="relative w-full">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
               <Input
-                placeholder="Search positions..."
+                placeholder="Search positions by title, department, or location..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-9"
+                className="pl-9 h-11"
               />
             </div>
 
             {/* Filter Dropdowns */}
-            <div className="flex flex-col sm:flex-row gap-4 flex-wrap">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
               <Select value={locationFilter} onValueChange={setLocationFilter}>
-                <SelectTrigger className="w-full sm:w-48">
+                <SelectTrigger className="h-10">
                   <SelectValue placeholder="Location" />
                 </SelectTrigger>
                 <SelectContent>
@@ -357,7 +374,7 @@ export function AllJobsTable({ careers }: AllJobsTableProps) {
               </Select>
 
               <Select value={typeFilter} onValueChange={setTypeFilter}>
-                <SelectTrigger className="w-full sm:w-48">
+                <SelectTrigger className="h-10">
                   <SelectValue placeholder="Type" />
                 </SelectTrigger>
                 <SelectContent>
@@ -371,8 +388,8 @@ export function AllJobsTable({ careers }: AllJobsTableProps) {
               </Select>
 
               <Select value={remoteFilter} onValueChange={setRemoteFilter}>
-                <SelectTrigger className="w-full sm:w-48">
-                  <SelectValue placeholder="Remote" />
+                <SelectTrigger className="h-10">
+                  <SelectValue placeholder="Work Model" />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="all">All Options</SelectItem>
@@ -385,7 +402,7 @@ export function AllJobsTable({ careers }: AllJobsTableProps) {
               </Select>
 
               <Select value={clearanceFilter} onValueChange={setClearanceFilter}>
-                <SelectTrigger className="w-full sm:w-48">
+                <SelectTrigger className="h-10">
                   <SelectValue placeholder="Clearance" />
                 </SelectTrigger>
                 <SelectContent>
@@ -394,149 +411,260 @@ export function AllJobsTable({ careers }: AllJobsTableProps) {
                   <SelectItem value="not-required">Not Required</SelectItem>
                 </SelectContent>
               </Select>
+            </div>
 
+            {/* Results Count & Clear Filters */}
+            <div className="flex items-center justify-between pt-2">
+              <div className="text-sm text-muted-foreground">
+                <span className="font-medium text-foreground">{filteredAndSortedCareers.length}</span> of {careers.length} positions
+              </div>
               {hasActiveFilters && (
                 <Button
                   variant="ghost"
+                  size="sm"
                   onClick={clearFilters}
-                  className="w-full sm:w-auto"
+                  className="h-8"
                 >
-                  <X className="h-4 w-4 mr-2" />
+                  <X className="h-3.5 w-3.5 mr-2" />
                   Clear Filters
                 </Button>
               )}
             </div>
           </div>
+        </div>
 
-          {/* Results Count */}
-          <div className="text-sm text-muted-foreground">
-            Showing {filteredAndSortedCareers.length} of {careers.length} positions
-          </div>
+        <div className="border-separator" />
 
-          {/* Tabs */}
-          <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-            <div className="overflow-x-auto">
-              <TabsList className="w-full justify-start h-auto gap-2 bg-transparent border-b rounded-none p-0 pb-2">
-              <TabsTrigger value="all" className="data-[state=active]:border-b-2 data-[state=active]:border-primary rounded-none bg-transparent px-4 py-2">
-                All Jobs
-                <Badge variant="secondary" className="ml-2 text-xs">
-                  {careers.length}
-                </Badge>
-              </TabsTrigger>
-              {uniqueDepartments.map((dept) => {
-                const deptCount = careers.filter(c => c.department === dept).length
-                return (
-                  <TabsTrigger
-                    key={dept}
-                    value={dept}
-                    className="data-[state=active]:border-b-2 data-[state=active]:border-primary rounded-none bg-transparent px-4 py-2"
-                  >
-                    {getDepartmentLabel(dept)}
-                    <Badge variant="secondary" className="ml-2 text-xs">
-                      {deptCount}
-                    </Badge>
-                  </TabsTrigger>
-                )
-              })}
+        {/* Tabs */}
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+          <div className="border-b border-border bg-muted/10">
+            <div className="overflow-x-auto px-4 md:px-6">
+              <TabsList className="w-full justify-start h-auto gap-1 bg-transparent p-0">
+                <TabsTrigger value="all" className="data-[state=active]:border-b-2 data-[state=active]:border-primary data-[state=active]:bg-background bg-transparent px-4 py-3 rounded-none border-b-2 border-transparent">
+                  All Jobs
+                  <Badge variant="secondary" className="ml-2 text-xs">
+                    {careers.length}
+                  </Badge>
+                </TabsTrigger>
+                {uniqueDepartments.map((dept) => {
+                  const deptCount = careers.filter(c => c.department === dept).length
+                  return (
+                    <TabsTrigger
+                      key={dept}
+                      value={dept}
+                      className="data-[state=active]:border-b-2 data-[state=active]:border-primary data-[state=active]:bg-background bg-transparent px-4 py-3 rounded-none border-b-2 border-transparent"
+                    >
+                      {getDepartmentLabel(dept)}
+                      <Badge variant="secondary" className="ml-2 text-xs">
+                        {deptCount}
+                      </Badge>
+                    </TabsTrigger>
+                  )
+                })}
               </TabsList>
             </div>
+          </div>
 
-            {/* Render TabsContent for "all" */}
-            <TabsContent value="all" className="mt-6">
+          {/* Render TabsContent for "all" */}
+          <TabsContent value="all" className="mt-0">
+            {/* Table */}
+            {filteredAndSortedCareers.length > 0 ? (
+              <div className="overflow-hidden">
+                <div className="overflow-x-auto">
+                  <Table>
+                    <TableHeader>
+                      <TableRow className="bg-muted/30 hover:bg-muted/30">
+                        <TableHead className="min-w-[250px] py-3 px-4 md:px-6 text-sm">
+                          <Button
+                            variant="ghost"
+                            onClick={() => handleSort('title')}
+                            className="h-auto p-0 font-semibold hover:bg-transparent text-sm"
+                          >
+                            Position
+                            <SortIcon field="title" />
+                          </Button>
+                        </TableHead>
+                        {activeTab === "all" && (
+                          <TableHead className="min-w-[140px] py-3 px-4 md:px-6 text-sm">
+                            <Button
+                              variant="ghost"
+                              onClick={() => handleSort('department')}
+                              className="h-auto p-0 font-semibold hover:bg-transparent text-sm"
+                            >
+                              Department
+                              <SortIcon field="department" />
+                            </Button>
+                          </TableHead>
+                        )}
+                        <TableHead className="min-w-[140px] py-3 px-4 md:px-6 text-sm">
+                          <Button
+                            variant="ghost"
+                            onClick={() => handleSort('location')}
+                            className="h-auto p-0 font-semibold hover:bg-transparent text-sm"
+                          >
+                            Location
+                            <SortIcon field="location" />
+                          </Button>
+                        </TableHead>
+                        <TableHead className="min-w-[110px] py-3 px-4 md:px-6 text-sm">
+                          <Button
+                            variant="ghost"
+                            onClick={() => handleSort('type')}
+                            className="h-auto p-0 font-semibold hover:bg-transparent text-sm"
+                          >
+                            Type
+                            <SortIcon field="type" />
+                          </Button>
+                        </TableHead>
+                        <TableHead className="min-w-[110px] py-3 px-4 md:px-6 text-sm">
+                          <Button
+                            variant="ghost"
+                            onClick={() => handleSort('remoteOption')}
+                            className="h-auto p-0 font-semibold hover:bg-transparent text-sm"
+                          >
+                            Work Model
+                            <SortIcon field="remoteOption" />
+                          </Button>
+                        </TableHead>
+                        <TableHead className="min-w-[130px] py-3 px-4 md:px-6 text-sm">Salary</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {filteredAndSortedCareers.map((career) => {
+                        const formattedCareer = formatCareer(career)
+                        return (
+                          <TableRow key={formattedCareer.id} className="hover:bg-muted/30">
+                            <TableCell className="py-3 px-4 md:px-6">
+                              <Link href={formattedCareer.url} className="hover:text-primary transition-colors">
+                                <div className="flex flex-col gap-1">
+                                  <span className="font-semibold text-sm">{formattedCareer.title}</span>
+                                  {formattedCareer.clearanceRequired && (
+                                    <div className="flex items-center gap-1 text-[11px] text-muted-foreground">
+                                      <Shield className="h-3 w-3" />
+                                      <span>{formattedCareer.clearanceDetails || 'Clearance Required'}</span>
+                                    </div>
+                                  )}
+                                </div>
+                              </Link>
+                            </TableCell>
+                            {activeTab === "all" && (
+                              <TableCell className="py-3 px-4 md:px-6">
+                                <Badge variant="secondary" className="text-xs">{formattedCareer.department}</Badge>
+                              </TableCell>
+                            )}
+                            <TableCell className="py-3 px-4 md:px-6">
+                              <div className="flex items-center gap-1.5 text-sm">
+                                <MapPin className="h-3.5 w-3.5 text-muted-foreground flex-shrink-0" />
+                                <span>{formattedCareer.location}</span>
+                              </div>
+                            </TableCell>
+                            <TableCell className="py-3 px-4 md:px-6 text-sm">{formattedCareer.type}</TableCell>
+                            <TableCell className="py-3 px-4 md:px-6 text-sm">{formattedCareer.remoteOption}</TableCell>
+                            <TableCell className="py-3 px-4 md:px-6 font-medium text-sm">{formattedCareer.salary || '—'}</TableCell>
+                          </TableRow>
+                        )
+                      })}
+                    </TableBody>
+                  </Table>
+                </div>
+              </div>
+            ) : (
+              <div className="text-center py-16 bg-muted/20">
+                <p className="text-muted-foreground mb-2">No positions found matching your criteria</p>
+                {hasActiveFilters && (
+                  <Button
+                    variant="outline"
+                    onClick={clearFilters}
+                    size="sm"
+                    className="mt-4"
+                  >
+                    Clear all filters
+                  </Button>
+                )}
+              </div>
+            )}
+          </TabsContent>
+
+          {/* Render TabsContent for each department */}
+          {uniqueDepartments.map((dept) => (
+            <TabsContent key={dept} value={dept} className="mt-0">
               {/* Table */}
               {filteredAndSortedCareers.length > 0 ? (
-                <div className="border rounded-lg overflow-hidden">
+                <div className="overflow-hidden">
                   <div className="overflow-x-auto">
                     <Table>
                       <TableHeader>
-                        <TableRow className="bg-muted/50">
-                          <TableHead className="min-w-[250px] py-4 px-6 text-base">
+                        <TableRow className="bg-muted/30 hover:bg-muted/30">
+                          <TableHead className="min-w-[250px] py-3 px-4 md:px-6 text-sm">
                             <Button
                               variant="ghost"
                               onClick={() => handleSort('title')}
-                              className="h-auto p-0 font-semibold hover:bg-transparent text-base"
+                              className="h-auto p-0 font-semibold hover:bg-transparent text-sm"
                             >
                               Position
                               <SortIcon field="title" />
                             </Button>
                           </TableHead>
-                          {activeTab === "all" && (
-                            <TableHead className="min-w-[150px] py-4 px-6 text-base">
-                              <Button
-                                variant="ghost"
-                                onClick={() => handleSort('department')}
-                                className="h-auto p-0 font-semibold hover:bg-transparent text-base"
-                              >
-                                Department
-                                <SortIcon field="department" />
-                              </Button>
-                            </TableHead>
-                          )}
-                          <TableHead className="min-w-[150px] py-4 px-6 text-base">
+                          <TableHead className="min-w-[140px] py-3 px-4 md:px-6 text-sm">
                             <Button
                               variant="ghost"
                               onClick={() => handleSort('location')}
-                              className="h-auto p-0 font-semibold hover:bg-transparent text-base"
+                              className="h-auto p-0 font-semibold hover:bg-transparent text-sm"
                             >
                               Location
                               <SortIcon field="location" />
                             </Button>
                           </TableHead>
-                          <TableHead className="min-w-[120px] py-4 px-6 text-base">
+                          <TableHead className="min-w-[110px] py-3 px-4 md:px-6 text-sm">
                             <Button
                               variant="ghost"
                               onClick={() => handleSort('type')}
-                              className="h-auto p-0 font-semibold hover:bg-transparent text-base"
+                              className="h-auto p-0 font-semibold hover:bg-transparent text-sm"
                             >
                               Type
                               <SortIcon field="type" />
                             </Button>
                           </TableHead>
-                          <TableHead className="min-w-[120px] py-4 px-6 text-base">
+                          <TableHead className="min-w-[110px] py-3 px-4 md:px-6 text-sm">
                             <Button
                               variant="ghost"
                               onClick={() => handleSort('remoteOption')}
-                              className="h-auto p-0 font-semibold hover:bg-transparent text-base"
+                              className="h-auto p-0 font-semibold hover:bg-transparent text-sm"
                             >
                               Work Model
                               <SortIcon field="remoteOption" />
                             </Button>
                           </TableHead>
-                          <TableHead className="min-w-[150px] py-4 px-6 text-base">Salary</TableHead>
+                          <TableHead className="min-w-[130px] py-3 px-4 md:px-6 text-sm">Salary</TableHead>
                         </TableRow>
                       </TableHeader>
                       <TableBody>
                         {filteredAndSortedCareers.map((career) => {
                           const formattedCareer = formatCareer(career)
                           return (
-                            <TableRow key={formattedCareer.id} className="hover:bg-muted/50">
-                              <TableCell className="py-5 px-6">
-                                <Link href={formattedCareer.url} className="hover:underline">
-                                  <div className="flex flex-col gap-1.5">
-                                    <span className="font-semibold text-base">{formattedCareer.title}</span>
+                            <TableRow key={formattedCareer.id} className="hover:bg-muted/30">
+                              <TableCell className="py-3 px-4 md:px-6">
+                                <Link href={formattedCareer.url} className="hover:text-primary transition-colors">
+                                  <div className="flex flex-col gap-1">
+                                    <span className="font-semibold text-sm">{formattedCareer.title}</span>
                                     {formattedCareer.clearanceRequired && (
-                                      <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
-                                        <Shield className="h-3.5 w-3.5" />
+                                      <div className="flex items-center gap-1 text-[11px] text-muted-foreground">
+                                        <Shield className="h-3 w-3" />
                                         <span>{formattedCareer.clearanceDetails || 'Clearance Required'}</span>
                                       </div>
                                     )}
                                   </div>
                                 </Link>
                               </TableCell>
-                              {activeTab === "all" && (
-                                <TableCell className="py-5 px-6">
-                                  <Badge variant="secondary">{formattedCareer.department}</Badge>
-                                </TableCell>
-                              )}
-                              <TableCell className="py-5 px-6">
-                                <div className="flex items-center gap-2">
-                                  <MapPin className="h-4 w-4 text-muted-foreground flex-shrink-0" />
+                              <TableCell className="py-3 px-4 md:px-6">
+                                <div className="flex items-center gap-1.5 text-sm">
+                                  <MapPin className="h-3.5 w-3.5 text-muted-foreground flex-shrink-0" />
                                   <span>{formattedCareer.location}</span>
                                 </div>
                               </TableCell>
-                              <TableCell className="py-5 px-6">{formattedCareer.type}</TableCell>
-                              <TableCell className="py-5 px-6">{formattedCareer.remoteOption}</TableCell>
-                              <TableCell className="py-5 px-6 font-medium">{formattedCareer.salary || '—'}</TableCell>
+                              <TableCell className="py-3 px-4 md:px-6 text-sm">{formattedCareer.type}</TableCell>
+                              <TableCell className="py-3 px-4 md:px-6 text-sm">{formattedCareer.remoteOption}</TableCell>
+                              <TableCell className="py-3 px-4 md:px-6 font-medium text-sm">{formattedCareer.salary || '—'}</TableCell>
                             </TableRow>
                           )
                         })}
@@ -545,12 +673,13 @@ export function AllJobsTable({ careers }: AllJobsTableProps) {
                   </div>
                 </div>
               ) : (
-                <div className="text-center py-12 border rounded-lg bg-muted/30">
-                  <p className="text-muted-foreground text-lg mb-2">No positions found matching your criteria</p>
+                <div className="text-center py-16 bg-muted/20">
+                  <p className="text-muted-foreground mb-2">No positions found matching your criteria</p>
                   {hasActiveFilters && (
                     <Button
                       variant="outline"
                       onClick={clearFilters}
+                      size="sm"
                       className="mt-4"
                     >
                       Clear all filters
@@ -559,110 +688,7 @@ export function AllJobsTable({ careers }: AllJobsTableProps) {
                 </div>
               )}
             </TabsContent>
-
-            {/* Render TabsContent for each department */}
-            {uniqueDepartments.map((dept) => (
-              <TabsContent key={dept} value={dept} className="mt-6">
-                {/* Table */}
-                {filteredAndSortedCareers.length > 0 ? (
-                  <div className="border rounded-lg overflow-hidden">
-                    <div className="overflow-x-auto">
-                      <Table>
-                        <TableHeader>
-                          <TableRow className="bg-muted/50">
-                            <TableHead className="min-w-[250px] py-4 px-6 text-base">
-                              <Button
-                                variant="ghost"
-                                onClick={() => handleSort('title')}
-                                className="h-auto p-0 font-semibold hover:bg-transparent text-base"
-                              >
-                                Position
-                                <SortIcon field="title" />
-                              </Button>
-                            </TableHead>
-                            <TableHead className="min-w-[150px] py-4 px-6 text-base">
-                              <Button
-                                variant="ghost"
-                                onClick={() => handleSort('location')}
-                                className="h-auto p-0 font-semibold hover:bg-transparent text-base"
-                              >
-                                Location
-                                <SortIcon field="location" />
-                              </Button>
-                            </TableHead>
-                            <TableHead className="min-w-[120px] py-4 px-6 text-base">
-                              <Button
-                                variant="ghost"
-                                onClick={() => handleSort('type')}
-                                className="h-auto p-0 font-semibold hover:bg-transparent text-base"
-                              >
-                                Type
-                                <SortIcon field="type" />
-                              </Button>
-                            </TableHead>
-                            <TableHead className="min-w-[120px] py-4 px-6 text-base">
-                              <Button
-                                variant="ghost"
-                                onClick={() => handleSort('remoteOption')}
-                                className="h-auto p-0 font-semibold hover:bg-transparent text-base"
-                              >
-                                Work Model
-                                <SortIcon field="remoteOption" />
-                              </Button>
-                            </TableHead>
-                            <TableHead className="min-w-[150px] py-4 px-6 text-base">Salary</TableHead>
-                          </TableRow>
-                        </TableHeader>
-                        <TableBody>
-                          {filteredAndSortedCareers.map((career) => {
-                            const formattedCareer = formatCareer(career)
-                            return (
-                              <TableRow key={formattedCareer.id} className="hover:bg-muted/50">
-                                <TableCell className="py-5 px-6">
-                                  <Link href={formattedCareer.url} className="hover:underline">
-                                    <div className="flex flex-col gap-1.5">
-                                      <span className="font-semibold text-base">{formattedCareer.title}</span>
-                                      {formattedCareer.clearanceRequired && (
-                                        <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
-                                          <Shield className="h-3.5 w-3.5" />
-                                          <span>{formattedCareer.clearanceDetails || 'Clearance Required'}</span>
-                                        </div>
-                                      )}
-                                    </div>
-                                  </Link>
-                                </TableCell>
-                                <TableCell className="py-5 px-6">
-                                  <div className="flex items-center gap-2">
-                                    <MapPin className="h-4 w-4 text-muted-foreground flex-shrink-0" />
-                                    <span>{formattedCareer.location}</span>
-                                  </div>
-                                </TableCell>
-                                <TableCell className="py-5 px-6">{formattedCareer.type}</TableCell>
-                                <TableCell className="py-5 px-6">{formattedCareer.remoteOption}</TableCell>
-                                <TableCell className="py-5 px-6 font-medium">{formattedCareer.salary || '—'}</TableCell>
-                              </TableRow>
-                            )
-                          })}
-                        </TableBody>
-                      </Table>
-                    </div>
-                  </div>
-                ) : (
-                  <div className="text-center py-12 border rounded-lg bg-muted/30">
-                    <p className="text-muted-foreground text-lg mb-2">No positions found matching your criteria</p>
-                    {hasActiveFilters && (
-                      <Button
-                        variant="outline"
-                        onClick={clearFilters}
-                        className="mt-4"
-                      >
-                        Clear all filters
-                      </Button>
-                    )}
-                  </div>
-                )}
-              </TabsContent>
-            ))}
+          ))}
           </Tabs>
         </div>
       </div>

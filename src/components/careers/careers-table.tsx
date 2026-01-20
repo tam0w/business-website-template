@@ -409,8 +409,8 @@ export function CareersTable({
                     href={formattedCareer.url}
                     className="group block"
                   >
-                    <article className="h-full bg-card rounded-lg border border-border p-6 transition-all hover:shadow-lg hover:border-primary/50 hover:bg-accent/50 cursor-pointer flex flex-col">
-                      <div className="flex items-center justify-center w-16 h-16 rounded-lg bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-all mb-4">
+                    <article className="h-full bg-card border border-border p-6 transition-all hover:border-primary/50 hover:bg-accent/50 cursor-pointer flex flex-col">
+                      <div className="flex items-center justify-center w-16 h-16 border border-border bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-all mb-4">
                         {getDepartmentIcon(career.department)}
                       </div>
 
@@ -459,7 +459,7 @@ export function CareersTable({
 
           {/* List/Table View */}
           {viewMode === "list" && (
-            <div className="border rounded-lg">
+            <div className="border">
               <Table>
                 <TableHeader>
                   <TableRow>

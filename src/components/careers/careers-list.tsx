@@ -137,9 +137,9 @@ export function CareersList({
                   href={formattedCareer.url}
                   className="group block"
                 >
-                  <article className="h-full bg-card rounded-lg border border-border p-6 transition-all hover:shadow-lg hover:border-primary/50 hover:bg-accent/50 cursor-pointer flex flex-col">
+                  <article className="h-full bg-card border border-border p-6 transition-all hover:border-primary/50 hover:bg-accent/50 cursor-pointer flex flex-col">
                     {/* Icon at the top */}
-                    <div className="flex items-center justify-center w-16 h-16 rounded-lg bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-all mb-4">
+                    <div className="flex items-center justify-center w-16 h-16 border border-border bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-all mb-4">
                       {getDepartmentIcon(career.department)}
                     </div>
 

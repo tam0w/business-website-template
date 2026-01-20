@@ -449,14 +449,14 @@ export default function FeatureShowcase({ heading, subheading, features }: Featu
 
       {/* Section Header */}
       {(heading || subheading) && (
-        <div className="text-center space-y-4">
+        <div className="text-center space-y-3 pb-6 border-b border-border">
           {heading && <h2 className="text-4xl font-bold">{heading}</h2>}
           {subheading && <p className="text-muted-foreground text-lg">{subheading}</p>}
         </div>
       )}
 
       {/* Regular Features Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-0 border border-border">
         {regularFeatures.map((feature, index) => {
           const Icon = iconMap[feature.icon] || Zap
           const Illustration = illustrationMap[feature.illustration] || LightningIllustration
@@ -465,39 +465,33 @@ export default function FeatureShowcase({ heading, subheading, features }: Featu
             <div
               key={index}
               className={cn(
-                "group relative overflow-hidden rounded-2xl border border-border bg-card",
-                "transition-all duration-500 hover:border-primary/40",
-                "hover:shadow-[0_0_30px_oklch(0.55_0.25_265_/_20%)]",
-                "hover:-translate-y-1"
+                "group relative overflow-hidden border-b lg:border-r bg-card/30",
+                "transition-all duration-300 hover:bg-card/50",
+                index >= regularFeatures.length - 3 && "border-b-0",
+                (index + 1) % 3 === 0 && "lg:border-r-0"
               )}
             >
-              {/* Background glow effect */}
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
               {/* SVG Illustration Container */}
-              <div className="relative h-48 p-8 flex items-center justify-center overflow-hidden">
+              <div className="relative h-40 p-6 flex items-center justify-center overflow-hidden border-b border-border/50">
                 <div className="w-full h-full relative">
                   <Illustration />
                 </div>
 
                 {/* Floating icon badge */}
-                <div className="absolute top-4 right-4 w-12 h-12 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center backdrop-blur-sm group-hover:scale-110 transition-transform duration-300">
-                  <Icon className="w-6 h-6 text-primary" />
+                <div className="absolute top-3 right-3 w-8 h-8 bg-primary/10 border border-primary/20 flex items-center justify-center group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-300">
+                  <Icon className="w-4 h-4 text-primary group-hover:text-primary-foreground" />
                 </div>
               </div>
 
               {/* Content */}
-              <div className="relative p-6 pt-4 space-y-3 border-t border-border/50">
-                <h3 className="text-xl font-semibold text-foreground group-hover:text-primary transition-colors duration-300">
+              <div className="relative p-5 space-y-2">
+                <h3 className="text-lg font-semibold text-foreground">
                   {feature.title}
                 </h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">
+                <p className="text-sm text-muted-foreground leading-snug">
                   {feature.description}
                 </p>
               </div>
-
-              {/* Bottom accent line */}
-              <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-primary to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
             </div>
           )
         })}
@@ -509,44 +503,31 @@ export default function FeatureShowcase({ heading, subheading, features }: Featu
         const Illustration = illustrationMap[heroFeature.illustration] || LightningIllustration
 
         return (
-          <div
-            className={cn(
-              "group relative overflow-hidden rounded-2xl border border-border bg-card",
-              "transition-all duration-500 hover:border-primary/40",
-              "hover:shadow-[0_0_30px_oklch(0.55_0.25_265_/_20%)]",
-              "hover:-translate-y-1"
-            )}
-          >
-            {/* Background glow effect */}
-            <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
+          <div className="border border-border bg-card/30 mt-8">
             {/* Horizontal Layout */}
-            <div className="flex flex-col md:flex-row items-center">
+            <div className="flex flex-col md:flex-row">
               {/* Content Section - 70% */}
-              <div className="relative p-6 md:p-8 flex-1 flex flex-col justify-center space-y-3 md:border-r border-border/50">
+              <div className="relative p-6 md:p-8 flex-1 flex flex-col justify-center space-y-3 md:border-r border-border">
                 {/* Floating icon badge */}
-                <div className="w-12 h-12 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center backdrop-blur-sm group-hover:scale-110 transition-transform duration-300">
-                  <Icon className="w-6 h-6 text-primary" />
+                <div className="w-10 h-10 bg-primary/10 border border-primary/20 flex items-center justify-center">
+                  <Icon className="w-5 h-5 text-primary" />
                 </div>
 
-                <h3 className="text-xl md:text-2xl lg:text-3xl font-semibold text-foreground group-hover:text-primary transition-colors duration-300">
+                <h3 className="text-xl md:text-2xl font-semibold text-foreground">
                   {heroFeature.title}
                 </h3>
-                <p className="text-sm md:text-base text-muted-foreground leading-relaxed">
+                <p className="text-sm md:text-base text-muted-foreground leading-snug">
                   {heroFeature.description}
                 </p>
               </div>
 
               {/* SVG Illustration Section - 30% */}
-              <div className="relative w-full md:w-[30%] h-[200px] md:h-[240px] p-6 md:p-8 flex items-center justify-center overflow-hidden">
+              <div className="relative w-full md:w-[30%] h-[180px] md:h-[200px] p-6 flex items-center justify-center overflow-hidden border-t md:border-t-0 border-border">
                 <div className="w-full h-full">
                   <Illustration />
                 </div>
               </div>
             </div>
-
-            {/* Bottom accent line */}
-            <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-primary to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
           </div>
         )
       })()}

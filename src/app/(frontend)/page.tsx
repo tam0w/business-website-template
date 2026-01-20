@@ -76,7 +76,7 @@ export default async function HomePage() {
   return (
     <div className="min-h-dvh snap-y snap-mandatory overflow-y-scroll h-dvh">
       {/* Hero Section with DarkVeil Background */}
-      <section className="relative h-dvh flex items-end pb-32 md:pb-40 justify-center bg-gradient-to-br from-[oklch(0.15_0.15_265)] via-[oklch(0.08_0.05_265)] to-background snap-start snap-always">
+      <section className="relative h-dvh flex items-end pb-32 md:pb-40 justify-center bg-gradient-to-br from-[oklch(0.15_0.15_265)] via-[oklch(0.08_0.05_265)] to-background snap-start snap-always border-b border-border">
         <div className="absolute inset-0 w-full h-full">
           <DarkVeil
             hueShift={27}
@@ -106,10 +106,10 @@ export default async function HomePage() {
             </TextReveal>
           </div>
           <div className="flex gap-6 justify-center flex-wrap">
-            <a href={heroPrimaryButtonLink} className="px-12 py-4 bg-primary text-primary-foreground rounded-xl text-lg font-semibold hover:bg-primary/90 transition-all duration-300 hover:scale-105 glow-primary border border-primary/20">
+            <a href={heroPrimaryButtonLink} className="px-12 py-4 bg-primary text-primary-foreground text-lg font-semibold hover:bg-primary/90 transition-all duration-300 hover:scale-105 glow-primary border border-primary/20">
               {heroPrimaryButtonText}
             </a>
-            <a href={heroSecondaryButtonLink} className="px-12 py-4 glass text-foreground rounded-xl text-lg font-semibold hover:border-primary/40 transition-all duration-300 border-glow-hover">
+            <a href={heroSecondaryButtonLink} className="px-12 py-4 glass text-foreground text-lg font-semibold hover:border-primary/40 transition-all duration-300 border-glow-hover">
               {heroSecondaryButtonText}
             </a>
           </div>
@@ -117,16 +117,9 @@ export default async function HomePage() {
       </section>
 
       {/* Features Section */}
-      <section className="min-h-dvh px-6 py-20 bg-background flex items-center justify-center snap-start snap-always relative">
+      <section className="min-h-dvh px-6 py-20 bg-background flex items-center justify-center snap-start snap-always relative border-b border-border">
         {/* Dot Grid Background */}
-        <div
-          className={cn(
-            'absolute inset-0 size-full -z-10',
-            'bg-[radial-gradient(oklch(0.25_0.08_265_/_20%)_1px,transparent_1px)]',
-            'bg-[size:32px_32px]',
-            '[mask-image:radial-gradient(ellipse_at_center,transparent_30%,black_70%)]',
-          )}
-        />
+        <div className="absolute inset-0 size-full -z-10 dot-grid opacity-30" />
         <div className="relative z-10 w-full">
           <FeatureShowcase
             heading={featuresHeading}
@@ -137,21 +130,27 @@ export default async function HomePage() {
       </section>
 
       {/* Testimonials Section */}
-      <Testimonials
-        heading={testimonialsHeading}
-        subheading={testimonialsSubheading}
-        testimonials={testimonials}
-      />
+      <div className="border-b border-border">
+        <Testimonials
+          heading={testimonialsHeading}
+          subheading={testimonialsSubheading}
+          testimonials={testimonials}
+        />
+      </div>
 
       {/* FAQ Section */}
-      <FAQ
-        heading={faqHeading}
-        subheading={faqSubheading}
-        faqs={faqs}
-      />
+      <div className="border-b border-border">
+        <FAQ
+          heading={faqHeading}
+          subheading={faqSubheading}
+          faqs={faqs}
+        />
+      </div>
 
       {/* CTA Section */}
-      <section className="h-dvh px-6 bg-gradient-radial-primary flex items-center justify-center snap-start snap-always">
+      <section className="h-dvh px-6 bg-gradient-radial-primary flex items-center justify-center snap-start snap-always border-b border-border relative">
+        {/* Dot Grid Background */}
+        <div className="absolute inset-0 size-full -z-10 dot-grid opacity-20" />
         {ctaType === 'waitlist' ? (
           <WaitlistCTA
             heading={ctaHeading}
@@ -174,7 +173,9 @@ export default async function HomePage() {
       </section>
 
       {/* Footer */}
-      <footer className="min-h-dvh border-t border-border py-16 px-6 flex items-center justify-center snap-start snap-always">
+      <footer className="min-h-dvh border-t border-border py-16 px-6 flex items-center justify-center snap-start snap-always relative">
+        {/* Dot Grid Background */}
+        <div className="absolute inset-0 size-full -z-10 dot-grid opacity-30" />
         <div className="max-w-6xl mx-auto space-y-12">
         {/* Logo: Icon + Text */}
         <div className="pb-8">

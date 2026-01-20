@@ -5,6 +5,7 @@
 
 @theme inline {
     /* Border Radius System */
+    --radius-none: 0;
     --radius-sm: 0.5rem;
     --radius-md: 0.75rem;
     --radius-lg: 1rem;
@@ -173,5 +174,43 @@
 
     .bg-gradient-radial-accent {
         background: radial-gradient(circle at center, oklch(0.20 0.15 210), oklch(0.08 0.01 265));
+    }
+
+    /* Dot Grid Patterns - Reusable utility classes */
+    .dot-grid {
+        background-image: radial-gradient(oklch(0.25 0.08 265 / 20%) 1px, transparent 1px);
+        background-size: 32px 32px;
+    }
+
+    .dot-grid-dense {
+        background-image: radial-gradient(oklch(0.25 0.08 265 / 20%) 1px, transparent 1px);
+        background-size: 20px 20px;
+    }
+
+    .dot-grid-sparse {
+        background-image: radial-gradient(oklch(0.25 0.08 265 / 20%) 1px, transparent 1px);
+        background-size: 48px 48px;
+    }
+
+    /* Dot Grid with Mask (Fades from center) */
+    .dot-grid-fade-center {
+        background-image: radial-gradient(oklch(0.25 0.08 265 / 20%) 1px, transparent 1px);
+        background-size: 32px 32px;
+        mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
+    }
+
+    .dot-grid-fade-edges {
+        background-image: radial-gradient(oklch(0.25 0.08 265 / 20%) 1px, transparent 1px);
+        background-size: 32px 32px;
+        mask-image: radial-gradient(ellipse at center, transparent 30%, black 70%);
+    }
+
+    /* Border Separator Utility */
+    .border-separator {
+        position: absolute;
+        inset-inline: 0;
+        height: 1px;
+        width: 100%;
+        border-bottom: 1px solid var(--border);
     }
 }

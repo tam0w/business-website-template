@@ -128,14 +128,7 @@ export function ContactPage({
 				{/* Social Media Section */}
 				<div className="relative flex h-full min-h-[400px] items-center justify-center py-16 px-6">
 					{/* Grid Background Effect */}
-					<div
-						className={cn(
-							'absolute inset-0 size-full -z-10',
-							'bg-[radial-gradient(oklch(0.25_0.08_265_/_20%)_1px,transparent_1px)]',
-							'bg-[size:32px_32px]',
-							'[mask-image:radial-gradient(ellipse_at_center,black_30%,transparent_70%)]',
-						)}
-					/>
+					<div className="absolute inset-0 size-full -z-10 dot-grid-fade-center" />
 
 					<div className="relative z-10 space-y-8 text-center">
 						<h2 className="text-3xl font-bold md:text-4xl text-foreground">
@@ -168,7 +161,7 @@ export function ContactPage({
 }
 
 function BorderSeparator() {
-	return <div className="absolute inset-x-0 h-px w-full border-b" />;
+	return <div className="border-separator" />;
 }
 
 type ContactBox = React.ComponentProps<'div'> & {

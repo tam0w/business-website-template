@@ -64,84 +64,86 @@ export function BlogList({
           </p>
         </div>
 
-        <div className="absolute inset-x-0 h-px w-full border-b" />
+        <div className="border-separator" />
 
-        <div className="flex flex-col space-y-16 px-4 md:px-6 py-16">
-
+        <div className="flex flex-col">
           {posts.map((post) => {
             const formattedPost = formatPost(post)
             return (
               <article
                 key={formattedPost.id}
-                className="group w-full bg-card rounded-lg border border-glow-hover p-8 transition-all duration-300 hover:shadow-lg"
+                className="group border-b border-border hover:bg-muted/30 transition-all duration-300"
               >
-                  <div className="grid gap-8 md:grid-cols-5 md:gap-12">
-                    <div className="flex flex-col md:col-span-3 space-y-6">
-                      {formattedPost.tags.length > 0 && (
-                        <div>
-                          <div className="flex flex-wrap gap-2">
-                            {formattedPost.tags.map((tag) => (
-                              <Badge key={tag} variant="secondary" className="text-xs">
+                <Link href={formattedPost.url}>
+                  <div className="grid md:grid-cols-7">
+                    {/* Image Section - smaller */}
+                    <div className="md:col-span-2 md:border-r border-border">
+                      <div className="aspect-video md:aspect-[4/3] h-full overflow-clip bg-muted">
+                        <img
+                          src={formattedPost.image}
+                          alt={formattedPost.title}
+                          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        />
+                      </div>
+                    </div>
+
+                    {/* Content Section */}
+                    <div className="md:col-span-5 flex flex-col justify-between p-4 md:p-6 space-y-3">
+                      <div className="flex flex-col space-y-3">
+                        {/* Tags & Date - combined in one line */}
+                        <div className="flex items-center justify-between gap-4 flex-wrap">
+                          <div className="flex flex-wrap gap-1.5">
+                            {formattedPost.tags.slice(0, 2).map((tag) => (
+                              <Badge key={tag} variant="secondary" className="text-xs px-2 py-0.5">
                                 {tag}
                               </Badge>
                             ))}
                           </div>
-                        </div>
-                      )}
-                      <h3 className="text-2xl font-bold md:text-3xl group-hover:text-primary transition-colors duration-300">
-                        <Link href={formattedPost.url}>
-                          {formattedPost.title}
-                        </Link>
-                      </h3>
-                      {formattedPost.summary && (
-                        <p className="text-muted-foreground text-sm md:text-base line-clamp-3 leading-relaxed">
-                          {formattedPost.summary}
-                        </p>
-                      )}
-                      <div className="mt-auto space-y-4">
-                        <div className="flex items-center gap-6">
-                          <div className="flex items-center gap-2">
-                            <Avatar className="h-8 w-8 border">
-                              {formattedPost.author.avatar && (
-                                <AvatarImage
-                                  src={formattedPost.author.avatar}
-                                  alt={formattedPost.author.name}
-                                />
-                              )}
-                              <AvatarFallback className="text-xs">
-                                {formattedPost.author.initials}
-                              </AvatarFallback>
-                            </Avatar>
-                            <span className="text-sm font-medium">
-                              {formattedPost.author.name}
-                            </span>
-                          </div>
-                          <div className="flex items-center gap-1.5 text-sm text-muted-foreground">
-                            <Calendar className="h-3.5 w-3.5" />
+                          <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
+                            <Calendar className="h-3 w-3" />
                             <time>{formattedPost.published}</time>
                           </div>
                         </div>
-                        <Link
-                          href={formattedPost.url}
-                          className="inline-flex items-center gap-2 font-semibold text-sm hover:gap-3 transition-all"
-                        >
+
+                        {/* Title - smaller */}
+                        <h3 className="text-lg font-bold md:text-xl group-hover:text-primary transition-colors duration-300 line-clamp-2">
+                          {formattedPost.title}
+                        </h3>
+
+                        {/* Summary - smaller */}
+                        {formattedPost.summary && (
+                          <p className="text-muted-foreground text-xs md:text-sm line-clamp-2 leading-relaxed">
+                            {formattedPost.summary}
+                          </p>
+                        )}
+                      </div>
+
+                      {/* Footer with Author & Read More */}
+                      <div className="flex items-center justify-between gap-4 pt-2">
+                        <div className="flex items-center gap-2">
+                          <Avatar className="h-6 w-6 border">
+                            {formattedPost.author.avatar && (
+                              <AvatarImage
+                                src={formattedPost.author.avatar}
+                                alt={formattedPost.author.name}
+                              />
+                            )}
+                            <AvatarFallback className="text-[10px]">
+                              {formattedPost.author.initials}
+                            </AvatarFallback>
+                          </Avatar>
+                          <span className="text-xs font-medium">
+                            {formattedPost.author.name}
+                          </span>
+                        </div>
+                        <div className="inline-flex items-center gap-1.5 font-semibold text-xs group-hover:gap-2 transition-all">
                           <span>{ctaText}</span>
-                          <ArrowRight className="size-4" />
-                        </Link>
+                          <ArrowRight className="size-3" />
+                        </div>
                       </div>
                     </div>
-                    <div className="order-first md:order-last md:col-span-2">
-                      <Link href={formattedPost.url} className="block h-full">
-                        <div className="aspect-video md:aspect-square h-full overflow-clip rounded-lg border border-border bg-muted">
-                          <img
-                            src={formattedPost.image}
-                            alt={formattedPost.title}
-                            className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
-                          />
-                        </div>
-                      </Link>
-                    </div>
                   </div>
+                </Link>
               </article>
             )
           })}

@@ -51,7 +51,7 @@ const BrandCard: React.FC<{
   className?: string
 }> = React.memo(({ brand, onHover, className }) => (
   <motion.div
-    className={`flex-shrink-0 w-auto rounded-xl overflow-hidden flex flex-col items-start justify-center p-6 glass border-glow-hover transition-all duration-300 ${className}`}
+    className={`flex-shrink-0 w-auto flex flex-col items-start justify-center p-6 border border-border bg-card/30 hover:border-primary/40 transition-all duration-300 ${className}`}
     initial={{ opacity: 0, scale: 0.9 }}
     animate={{ opacity: 1, scale: 1 }}
     exit={{ opacity: 0, scale: 0.9 }}
@@ -126,16 +126,9 @@ export default function Testimonials({ heading = 'What Our Customers Say', subhe
   return (
     <section className="h-dvh px-6 bg-background flex items-center justify-center snap-start snap-always relative">
       {/* Dot Grid Background */}
-      <div
-        className={cn(
-          'absolute inset-0 size-full -z-10',
-          'bg-[radial-gradient(oklch(0.25_0.08_265_/_20%)_1px,transparent_1px)]',
-          'bg-[size:32px_32px]',
-          '[mask-image:radial-gradient(ellipse_at_center,transparent_30%,black_70%)]',
-        )}
-      />
-      <div className="max-w-6xl mx-auto space-y-12 relative z-10">
-        <div className="text-center space-y-4">
+      <div className="absolute inset-0 size-full -z-10 dot-grid opacity-30" />
+      <div className="max-w-6xl mx-auto space-y-8 relative z-10">
+        <div className="text-center space-y-3">
           <h2 className="text-4xl font-bold">{heading}</h2>
           {subheading && (
             <p className="text-muted-foreground text-lg">
@@ -144,7 +137,7 @@ export default function Testimonials({ heading = 'What Our Customers Say', subhe
           )}
         </div>
 
-        <div className="relative max-w-4xl mx-auto space-y-8">
+        <div className="relative max-w-4xl mx-auto space-y-6">
           <AnimatePresence mode="wait">
             <motion.div
               key={currentIndex}
@@ -152,14 +145,14 @@ export default function Testimonials({ heading = 'What Our Customers Say', subhe
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -20 }}
               transition={{ duration: 0.3 }}
-              className="glass rounded-2xl p-8 md:p-12 shadow-lg border-glow-hover space-y-6"
+              className="border border-border p-6 md:p-10 bg-card/30 space-y-4"
             >
               <Quote className="w-12 h-12 text-primary/20" />
               <p className="text-xl md:text-2xl leading-relaxed">
                 {testimonials[currentIndex].content}
               </p>
-              <div className="flex items-center gap-6">
-                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center ring-2 ring-primary/20">
+              <div className="flex items-center gap-4 pt-4 border-t border-border">
+                <div className="w-10 h-10 bg-primary/10 flex items-center justify-center border border-primary/20">
                   <span className="text-lg font-semibold text-primary">
                     {testimonials[currentIndex].name.charAt(0)}
                   </span>
@@ -177,7 +170,7 @@ export default function Testimonials({ heading = 'What Our Customers Say', subhe
           <div className="flex items-center justify-center gap-6">
             <button
               onClick={prev}
-              className="p-2 rounded-full border border-border glass hover:bg-card hover:border-primary/40 transition-all duration-300 hover:shadow-[0_0_15px_oklch(0.55_0.25_265_/_20%)]"
+              className="p-2 border border-border bg-card/50 hover:bg-card hover:border-primary/40 transition-all duration-300"
               aria-label="Previous testimonial"
             >
               <ChevronLeft className="w-5 h-5" />
@@ -187,8 +180,8 @@ export default function Testimonials({ heading = 'What Our Customers Say', subhe
                 <button
                   key={index}
                   onClick={() => setCurrentIndex(index)}
-                  className={`h-2 rounded-full transition-all duration-300 ${
-                    index === currentIndex ? 'bg-primary w-8 glow-primary' : 'bg-muted-foreground/30 w-2'
+                  className={`h-2 border border-border transition-all duration-300 ${
+                    index === currentIndex ? 'bg-primary w-8 border-primary' : 'bg-muted-foreground/30 w-2'
                   }`}
                   aria-label={`Go to testimonial ${index + 1}`}
                 />
@@ -196,7 +189,7 @@ export default function Testimonials({ heading = 'What Our Customers Say', subhe
             </div>
             <button
               onClick={next}
-              className="p-2 rounded-full border border-border glass hover:bg-card hover:border-primary/40 transition-all duration-300 hover:shadow-[0_0_15px_oklch(0.55_0.25_265_/_20%)]"
+              className="p-2 border border-border bg-card/50 hover:bg-card hover:border-primary/40 transition-all duration-300"
               aria-label="Next testimonial"
             >
               <ChevronRight className="w-5 h-5" />
@@ -205,15 +198,18 @@ export default function Testimonials({ heading = 'What Our Customers Say', subhe
         </div>
 
         {/* Brands Section */}
-        <div className="max-w-7xl mx-auto space-y-6 mt-16">
-          <div className="text-center">
+        <div className="max-w-7xl mx-auto space-y-4 mt-12 relative pt-12 border-t border-border">
+          {/* Dot Grid Background - only under brands */}
+          <div className="absolute inset-0 size-full -z-10 dot-grid opacity-50" />
+
+          <div className="text-center relative z-10">
             <p className="text-muted-foreground text-sm uppercase tracking-wider">
               Trusted by industry leaders
             </p>
           </div>
-          <div className="relative">
+          <div className="relative z-10">
             <div
-              className="relative overflow-hidden rounded-xl"
+              className="relative overflow-hidden border-y border-border bg-card/20"
               style={{
                 maskImage:
                   "linear-gradient(to right, transparent, white 10%, white 90%, transparent)",

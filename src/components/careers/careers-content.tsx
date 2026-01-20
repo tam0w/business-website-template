@@ -122,7 +122,7 @@ export function CareersContent({ content }: CareersContentProps) {
     // Handle code blocks
     if (node.type === 'code') {
       return (
-        <pre key={index} className="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg overflow-x-auto my-4">
+        <pre key={index} className="bg-gray-100 dark:bg-gray-800 p-4  overflow-x-auto my-4">
           <code>{node.children?.map((child: any, i: number) => renderNode(child, i))}</code>
         </pre>
       )
@@ -142,7 +142,7 @@ export function CareersContent({ content }: CareersContentProps) {
             <img
               src={value.url}
               alt={value.alt || ''}
-              className="w-full h-auto rounded-lg"
+              className="w-full h-auto "
               width={value.width}
               height={value.height}
             />

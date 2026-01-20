@@ -5,7 +5,7 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-[--spacing-sm] whitespace-nowrap rounded-[--radius-md] text-sm font-medium transition-all duration-300 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:ring-ring/50 focus-visible:ring-2",
+  "inline-flex items-center justify-center gap-[--spacing-sm] whitespace-nowrap text-sm font-medium transition-all duration-300 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:ring-ring/50 focus-visible:ring-2",
   {
     variants: {
       variant: {
@@ -24,16 +24,25 @@ const buttonVariants = cva(
       },
       size: {
         default: "h-10 px-[--spacing-lg] py-[--spacing-sm]",
-        sm: "h-8 rounded-[--radius-sm] gap-[--spacing-xs] px-[--spacing-md]",
-        lg: "h-12 rounded-[--radius-lg] px-[--spacing-xl] text-base",
+        sm: "h-8 gap-[--spacing-xs] px-[--spacing-md]",
+        lg: "h-12 px-[--spacing-xl] text-base",
         icon: "size-10",
         "icon-sm": "size-8",
         "icon-lg": "size-12",
+      },
+      radius: {
+        default: "rounded-[--radius-md]",
+        none: "rounded-none",
+        sm: "rounded-[--radius-sm]",
+        lg: "rounded-[--radius-lg]",
+        xl: "rounded-xl",
+        full: "rounded-full",
       },
     },
     defaultVariants: {
       variant: "default",
       size: "default",
+      radius: "none",
     },
   }
 )
@@ -42,6 +51,7 @@ function Button({
   className,
   variant,
   size,
+  radius,
   asChild = false,
   ...props
 }: React.ComponentProps<"button"> &
@@ -53,7 +63,7 @@ function Button({
   return (
     <Comp
       data-slot="button"
-      className={cn(buttonVariants({ variant, size, className }))}
+      className={cn(buttonVariants({ variant, size, radius, className }))}
       {...props}
     />
   )

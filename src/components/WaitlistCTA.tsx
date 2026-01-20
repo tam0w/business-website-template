@@ -34,8 +34,8 @@ export function WaitlistCTA({
   }
 
   return (
-    <div className="max-w-4xl mx-auto space-y-8">
-      <div className="text-center space-y-4">
+    <div className="max-w-4xl mx-auto space-y-6">
+      <div className="text-center space-y-3">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -62,29 +62,29 @@ export function WaitlistCTA({
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6, delay: 0.2 }}
-        className="glass rounded-2xl p-8 md:p-12 shadow-lg border-2 border-primary/20 hover:border-primary/40 transition-all duration-300 glow-primary"
+        className="border-2 border-primary/20 p-6 md:p-8 bg-card/30 hover:border-primary/40 transition-all duration-300"
       >
         {!isSubmitted ? (
-          <div className="space-y-6">
-            <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-4">
+          <div className="space-y-4">
+            <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3">
               <Input
                 type="email"
                 placeholder={emailPlaceholder}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="flex-1 h-14 px-6 text-base glass border-2 border-border/50 focus-visible:border-primary focus-visible:glow-primary transition-all duration-300 rounded-xl"
+                className="flex-1 h-12 px-4 text-base border border-border bg-card/50 focus-visible:border-primary transition-all duration-300"
               />
               <Button
                 type="submit"
                 variant="glow"
                 size="lg"
-                className="h-14 px-8 text-base rounded-xl hover:scale-105 transition-all duration-300"
+                className="h-12 px-6 text-base"
               >
                 {buttonText}
               </Button>
             </form>
-            <p className="text-sm text-center text-muted-foreground">
+            <p className="text-xs text-center text-muted-foreground pt-2 border-t border-border">
               Join the waitlist to get early access and exclusive updates
             </p>
           </div>
