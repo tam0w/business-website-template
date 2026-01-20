@@ -2,7 +2,7 @@ import type { ServicesContent } from '@/types'
 
 export const servicesContent: ServicesContent = {
   heading: 'Our Services',
-  subheading: 'Strategic content, personal branding, and intelligent automation for businesses that lead with expertise.',
+  subheading: 'Strategic content, personal branding, and AI workflows for companies that lead with expertise.',
 
   services: [
     {

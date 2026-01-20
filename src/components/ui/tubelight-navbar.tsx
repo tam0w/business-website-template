@@ -77,7 +77,7 @@ export function NavBar({ items, logo, className }: NavBarProps) {
         className,
       )}
     >
-      <nav className="flex items-center gap-1 border border-border bg-card/50 backdrop-blur-sm py-1 px-1 shadow-lg hover:border-primary/40 transition-all duration-300 pointer-events-auto relative">
+      <nav className="flex items-center gap-1 border border-border bg-background/95 backdrop-blur-sm py-1 px-1 shadow-lg hover:border-primary/40 transition-all duration-300 pointer-events-auto relative">
         {logo && (
           <div className="mr-1 px-2 py-2 border-r border-border">
             <Logo iconName={logo.iconName} companyName={logo.companyName} />

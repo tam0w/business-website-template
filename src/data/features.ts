@@ -2,7 +2,7 @@ import type { FeaturesContent } from '@/types'
 
 export const featuresContent: FeaturesContent = {
   heading: 'What We Do',
-  subheading: 'Content strategy, personal branding, and automation for expertise-driven businesses.',
+  subheading: 'Content strategy, personal branding, and AI workflows for expertise-driven companies.',
   features: [
     {
       title: 'Expert Content',

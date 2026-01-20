@@ -1,8 +1,8 @@
 import type { HomepageContent } from '@/types'
 
 export const homepageContent: HomepageContent = {
-  heroHeading: 'Make your expertise impossible to ignore',
-  heroSubheading: 'We help knowledge-driven businesses build authority through strategic content, personal branding, and intelligent automation.',
+  heroHeading: 'Strategic content and AI workflows for ambitious companies',
+  heroSubheading: 'We help knowledge-driven businesses build authority through strategic content, personal branding, and custom AI agents that amplify your team.',
   heroPrimaryButtonText: 'Book a Call',
   heroPrimaryButtonLink: '/contact',
   heroSecondaryButtonText: 'Learn More',
