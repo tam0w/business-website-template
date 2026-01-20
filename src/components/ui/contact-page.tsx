@@ -17,7 +17,7 @@ import {
 	YoutubeIcon,
 	icons,
 } from 'lucide-react';
-import { Button, ButtonProps } from '@/components/ui/button';
+import { Button } from '@/components/ui/button';
 
 interface ContactPageProps {
 	heading: string;
@@ -198,7 +198,7 @@ function Box({
 	);
 }
 
-type CopyButtonProps = ButtonProps & {
+type CopyButtonProps = React.ComponentProps<typeof Button> & {
 	text: string;
 };
 

@@ -1,9 +1,9 @@
 import { ArrowRight, Calendar } from "lucide-react"
 import { format } from "date-fns"
-import Link from "next/link"
+import { Link } from "react-router-dom"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
-import type { Post, User, Media } from "@/payload-types"
+import type { Post } from "@/types"
 
 interface BlogListProps {
   heading: string
@@ -19,10 +19,6 @@ export function BlogList({
   posts,
 }: BlogListProps) {
   const formatPost = (post: Post) => {
-    const author = post.author as User | undefined
-    const featuredImage = post.featuredImage as Media | null | undefined
-    const authorAvatar = author?.avatar as Media | null | undefined
-
     const getAuthorInitials = (name?: string): string => {
       if (!name) return "?"
       return name
@@ -34,19 +30,19 @@ export function BlogList({
     }
 
     return {
-      id: post.id.toString(),
+      id: post._id,
       title: post.title,
       summary: post.excerpt || post.subTitle || "",
       author: {
-        name: author?.name || "Anonymous",
-        avatar: authorAvatar?.url,
-        initials: getAuthorInitials(author?.name),
+        name: post.author.name,
+        avatar: post.author.avatar,
+        initials: getAuthorInitials(post.author.name),
       },
       published: post.publishedAt
         ? format(new Date(post.publishedAt), "dd MMM yyyy")
-        : format(new Date(post.createdAt), "dd MMM yyyy"),
+        : format(new Date(post._creationTime), "dd MMM yyyy"),
       url: `/blog/${post.slug}`,
-      image: featuredImage?.url || "https://placehold.co/800x450/333/666?text=No+Image",
+      image: post.featuredImage || "https://placehold.co/800x450/333/666?text=No+Image",
       tags: post.tags || [],
     }
   }
@@ -74,7 +70,7 @@ export function BlogList({
                 key={formattedPost.id}
                 className="group border-b border-border hover:bg-muted/30 transition-all duration-300"
               >
-                <Link href={formattedPost.url}>
+                <Link to={formattedPost.url}>
                   <div className="grid md:grid-cols-7">
                     {/* Image Section - smaller */}
                     <div className="md:col-span-2 md:border-r border-border">

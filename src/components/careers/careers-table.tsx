@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useMemo } from "react"
-import Link from "next/link"
+import { Link } from "react-router-dom"
 import { MapPin, Briefcase, Clock, Shield, Code, Database, Cog, TrendingUp, ShieldCheck, Grid3x3, List, Search, X } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -21,7 +21,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
-import type { Career } from "@/payload-types"
+import type { Career } from "@/types"
 
 interface CareersTableProps {
   heading: string
@@ -130,7 +130,7 @@ export function CareersTable({
     }
 
     return {
-      id: career.id.toString(),
+      id: career._id,
       title: career.title,
       slug: career.slug,
       department: getDepartmentLabel(career.department),
@@ -406,7 +406,7 @@ export function CareersTable({
                 return (
                   <Link
                     key={formattedCareer.id}
-                    href={formattedCareer.url}
+                    to={formattedCareer.url}
                     className="group block"
                   >
                     <article className="h-full bg-card border border-border p-6 transition-all hover:border-primary/50 hover:bg-accent/50 cursor-pointer flex flex-col">
@@ -477,7 +477,7 @@ export function CareersTable({
                     return (
                       <TableRow key={formattedCareer.id} className="cursor-pointer">
                         <TableCell>
-                          <Link href={formattedCareer.url} className="hover:underline">
+                          <Link to={formattedCareer.url} className="hover:underline">
                             <div className="flex flex-col gap-1">
                               <span className="font-semibold">{formattedCareer.title}</span>
                               {formattedCareer.clearanceRequired && (

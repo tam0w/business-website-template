@@ -1,7 +1,7 @@
-import type { Career } from '@/payload-types'
+import type { LexicalContent } from '@/types'
 
 interface CareersContentProps {
-  content: Career['description'] | Career['requirements'] | Career['responsibilities'] | Career['niceToHave']
+  content: LexicalContent | undefined
 }
 
 export function CareersContent({ content }: CareersContentProps) {

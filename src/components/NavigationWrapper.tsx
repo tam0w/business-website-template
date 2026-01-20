@@ -1,6 +1,5 @@
 import { NavBar } from '@/components/ui/tubelight-navbar'
-import { getPayload } from 'payload'
-import config from '@/payload.config'
+import { siteBranding } from '@/data'
 
 const navItems = [
   { name: 'Home', url: '/', icon: 'home' as const },
@@ -9,18 +8,11 @@ const navItems = [
   { name: 'Contact', url: '/contact', icon: 'mail' as const },
 ]
 
-export async function NavigationWrapper() {
-  const payload = await getPayload({ config })
-  const branding = await payload.findGlobal({
-    slug: 'site-branding',
-  })
-
-  const logo = branding?.logoIcon
-    ? {
-        iconName: branding.logoIcon,
-        companyName: branding.companyName || 'Company Logo',
-      }
-    : undefined
+export function NavigationWrapper() {
+  const logo = {
+    iconName: siteBranding.logoIcon,
+    companyName: siteBranding.companyName,
+  }
 
   return <NavBar items={navItems} logo={logo} />
 }

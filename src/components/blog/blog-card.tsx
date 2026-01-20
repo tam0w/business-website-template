@@ -1,19 +1,15 @@
-import Link from 'next/link'
+import { Link } from 'react-router-dom'
 import { format } from 'date-fns'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-import type { Post, User, Media } from '@/payload-types'
+import type { Post } from '@/types'
 
 interface BlogCardProps {
   post: Post
 }
 
 export function BlogCard({ post }: BlogCardProps) {
-  const author = post.author as User | undefined
-  const featuredImage = post.featuredImage as Media | null | undefined
-  const authorAvatar = author?.avatar as Media | null | undefined
-
   const getAuthorInitials = (name?: string): string => {
     if (!name) return '?'
     return name
@@ -34,16 +30,16 @@ export function BlogCard({ post }: BlogCardProps) {
     if (post.publishedAt) {
       return format(new Date(post.publishedAt), 'MMM dd, yyyy')
     }
-    return format(new Date(post.createdAt), 'MMM dd, yyyy')
+    return format(new Date(post._creationTime), 'MMM dd, yyyy')
   }
 
   return (
     <Card className="flex flex-col h-full overflow-hidden hover:shadow-lg transition-shadow">
-      {featuredImage?.url && (
+      {post.featuredImage && (
         <div className="aspect-video w-full overflow-hidden">
           <img
-            src={featuredImage.url}
-            alt={featuredImage.alt || post.title}
+            src={post.featuredImage}
+            alt={post.title}
             className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
           />
         </div>
@@ -57,7 +53,7 @@ export function BlogCard({ post }: BlogCardProps) {
           ))}
         </div>
         <CardTitle className="line-clamp-2">
-          <Link href={`/blog/${post.slug}`} className="hover:underline">
+          <Link to={`/blog/${post.slug}`} className="hover:underline">
             {post.title}
           </Link>
         </CardTitle>
@@ -71,15 +67,15 @@ export function BlogCard({ post }: BlogCardProps) {
       <CardFooter className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <Avatar className="h-8 w-8">
-            {authorAvatar?.url && (
-              <AvatarImage src={authorAvatar.url} alt={author?.name || 'Author'} />
+            {post.author.avatar && (
+              <AvatarImage src={post.author.avatar} alt={post.author.name} />
             )}
-            <AvatarFallback>{getAuthorInitials(author?.name)}</AvatarFallback>
+            <AvatarFallback>{getAuthorInitials(post.author.name)}</AvatarFallback>
           </Avatar>
           <div className="flex flex-col">
-            <span className="text-sm font-medium">{author?.name || 'Anonymous'}</span>
-            {author?.designation && (
-              <span className="text-xs text-muted-foreground">{author.designation}</span>
+            <span className="text-sm font-medium">{post.author.name}</span>
+            {post.author.designation && (
+              <span className="text-xs text-muted-foreground">{post.author.designation}</span>
             )}
           </div>
         </div>

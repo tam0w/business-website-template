@@ -1,8 +1,8 @@
-import Link from "next/link"
+import { Link } from "react-router-dom"
 import { MapPin, Briefcase, Clock, Shield, Code, Database, Cog, TrendingUp, ShieldCheck, Star } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { cn } from "@/lib/utils"
-import type { Career } from "@/payload-types"
+import type { Career } from "@/types"
 
 interface FeaturedJobsGridProps {
   careers: Career[]
@@ -85,7 +85,7 @@ export function FeaturedJobsGrid({ careers }: FeaturedJobsGridProps) {
     }
 
     return {
-      id: career.id.toString(),
+      id: career._id,
       title: career.title,
       slug: career.slug,
       department: getDepartmentLabel(career.department),
@@ -126,7 +126,7 @@ export function FeaturedJobsGrid({ careers }: FeaturedJobsGridProps) {
     return (
       <Link
         key={formattedCareer.id}
-        href={formattedCareer.url}
+        to={formattedCareer.url}
         className="group block"
       >
         <article className="h-full bg-card border border-border p-8 transition-all duration-300 hover:border-primary/60 hover:scale-[1.02] cursor-pointer flex flex-col relative overflow-hidden space-y-6">
@@ -219,7 +219,7 @@ export function FeaturedJobsGrid({ careers }: FeaturedJobsGridProps) {
             return (
               <Link
                 key={formattedCareer.id}
-                href={formattedCareer.url}
+                to={formattedCareer.url}
                 className="group block"
               >
                 <article className={cn(

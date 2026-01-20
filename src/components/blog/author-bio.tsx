@@ -2,15 +2,13 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Github, Linkedin, Twitter, Globe } from 'lucide-react'
-import type { User, Media } from '@/payload-types'
+import type { Author } from '@/types'
 
 interface AuthorBioProps {
-  author: User
+  author: Author
 }
 
 export function AuthorBio({ author }: AuthorBioProps) {
-  const avatar = author.avatar as Media | null | undefined
-
   const getAuthorInitials = (name: string): string => {
     return name
       .split(' ')
@@ -48,7 +46,7 @@ export function AuthorBio({ author }: AuthorBioProps) {
       <CardHeader>
         <div className="flex items-start gap-4">
           <Avatar className="h-16 w-16">
-            {avatar?.url && <AvatarImage src={avatar.url} alt={author.name} />}
+            {author.avatar && <AvatarImage src={author.avatar} alt={author.name} />}
             <AvatarFallback>{getAuthorInitials(author.name)}</AvatarFallback>
           </Avatar>
           <div className="flex-1">

@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useMemo } from "react"
-import Link from "next/link"
+import { Link } from "react-router-dom"
 import { MapPin, Shield, Search, X, ArrowUpDown, ArrowUp, ArrowDown } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -27,7 +27,7 @@ import {
   TabsList,
   TabsTrigger,
 } from "@/components/ui/tabs"
-import type { Career } from "@/payload-types"
+import type { Career } from "@/types"
 
 interface AllJobsTableProps {
   careers: Career[]
@@ -111,7 +111,7 @@ export function AllJobsTable({ careers }: AllJobsTableProps) {
     }
 
     return {
-      id: career.id.toString(),
+      id: career._id,
       title: career.title,
       slug: career.slug,
       department: getDepartmentLabel(career.department),
@@ -535,7 +535,7 @@ export function AllJobsTable({ careers }: AllJobsTableProps) {
                         return (
                           <TableRow key={formattedCareer.id} className="hover:bg-muted/30">
                             <TableCell className="py-3 px-4 md:px-6">
-                              <Link href={formattedCareer.url} className="hover:text-primary transition-colors">
+                              <Link to={formattedCareer.url} className="hover:text-primary transition-colors">
                                 <div className="flex flex-col gap-1">
                                   <span className="font-semibold text-sm">{formattedCareer.title}</span>
                                   {formattedCareer.clearanceRequired && (
@@ -644,7 +644,7 @@ export function AllJobsTable({ careers }: AllJobsTableProps) {
                           return (
                             <TableRow key={formattedCareer.id} className="hover:bg-muted/30">
                               <TableCell className="py-3 px-4 md:px-6">
-                                <Link href={formattedCareer.url} className="hover:text-primary transition-colors">
+                                <Link to={formattedCareer.url} className="hover:text-primary transition-colors">
                                   <div className="flex flex-col gap-1">
                                     <span className="font-semibold text-sm">{formattedCareer.title}</span>
                                     {formattedCareer.clearanceRequired && (

@@ -1,7 +1,7 @@
-import type { Post } from '@/payload-types'
+import type { LexicalContent } from '@/types'
 
 interface BlogContentProps {
-  content: Post['content']
+  content: LexicalContent
 }
 
 export function BlogContent({ content }: BlogContentProps) {

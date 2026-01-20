@@ -1,4 +1,4 @@
-import Link from 'next/link'
+import { Link } from 'react-router-dom'
 import { BrandIcon } from '@/components/BrandIcon'
 import { cn } from '@/lib/utils'
 
@@ -12,7 +12,7 @@ interface LogoProps {
 export function Logo({ iconName, companyName, size = '1.5rem', className }: LogoProps) {
   return (
     <Link
-      href="/"
+      to="/"
       className={cn(
         'flex-shrink-0 hover:text-primary transition-colors',
         className

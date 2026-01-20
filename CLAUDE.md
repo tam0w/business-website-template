@@ -1,3 +1,4 @@
 - Code always has to be responsive, think desktop first, mobile second when writing any feature.
 - Always prefer modifying shadcn components rather than creating special inline styles, create variants if required, always stick and maintain a design system based on shadcn components, tailwind css variables.
-- Never hardcode content (text, copy, images) in code. All content must live in Payload CMS Globals. Create globals for new sections and fetch via `payload.findGlobal()`. See `CMS_AGENT_INSTRUCTIONS.md` for details.
+- Static content lives in `/src/data/` as TypeScript constants. Dynamic content (posts, careers) comes from Convex.
+- For Convex patterns and guidelines, see `.docs/convex-guidelines.md`.

@@ -1,7 +1,7 @@
 import { MapPin, Briefcase, Clock, Shield, Code, Database, Cog, TrendingUp, ShieldCheck } from "lucide-react"
-import Link from "next/link"
+import { Link } from "react-router-dom"
 import { Badge } from "@/components/ui/badge"
-import type { Career } from "@/payload-types"
+import type { Career } from "@/types"
 
 interface CareersListProps {
   heading: string
@@ -47,16 +47,6 @@ export function CareersList({
       return labels[type] || type
     }
 
-    const getExperienceLabel = (level: string): string => {
-      const labels: Record<string, string> = {
-        'entry': 'Entry Level',
-        'mid': 'Mid Level',
-        'senior': 'Senior Level',
-        'lead': 'Lead/Principal',
-      }
-      return labels[level] || level
-    }
-
     const getRemoteLabel = (option: string): string => {
       const labels: Record<string, string> = {
         'remote': 'Remote',
@@ -100,16 +90,14 @@ export function CareersList({
     }
 
     return {
-      id: career.id.toString(),
+      id: career._id,
       title: career.title,
       slug: career.slug,
       department: getDepartmentLabel(career.department),
       location: career.location,
       type: getTypeLabel(career.type),
-      experienceLevel: getExperienceLabel(career.experienceLevel),
       remoteOption: getRemoteLabel(career.remoteOption),
       clearanceRequired: career.clearanceRequired,
-      clearanceDetails: career.clearanceDetails,
       salary: formatSalary(career.salary),
       url: `/careers/${career.slug}`,
     }
@@ -134,7 +122,7 @@ export function CareersList({
               return (
                 <Link
                   key={formattedCareer.id}
-                  href={formattedCareer.url}
+                  to={formattedCareer.url}
                   className="group block"
                 >
                   <article className="h-full bg-card border border-border p-6 transition-all hover:border-primary/50 hover:bg-accent/50 cursor-pointer flex flex-col">

@@ -2,8 +2,7 @@
 
 import React, { useEffect, useState, useRef } from "react"
 import { motion } from "framer-motion"
-import Link from "next/link"
-import { usePathname } from "next/navigation"
+import { Link, useLocation } from "react-router-dom"
 import { Home, Briefcase, FileText, Mail } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Logo } from "@/components/Logo"
@@ -33,7 +32,8 @@ interface NavBarProps {
 }
 
 export function NavBar({ items, logo, className }: NavBarProps) {
-  const pathname = usePathname()
+  const location = useLocation()
+  const pathname = location.pathname
   const [isMobile, setIsMobile] = useState(false)
   const itemRefs = useRef<(HTMLAnchorElement | null)[]>([])
   const [indicatorStyle, setIndicatorStyle] = useState({ left: 0, width: 0, top: 0 })
@@ -88,7 +88,7 @@ export function NavBar({ items, logo, className }: NavBarProps) {
           return (
             <Link
               key={item.name}
-              href={item.url}
+              to={item.url}
               ref={(el) => { itemRefs.current[index] = el }}
               className={cn(
                 "relative cursor-pointer text-base font-semibold px-3 py-2 transition-all duration-300 z-10",
