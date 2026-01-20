@@ -20,7 +20,7 @@ export default function BlogPage() {
     return (
       <div className="min-h-screen pt-32 pb-16 px-4">
         <div className="max-w-6xl mx-auto">
-          <h1 className="text-4xl font-bold md:text-5xl text-foreground mb-4">
+          <h1 className="text-4xl font-display md:text-5xl text-foreground mb-4">
             {blogPageContent.heading}
           </h1>
           <p className="text-muted-foreground text-base md:text-lg mb-16">

@@ -2,8 +2,8 @@
 
 import { motion } from 'framer-motion'
 import { Button } from '@/components/ui/button'
-import { Card } from '@/components/ui/card'
 import { Check } from 'lucide-react'
+import { Link } from 'react-router-dom'
 
 interface PricingCTAProps {
   heading: string
@@ -26,34 +26,15 @@ export function PricingCTA({
   buttonText,
   buttonLink,
 }: PricingCTAProps) {
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-      },
-    },
-  }
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.5 },
-    },
-  }
-
   return (
-    <div className="max-w-4xl mx-auto space-y-6">
-      <div className="text-center space-y-3">
+    <div className="max-w-2xl mx-auto space-y-8">
+      <div className="text-center space-y-4">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-4xl md:text-5xl font-bold"
+          className="text-4xl md:text-5xl font-display"
         >
           {heading}
         </motion.h2>
@@ -62,7 +43,7 @@ export function PricingCTA({
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className="text-xl text-muted-foreground"
+          className="text-lg opacity-80"
         >
           {description}
         </motion.p>
@@ -73,53 +54,42 @@ export function PricingCTA({
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6, delay: 0.2 }}
-        whileHover={{ scale: 1.02, y: -5 }}
+        className="bg-primary-foreground/10 border border-primary-foreground/20 p-8"
       >
-        <Card variant="ghost" className="p-md border-2 border-primary/20 hover:border-primary/40">
-          <div className="space-y-6">
-            <div className="space-y-2 pb-4 border-b border-border">
-              <h3 className="text-xl font-bold text-primary">{planName}</h3>
-              <div className="flex items-baseline justify-center gap-2">
-                <span className="text-4xl md:text-5xl font-bold">{price}</span>
-                <span className="text-muted-foreground text-sm">{priceSubtext}</span>
-              </div>
-            </div>
-
-            <div className="space-y-3">
-              {features.map((item, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.4, delay: index * 0.1 }}
-                  className="flex items-center gap-2"
-                >
-                  <div className="flex-shrink-0 w-5 h-5 bg-primary/20 flex items-center justify-center border border-primary/30">
-                    <Check className="w-3 h-3 text-primary" />
-                  </div>
-                  <span className="text-sm text-foreground">{item.feature}</span>
-                </motion.div>
-              ))}
-            </div>
-
-            <div className="pt-4 border-t border-border">
-              <Button
-                variant="default"
-                size="lg"
-                asChild
-                className="w-full"
-              >
-                <a href={buttonLink}>{buttonText}</a>
-              </Button>
+        <div className="space-y-6">
+          <div className="space-y-2 pb-6 border-b border-primary-foreground/20">
+            <h3 className="text-sm tracking-caps opacity-70">{planName}</h3>
+            <div className="flex items-baseline gap-2">
+              <span className="text-4xl md:text-5xl font-display">{price}</span>
+              <span className="opacity-70 text-sm">{priceSubtext}</span>
             </div>
           </div>
-        </Card>
-      </motion.div>
 
-      <p className="text-xs text-center text-muted-foreground pt-2 border-t border-border">
-        No credit card required • Cancel anytime • 14-day money-back guarantee
-      </p>
+          <div className="space-y-3">
+            {features.map((item, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: index * 0.1 }}
+                className="flex items-center gap-3"
+              >
+                <div className="flex-shrink-0 w-5 h-5 bg-primary-foreground/20 flex items-center justify-center">
+                  <Check className="w-3 h-3" />
+                </div>
+                <span className="text-sm">{item.feature}</span>
+              </motion.div>
+            ))}
+          </div>
+
+          <div className="pt-6 border-t border-primary-foreground/20">
+            <Button variant="inverted" size="lg" asChild className="w-full">
+              <Link to={buttonLink}>{buttonText}</Link>
+            </Button>
+          </div>
+        </div>
+      </motion.div>
     </div>
   )
 }

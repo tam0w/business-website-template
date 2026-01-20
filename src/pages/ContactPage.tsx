@@ -20,7 +20,7 @@ export default function ContactPage() {
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="text-center mb-16">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">{contactInfo.heading}</h1>
+          <h1 className="text-4xl md:text-5xl font-display mb-4">{contactInfo.heading}</h1>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             {contactInfo.subheading}
           </p>
@@ -32,7 +32,7 @@ export default function ContactPage() {
           <Card>
             <CardHeader>
               <div className="flex items-center gap-3">
-                <div className="p-2 bg-primary/10 rounded-lg">
+                <div className="p-2 bg-primary/10 ">
                   <Mail className="h-6 w-6 text-primary" />
                 </div>
                 <CardTitle>Email</CardTitle>
@@ -57,7 +57,7 @@ export default function ContactPage() {
           <Card>
             <CardHeader>
               <div className="flex items-center gap-3">
-                <div className="p-2 bg-primary/10 rounded-lg">
+                <div className="p-2 bg-primary/10 ">
                   <MapPin className="h-6 w-6 text-primary" />
                 </div>
                 <CardTitle>Office</CardTitle>
@@ -79,7 +79,7 @@ export default function ContactPage() {
           <Card>
             <CardHeader>
               <div className="flex items-center gap-3">
-                <div className="p-2 bg-primary/10 rounded-lg">
+                <div className="p-2 bg-primary/10 ">
                   <Phone className="h-6 w-6 text-primary" />
                 </div>
                 <CardTitle>Phone</CardTitle>
@@ -109,7 +109,7 @@ export default function ContactPage() {
         {/* Social Links */}
         {contactInfo.socialLinks && contactInfo.socialLinks.length > 0 && (
           <div className="text-center">
-            <h2 className="text-2xl font-semibold mb-6">{contactInfo.socialHeading}</h2>
+            <h2 className="text-2xl font-display mb-6">{contactInfo.socialHeading}</h2>
             <div className="flex justify-center gap-4 flex-wrap">
               {contactInfo.socialLinks.map((social, index) => {
                 const Icon = iconMap[social.icon] || Github
@@ -119,7 +119,7 @@ export default function ContactPage() {
                     href={social.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-2 px-6 py-3 bg-card border border-border rounded-lg hover:border-primary/50 hover:bg-accent/50 transition-all"
+                    className="flex items-center gap-2 px-6 py-3 bg-card border border-border  hover:border-primary/50 hover:bg-accent/50 transition-all"
                   >
                     <Icon className="h-5 w-5" />
                     <span className="font-medium">{social.platform}</span>
