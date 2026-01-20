@@ -36,7 +36,7 @@ export function NavBar({ items, logo, className }: NavBarProps) {
   const pathname = usePathname()
   const [isMobile, setIsMobile] = useState(false)
   const itemRefs = useRef<(HTMLAnchorElement | null)[]>([])
-  const [indicatorStyle, setIndicatorStyle] = useState({ left: 0, width: 0 })
+  const [indicatorStyle, setIndicatorStyle] = useState({ left: 0, width: 0, top: 0 })
 
   // Find active tab based on current pathname
   // Support nested routes by checking if pathname starts with item.url
@@ -63,8 +63,8 @@ export function NavBar({ items, logo, className }: NavBarProps) {
   useEffect(() => {
     const activeElement = itemRefs.current[activeIndex]
     if (activeElement) {
-      const { offsetLeft, offsetWidth } = activeElement
-      setIndicatorStyle({ left: offsetLeft, width: offsetWidth })
+      const { offsetLeft, offsetWidth, offsetTop } = activeElement
+      setIndicatorStyle({ left: offsetLeft, width: offsetWidth, top: offsetTop })
     }
   }, [activeIndex])
 
@@ -109,6 +109,7 @@ export function NavBar({ items, logo, className }: NavBarProps) {
           animate={{
             left: indicatorStyle.left,
             width: indicatorStyle.width,
+            top: indicatorStyle.top,
           }}
           transition={{
             type: "spring",
@@ -116,8 +117,7 @@ export function NavBar({ items, logo, className }: NavBarProps) {
             damping: 30,
           }}
           style={{
-            height: '36px',
-            top: '4px',
+            height: '42px',
           }}
         />
       </nav>
