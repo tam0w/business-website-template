@@ -75,7 +75,7 @@ export function PricingCTA({
         transition={{ duration: 0.6, delay: 0.2 }}
         whileHover={{ scale: 1.02, y: -5 }}
       >
-        <Card variant="ghost" padding="card" gap="none" className="border-2 border-primary/20 hover:border-primary/40">
+        <Card variant="ghost" className="p-md border-2 border-primary/20 hover:border-primary/40">
           <div className="space-y-6">
             <div className="space-y-2 pb-4 border-b border-border">
               <h3 className="text-xl font-bold text-primary">{planName}</h3>

@@ -36,13 +36,13 @@ export default function FAQ({ heading = 'Frequently Asked Questions', subheading
           )}
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 border border-border bg-card/20">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 border border-border bg-card/20 items-stretch">
           {faqs.map((faq, index) => (
-            <Accordion key={index} type="single" collapsible className="w-full">
+            <Accordion key={index} type="single" collapsible className="w-full flex flex-col">
               <AccordionItem
                 value={`item-${index}`}
                 className={cn(
-                  "border-b lg:border-r px-6 bg-transparent",
+                  "border-b lg:border-r px-6 bg-transparent flex-1",
                   index >= faqs.length - 2 && "border-b-0",
                   (index + 1) % 2 === 0 && "lg:border-r-0"
                 )}

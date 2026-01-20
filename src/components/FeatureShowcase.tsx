@@ -466,7 +466,6 @@ export default function FeatureShowcase({ heading, subheading, features }: Featu
             <Card
               key={index}
               variant="ghost"
-              gap="none"
               className={cn(
                 "group relative overflow-hidden border-0 border-b lg:border-r hover:bg-card/50",
                 index >= regularFeatures.length - 3 && "border-b-0",
@@ -474,7 +473,7 @@ export default function FeatureShowcase({ heading, subheading, features }: Featu
               )}
             >
               {/* SVG Illustration Container */}
-              <div className="relative h-40 p-card flex items-center justify-center overflow-hidden border-b border-border/50">
+              <div className="relative h-40 p-md flex items-center justify-center overflow-hidden border-b border-border/50">
                 <div className="w-full h-full relative">
                   <Illustration />
                 </div>
@@ -486,7 +485,7 @@ export default function FeatureShowcase({ heading, subheading, features }: Featu
               </div>
 
               {/* Content */}
-              <div className="relative p-card space-y-2">
+              <div className="relative p-md space-y-2">
                 <h3 className="text-lg font-semibold text-foreground">
                   {feature.title}
                 </h3>
@@ -505,11 +504,11 @@ export default function FeatureShowcase({ heading, subheading, features }: Featu
         const Illustration = illustrationMap[heroFeature.illustration] || LightningIllustration
 
         return (
-          <Card variant="ghost" gap="none" className="mt-8">
+          <Card variant="ghost" className="mt-8">
             {/* Horizontal Layout */}
             <div className="flex flex-col md:flex-row">
               {/* Content Section - 70% */}
-              <div className="relative p-card flex-1 flex flex-col justify-center space-y-3 md:border-r border-border">
+              <div className="relative p-md flex-1 flex flex-col justify-center space-y-3 md:border-r border-border">
                 {/* Floating icon badge */}
                 <div className="w-10 h-10 bg-primary/10 border border-primary/20 flex items-center justify-center">
                   <Icon className="w-5 h-5 text-primary" />
@@ -524,7 +523,7 @@ export default function FeatureShowcase({ heading, subheading, features }: Featu
               </div>
 
               {/* SVG Illustration Section - 30% */}
-              <div className="relative w-full md:w-[30%] h-[180px] md:h-[200px] p-card flex items-center justify-center overflow-hidden border-t md:border-t-0 border-border">
+              <div className="relative w-full md:w-[30%] h-[180px] md:h-[200px] p-md flex items-center justify-center overflow-hidden border-t md:border-t-0 border-border">
                 <div className="w-full h-full">
                   <Illustration />
                 </div>

@@ -62,9 +62,7 @@ const BrandCard: React.FC<{
   >
     <Card
       variant="ghost"
-      padding="card"
-      gap="none"
-      className={cn("flex-shrink-0 w-auto", className)}
+      className={cn("flex-shrink-0 w-auto p-md", className)}
     >
       <div className="flex items-center space-x-3">
         {React.createElement(brand.logo, { className: "text-3xl text-foreground" })}
@@ -154,7 +152,7 @@ export default function Testimonials({ heading = 'What Our Customers Say', subhe
               exit={{ opacity: 0, x: -20 }}
               transition={{ duration: 0.3 }}
             >
-              <Card variant="ghost" padding="card" gap="none" className="space-y-4">
+              <Card variant="ghost" className="p-md space-y-4">
                 <Quote className="w-12 h-12 text-primary/20" />
                 <p className="text-xl md:text-2xl leading-relaxed">
                   {testimonials[currentIndex].content}

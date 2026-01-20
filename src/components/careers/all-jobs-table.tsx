@@ -691,7 +691,6 @@ export function AllJobsTable({ careers }: AllJobsTableProps) {
           ))}
           </Tabs>
         </div>
-      </div>
-    </section>
+      </section>
   )
 }

@@ -64,7 +64,7 @@ export function WaitlistCTA({
         viewport={{ once: true }}
         transition={{ duration: 0.6, delay: 0.2 }}
       >
-        <Card variant="ghost" padding="card" gap="none" className="border-2 border-primary/20 hover:border-primary/40">
+        <Card variant="ghost" className="p-md border-2 border-primary/20 hover:border-primary/40">
           {!isSubmitted ? (
             <div className="space-y-4">
               <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3">
@@ -79,7 +79,6 @@ export function WaitlistCTA({
                 <Button
                   type="submit"
                   variant="glow"
-                  size="lg"
                 >
                   {buttonText}
                 </Button>

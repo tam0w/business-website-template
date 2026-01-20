@@ -5,7 +5,7 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-[--spacing-sm] whitespace-nowrap text-sm font-medium transition-all duration-300 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:ring-ring/50 focus-visible:ring-2",
+  "inline-flex items-center justify-center gap-sm whitespace-nowrap text-sm font-medium transition-all duration-300 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:ring-ring/50 focus-visible:ring-2",
   {
     variants: {
       variant: {
@@ -23,9 +23,9 @@ const buttonVariants = cva(
         accent: "bg-accent text-accent-foreground hover:bg-accent/90 glow-accent border border-accent/40",
       },
       size: {
-        default: "h-10 px-[--spacing-lg] py-[--spacing-sm]",
-        sm: "h-8 gap-[--spacing-xs] px-[--spacing-md]",
-        lg: "h-12 px-[--spacing-xl] text-base",
+        default: "h-10 px-xl py-sm",
+        sm: "h-8 gap-xs px-lg",
+        lg: "h-12 px-2xl py-md text-base",
         icon: "size-10",
         "icon-sm": "size-8",
         "icon-lg": "size-12",
